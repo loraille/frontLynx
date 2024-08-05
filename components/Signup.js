@@ -10,9 +10,25 @@ function Signup({ isOpen, onClose }) {
     const [signUpEmail, setSignUpEmail] = useState('');
     const [signUpPassword, setSignUpPassword] = useState('');
 
+    const dispatch = useDispatch();
+
     const handleRegister = () => {
-        // Implement your registration logic here
         console.log('Registering user:', { signUpUsername, signUpEmail, signUpPassword });
+        fetch('http://localhost:3000/users/signup', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: signUpEmail, username: signUpUsername, password: signUpPassword }),
+        }).then(response => response.json())
+            .then(data => {
+                if (data.result) {
+                    dispatch(login({ username: data.user.username, firstname: data.user.firstname, userId: data.user._id, token: data.user.token }));
+                    console.log("Bienvenito", data.user.username);
+                    onClose(); // Close the modal
+                    window.location.href = '/home';
+                } else {
+                    console.warn("something went wrong", data.error);
+                }
+            });
     };
 
     return (

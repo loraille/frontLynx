@@ -6,14 +6,14 @@ import Header from './Header';
 
 function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const handleOpenModal = () => {
     setIsModalOpen(true);
   };
-
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
+
+
 
   return (
     <div>
