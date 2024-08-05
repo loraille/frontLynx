@@ -6,14 +6,17 @@ import Header from './Header';
 
 function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const handleOpenModal = () => {
+  const [modalType, setModalType] = useState('');
+
+  const handleOpenModal = (type) => {
+    setModalType(type);
     setIsModalOpen(true);
   };
+
   const handleCloseModal = () => {
     setIsModalOpen(false);
+    setModalType('');
   };
-
-
 
   return (
     <div>
@@ -22,7 +25,8 @@ function Home() {
           <Header onOpenModal={handleOpenModal} />
         </div>
         <div className={styles.container}>
-          <Signup isOpen={isModalOpen} onClose={handleCloseModal} />
+          {modalType === 'signup' && <Signup isOpen={isModalOpen} onClose={handleCloseModal} />}
+          {modalType === 'signin' && <SignIn isOpen={isModalOpen} onClose={handleCloseModal} />}
         </div>
       </main>
     </div>

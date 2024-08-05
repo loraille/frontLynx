@@ -2,6 +2,7 @@ import styles from '../styles/Signup.module.css';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '../reducers/user';
+import { urlBackend } from '../assets/varGlobal'
 
 function Signup({ isOpen, onClose }) {
     if (!isOpen) return null;
@@ -14,7 +15,7 @@ function Signup({ isOpen, onClose }) {
 
     const handleRegister = () => {
         console.log('Registering user:', { signUpUsername, signUpEmail, signUpPassword });
-        fetch('http://localhost:3000/users/signup', {
+        fetch(`${urlBackend}/users/signup`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email: signUpEmail, username: signUpUsername, password: signUpPassword }),
@@ -22,10 +23,9 @@ function Signup({ isOpen, onClose }) {
             .then(data => {
                 if (data.result) {
                     console.log(data)
-                    dispatch(login({ username: data.user.username, userId: data.user.email, token: data.user.token }));
-                    console.log("Bienvenito", data.user.username);
+                    dispatch(login({ username: data.userInfo.username, userId: data.userInfo.email, token: data.userInfo.token }));
+                    console.log("Bienvenito", data.userInfo.username);
                     onClose(); // Close the modal
-
                 } else {
                     console.warn("something went wrong", data.error);
                 }
