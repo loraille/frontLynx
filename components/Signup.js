@@ -21,10 +21,11 @@ function Signup({ isOpen, onClose }) {
         }).then(response => response.json())
             .then(data => {
                 if (data.result) {
-                    dispatch(login({ username: data.user.username, firstname: data.user.firstname, userId: data.user._id, token: data.user.token }));
+                    console.log(data)
+                    dispatch(login({ username: data.user.username, userId: data.user.email, token: data.user.token }));
                     console.log("Bienvenito", data.user.username);
                     onClose(); // Close the modal
-                    window.location.href = '/home';
+
                 } else {
                     console.warn("something went wrong", data.error);
                 }
