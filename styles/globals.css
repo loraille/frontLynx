@@ -1,10 +1,51 @@
+/* FONTS */
+@font-face {
+  font-family: 'Nabla';
+  src: url('../assets/Nabla-Regular-VariableFont_EDPT,EHLT.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Khand';
+  src: url('../assets/Khand-Regular.ttf') format('truetype');
+}
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  /* font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, */
+    /* Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif; */
+    font-family: Khand;
 }
 
 * {
   box-sizing: border-box;
+}
+
+  
+.title{
+  font-family: 'khand';
+  font-size: 30px;
+  font-weight: 600;
+  color: #979797;
+}
+
+/* BUTTON */
+.button {
+  cursor: pointer;
+  border: 1px solid rgb(255, 255, 255);
+  font-family: "Khand";
+  font-size: 14px;
+  color: rgb(254, 184, 48);
+  padding: 5px 15px;
+  transition: all 327ms ease 0s;
+  width: auto;
+  box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px;
+  border-radius: 9px;
+  background: rgb(66, 65, 65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.button:hover{
+  color: rgb(255, 255, 255);
+  background: rgb(254, 184, 48) ;
+  border-color: rgb(255, 255, 255);
 }

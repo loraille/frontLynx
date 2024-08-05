@@ -2,27 +2,27 @@ import styles from '../styles/Home.module.css';
 import { useState } from 'react';
 import SignIn from './SignIn';
 import Signup from './Signup';
-import Header from './Header'
+import Header from './Header';
 
 function Home() {
-  const [count, setCount] = useState(false);
-  const [style, setStyle] = useState({});
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleClick = () => {
-    setCount(!count);
-    setStyle(count ? { color: '#0070f3' } : {});
-    console.log(count)
-  }
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <div>
       <main className={styles.main}>
-
         <div className={styles.header}>
-          <Header />
+          <Header onOpenModal={handleOpenModal} />
         </div>
         <div className={styles.container}>
-
+          <Signup isOpen={isModalOpen} onClose={handleCloseModal} />
         </div>
       </main>
     </div>
@@ -30,4 +30,3 @@ function Home() {
 }
 
 export default Home;
-

@@ -3,40 +3,40 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '../reducers/user'
 
-function signIn() {
+function signIn({ isOpen, onClose, children }) {
+    if (!isOpen) return null;
 
-    const [signInPassword, setsignInPassword] = useState('')
-    const [signInEmail, setsignInEmail] = useState('')
-    const dispatch = useDispatch()
 
-    const handleClick = () => {
-        fetch('http://localhost:3000/users/signin', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: signInEmail, password: signInPassword }),
-        }).then(response => response.json())
-            .then(data => {
-                if (data) {
-                    dispatch(login(data.userInfo))
-                    // dispatch(login({ firstname: signInFirstname, token: data.token, password: signInPassword }));
-                    setsignInPassword('');
-                    setsignInEmail('')
-                    console.log(`${data.userInfo.firstname} logged`)
+    const [signUpUsername, setSignUpUsername] = useState('');
+    const [signUpemail, setSignUpemail] = useState('');
+    const [signUpPassword, setSignUpPassword] = useState('');
+    // const [signInUsername, setSignInUsername] = useState('');
+    // const [signInPassword, setSignInPassword] = useState('');
 
-                }
-            })
-    }
+    ///////////////////Fonction signup signin
+
 
 
     return (
-        <div>
-            <main className={styles.main}>
-                <div><input className={styles.input} type="text" placeholder='Email' onChange={(e) => setsignInEmail(e.target.value)} value={signInEmail} /></div>
-                <div><input className={styles.input} type="text" placeholder='Password' onChange={(e) => setsignInPassword(e.target.value)} value={signInPassword} /></div>
-                <button className={styles.button} onClick={() => handleClick()} >Sign in</button>
-            </main>
+        <div className={styles.overlay} onClick={onClose}>
+            <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+                <p className={styles.heading}>Create your account</p>
+                <div className={styles.form}>
+                    <div><input type="text" placeholder="email" id="signUpemail" className={styles.inputField} onChange={(e) => setSignUpemail(e.target.value)} value={signUpemail} /></div>
+                    <div><input type="text" placeholder="Username" id="signUpUsername" className={styles.inputField} onChange={(e) => setSignUpUsername(e.target.value)} value={signUpUsername} /></div>
+                    <div><input type="password" placeholder="Password" id="signUpPassword" className={styles.inputField} onChange={(e) => setSignUpPassword(e.target.value)} value={signUpPassword} /></div>
+                    <button id="register" className={styles.centerButton}
+                        onClick={() => handleRegister()}>Sign up</button></div>
+            </div>
+            <div>
+                <div>
+
+                </div>
+
+            </div>
         </div>
     );
-}
+};
+
 
 export default signIn;

@@ -2,7 +2,9 @@
   display: grid;
   min-height: 100vh;
   background-color: #424141;
-  grid-template-rows: repeat(14, 1fr);
+  grid-template-rows: repeat(12, 1fr);
+  margin:0;
+  padding:0;
 }
 
 .header {

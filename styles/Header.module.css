@@ -1,55 +1,102 @@
+/* FONTS */
+@font-face {
+  font-family: 'Nabla';
+  src: url('../assets/Nabla-Regular-VariableFont_EDPT,EHLT.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Khand';
+  src: url('../assets/Khand-Regular.ttf') format('truetype');
+}
+/* MAIN */
 .main {
   display: flex;
   justify-content: space-between;
   align-items:center;
   background-color: #212020;
-  /* padding: 4rem 0; */
 }
-
+/* LOGO CONTAINER */
 .headerContent {
   display: flex;
-  /* align-items: center; */
-  /* gap: 20px;  */
 }
-
-@font-face {
-  font-family: 'Nabla';
-  src: url('../assets/Nabla-Regular-VariableFont_EDPT,EHLT.ttf') format('truetype');
-  /* font-weight: normal;
-  font-style: normal; */
-}
-@font-face {
-  font-family: 'Khand';
-  src: url('../assets/Khand-Regular.ttf') format('truetype');
-  /* font-weight: normal;
-  font-style: normal; */
-}
-
 .h1 {
   font-family: 'Nabla';
   font-size: 50px;
-  font-variation-settings: 'EDPT 200';
+  border:1px solid red;
+}
+/* LINK */
+.link {
+  width: auto;
+  cursor: pointer;
+  text-align: center;
+  position: relative;
+  transition: font-weight 327ms ease, color 327ms ease;
 }
 
+.link:hover {
+  color: rgb(254, 184, 48);
+}
+
+.link::before,
+.link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  height: 1px;
+  background-color: transparent;
+  transition: width 327ms ease, background-color 327ms ease;
+}
+
+.link::before {
+  left: 50%;
+  width: 0;
+}
+
+.link::after {
+  right: 50%;
+  width: 0;
+}
+
+.link:hover::before,
+.link:hover::after {
+  background-color: rgb(254, 184, 48);
+  width: 40%; 
+}
+
+.link.active::before,
+.link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+   height: 1px; 
+  background-color: rgb(254, 184, 48);
+}
+
+.link.active::before {
+  left: 10%;
+  width: 40%;
+}
+
+.link.active::after {
+  right: 10%;
+  width: 40%;
+}
+
+
+/* NAVIGATION */
 .navigation{
   display: flex;
   color:#D9D9D9;
   font-family: "Khand";
   font-size: 1.5rem;
   font-weight: 500;
-  gap:5rem;
+  gap:15rem;
 }
-
+/* BUTTONS */
 .buttons{
   display: flex;
   margin-right: 1.5rem;
-  gap:1rem;
- 
+  gap:2rem;
 }
-
-                  
-@import url('https://fonts.googleapis.com/css2?Roboto&display=swap');
-
 .button {
   cursor: pointer;
   border: 1px solid rgb(255, 255, 255);
@@ -65,17 +112,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /* --hover-bgc: #feb830;
-  --hover-color: #ffffff;
-  --hover-borderc: #ffffff;
-  --hover-width: auto; */
 }
-
-
 .button:hover{
   color: rgb(255, 255, 255);
   background: rgb(254, 184, 48) ;
   border-color: rgb(255, 255, 255);
-
 }
 
