@@ -21,7 +21,7 @@
 .h1 {
   font-family: 'Nabla';
   font-size: 50px;
-  border:1px solid red;
+  /* border:1px solid red; */
 }
 /* LINK */
 .link {
