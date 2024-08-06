@@ -27,6 +27,21 @@ body {
   color: #979797;
 }
 
+.titleArt{
+  font-family: 'khand';
+  font-size: 50px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.titleArtworkTextZone{
+  font-family: 'khand';
+  font-size: 35px;
+  font-weight: 500;
+  color: #D9D9D9;
+}
+
+
 /* BUTTON */
 .button {
   cursor: pointer;

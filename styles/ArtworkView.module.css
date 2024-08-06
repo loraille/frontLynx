@@ -1,0 +1,80 @@
+.main {
+  display: grid;
+  height: 100vh;
+  width: 100vw;
+  background-color: #424141;
+  grid-template-rows: repeat(12, 1fr);
+  grid-template-columns: repeat(6, 1fr);
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  grid-row: 1 / 2;
+  grid-column: 1 / 7;
+}
+
+.container {
+  display: flex;
+  grid-row: 2 / 13;
+  grid-column: 1 / 7;
+  flex-direction: row;
+}
+
+.artworkZone {
+  padding:15px;
+  flex: 2;
+  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+
+.textZone {
+  padding:15px;
+  margin-right: 15px;
+  flex: 1;
+  /* border: 1px solid red; */
+}
+/* zone gauche */
+.titleArt {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.imageContainer {
+  width: 500px;
+  height: 500px;
+  margin: 0 auto; 
+  position: relative;
+}
+
+.tagsTitle{
+  display:flex;
+  font-size: 20px;
+}
+.tags{
+  margin:10px;
+  padding:10px 20px;
+  display: flex;
+  gap:20px;
+  border:1px solid #D9D9D9;
+  border-radius: 20px;
+}
+/* zone droite */
+.artist{
+  display:flex;
+  justify-content: flex-end;
+  margin-right: 2rem;
+}
+.descriptionText{
+  padding:10px;
+  border:2px solid #D9D9D9;
+  border-radius: 15px;
+  background-color: transparent;
+  color: #D9D9D9;
+  font-size: 20px;
+}

@@ -1,7 +1,7 @@
-import User from '../components/User';
+import Home from '../components/Home';
 
 function Index() {
-  return <User />;
+  return <Home />;
 }
 
 export default Index;
