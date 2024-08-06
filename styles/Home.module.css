@@ -1,19 +1,35 @@
 .main {
-  display: grid;
-  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Assure que la hauteur minimale est la hauteur de la fenêtre */
   background-color: #424141;
-  grid-template-rows: repeat(12, 1fr);
-  margin:0;
-  padding:0;
+  overflow: auto; /* Permet le défilement si le contenu dépasse */
 }
 
 .header {
-  grid-row-start: 1; 
-  grid-row-end: 2; 
+  width: 100%;
+  flex: 0 0 auto; /* S'assure que l'en-tête ne change pas de taille */
 }
 
 .container {
-  grid-row-start: 2; 
-  grid-row-end: 13; 
+  flex: 1; /* Prend tout l'espace disponible */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 }
 
+.featuredSection {
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.title {
+  color: #fff;
+  margin-bottom: 1rem;
+  font-family: 'Khand', sans-serif;
+  font-size: 2rem;
+}
