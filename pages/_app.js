@@ -9,26 +9,26 @@ import storage from 'redux-persist/lib/storage';
 
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
-// const store = configureStore({
-//   reducer: { user },
-// });
-const reducers = combineReducers({ user });
-const persistConfig = { key: 'hackatweet', storage };
 const store = configureStore({
-  reducer: persistReducer(persistConfig, reducers),
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }),
+  reducer: { user },
 });
-const persistor = persistStore(store);
+// const reducers = combineReducers({ user });
+const persistConfig = { key: 'lynX', storage };
+// const store = configureStore({
+//   reducer: persistReducer(persistConfig, reducers),
+//   middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }),
+// });
+// const persistor = persistStore(store);
 
 function App({ Component, pageProps }) {
   return (
     <Provider store={store}>
-      <PersistGate persistor={persistor}>
+      {/* <PersistGate persistor={persistor}> */}
         <Head>
           <title>Next.js App</title>
         </Head>
         <Component {...pageProps} />
-      </PersistGate>
+      {/* </PersistGate> */}
     </Provider>
   );
 }
