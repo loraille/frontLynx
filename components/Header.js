@@ -11,7 +11,7 @@ function Header({ onOpenModal }) {
             </div>
             <div className={styles.navigation}>
                 <Link href="/artists"><span className={styles.link}>Artists</span></Link>
-                <Link href="/bookmarks"><span className={styles.link}>Categories</span></Link>
+                <Link href="/categories"><span className={styles.link}>Categories</span></Link>
             </div>
             <div className={styles.buttons}>
                 <div className={styles.button} onClick={() => onOpenModal('signup')}>Sign Up</div>

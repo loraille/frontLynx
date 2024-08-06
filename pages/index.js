@@ -1,7 +1,7 @@
-import Home from '../components/Home';
+import ArtworkView from '../components/ArtworkView';
 
 function Index() {
-  return <Home />;
+  return <ArtworkView />;
 }
 
 export default Index;
