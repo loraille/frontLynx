@@ -1,0 +1,19 @@
+.main {
+  display: grid;
+  min-height: 100vh;
+  background-color: #424141;
+  grid-template-rows: repeat(12, 1fr);
+  margin:0;
+  padding:0;
+}
+
+.header {
+  grid-row-start: 1; 
+  grid-row-end: 2; 
+}
+
+.container {
+  grid-row-start: 2; 
+  grid-row-end: 13; 
+}
+

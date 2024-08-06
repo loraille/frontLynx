@@ -7,13 +7,16 @@ import ArtworkList from './ArtworkList';
 
 function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalType, setModalType] = useState('');
 
-  const handleOpenModal = () => {
+  const handleOpenModal = (type) => {
+    setModalType(type);
     setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+    setModalType('');
   };
 
   return (
@@ -23,7 +26,8 @@ function Home() {
           <Header onOpenModal={handleOpenModal} />
         </div>
         <div className={styles.container}>
-          <Signup isOpen={isModalOpen} onClose={handleCloseModal} />
+          {modalType === 'signup' && <Signup isOpen={isModalOpen} onClose={handleCloseModal} />}
+          {modalType === 'signin' && <SignIn isOpen={isModalOpen} onClose={handleCloseModal} />}
         </div>
         <div className={styles.featuredSection}>
           <h1 className={styles.title}>Featured Artists</h1> {/* S'assurer d'importer le style global pour cette classe */}

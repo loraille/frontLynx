@@ -14,8 +14,8 @@ function Header({ onOpenModal }) {
                 <Link href="/bookmarks"><span className={styles.link}>Categories</span></Link>
             </div>
             <div className={styles.buttons}>
-                <div className={styles.button} onClick={onOpenModal}>Sign Up</div>
-                <div className={styles.button}>Sign In</div>
+                <div className={styles.button} onClick={() => onOpenModal('signup')}>Sign Up</div>
+                <div className={styles.button} onClick={() => onOpenModal('signin')}>Sign In</div>
             </div>
         </div>
     );
