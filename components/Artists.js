@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import ArtistCard from './ArtistCard'; // Assurez-vous que le chemin est correct
+import ArtistCard from './ArtistCard';
 import Header from './Header';
 import SignIn from './SignIn';
 import Signup from './Signup';
@@ -44,7 +44,7 @@ const ArtistsPage = () => {
           {modalType === 'signin' && <SignIn isOpen={isModalOpen} onClose={handleCloseModal} />}
         </div>
         <div className={styles.featuredSection}>
-          <h1 className={styles.title}>Artists</h1> {/* S'assurer d'importer le style global pour cette classe */}
+          <h1 className={styles.title}>Artists</h1> 
           <div className={styles.artistsList}>
             {artists.map((artist, index) => (
               <ArtistCard key={index} artist={artist} />
