@@ -1,10 +1,59 @@
 .artistCard {
     width: 300px;
     margin: 20px;
+    background-color: #2c2c2c;
+    border : 10px solid #2c2c2c;
+    border-radius: 8px 8px 0 0;
   }
   
   .artistImage {
     width: 100%;
     object-fit: cover;
   }
+
+/* Ajoutez des classes pour le texte */
+.artistName {
+  color: white;
+}
+
+.artistDescription {
+  color: #FEB830;
+}
+
+.sectionTitle {
+  color: #FEB830;
+}
+
+.workTitle {
+  color: #FEB830;
+}
+
+
+
+/* 
+  .artistCard {
+    background-color: #2c2c2c;
+    color: white; 
+    margin: 20px;
+    width: 100%;   } */
   
+  /* .artistImage {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  .cardContent {
+    padding: 16px;
+  }
+  
+  .gridContainer {
+    padding-top: 16px;
+  }
+  
+  .typography {
+    color: white;
+  }
+
+  
+   */
