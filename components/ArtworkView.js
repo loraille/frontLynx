@@ -1,38 +1,48 @@
-import styles from '../styles/ArtworkView.module.css';
+import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import Header from './Header';
+import SignIn from './SignIn';
+import Signup from './Signup';
 import { urlBackend } from '../assets/varGlobal';
 import Image from 'next/image';
 import CommentZone from './CommentZone';
+import styles from '../styles/ArtworkView.module.css';
 
 function ArtworkView() {
+
+    //////////Modale/////////////////////////////////////////////
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [modalType, setModalType] = useState('');
+    const handleOpenModal = (type) => {
+        setModalType(type);
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+        setModalType('');
+    };
     const [artwork, setArtwork] = useState({});
     const [tags, setTags] = useState([]);
-    const [comments, setComments] = useState([]);
+    /////////////////////////////////////////////////////////////
+
+    const router = useRouter();
+    const { id } = router.query;
 
     useEffect(() => {
-        fetch(`${urlBackend}/artworks/66b102508e9043a76228b5b6`)
-            .then(response => response.json())
-            .then(data => {
-                setArtwork(data.artworkInfo);
-                setTags(data.artworkInfo.tags);
-            })
-            .catch(error => {
-                console.error('Erreur lors de la récupération de l\'œuvre d\'art:', error);
-            });
+        if (id) {
+            fetch(`${urlBackend}/artworks/${id}`)
+                .then(response => response.json())
+                .then(data => {
+                    setArtwork(data.artworkInfo);
+                    setTags(data.artworkInfo.tags);
+                })
+                .catch(error => {
+                    console.error('Erreur lors de la récupération de l\'œuvre d\'art:', error);
+                });
+        }
+    }, [id]);
 
-        fetch(`${urlBackend}/comments/66b102508e9043a76228b5b6`)
-            .then(response => response.json())
-            .then(data => {
-                setComments(data.comments);
-            })
-            .catch(error => {
-                console.error('Erreur lors de la récupération des commentaires:', error);
-            });
-    }, []);
-
-
-    // Afficher les tags
     const listTags = tags.map(tag => (
         <div className={styles.tags} key={tag._id}>{tag.name}</div>
     ));
@@ -41,7 +51,15 @@ function ArtworkView() {
         <div>
             <main className={styles.main}>
                 <div className={styles.header}>
-                    <Header />
+                    <Header onOpenModal={handleOpenModal} />
+                </div>
+                <div className={styles.container}>
+                    {isModalOpen && (
+                        <div className={styles.modalBackdrop}>
+                            {modalType === 'signup' && <Signup isOpen={isModalOpen} onClose={handleCloseModal} />}
+                            {modalType === 'signin' && <SignIn isOpen={isModalOpen} onClose={handleCloseModal} />}
+                        </div>
+                    )}
                 </div>
                 <div className={styles.container}>
                     <div className={styles.artworkZone}>

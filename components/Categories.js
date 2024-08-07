@@ -3,7 +3,7 @@ import { useState } from 'react';
 import SignIn from './SignIn';
 import Signup from './Signup';
 import Header from './Header';
-import ArtworkList from './ArtworkList';
+
 
 function Categories() {
     const [isModalOpen, setIsModalOpen] = useState(false);

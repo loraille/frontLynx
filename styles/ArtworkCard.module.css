@@ -12,7 +12,9 @@
     color: white;
     font-family: 'Khand', sans-serif; /* Assure que la police définie dans global.css est utilisée */
 }
-
+.artworkImage {
+    cursor: pointer;
+}
 .artworkCard .artworkImage {
     width: 100%; /* S'adapte à la largeur de la carte */
     height: auto;

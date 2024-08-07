@@ -25,10 +25,15 @@ function CommentZone({ artwork }) {
         { joe: "Appreciate your kind words!" },
         { alice: "Awesome artwork!" }
     ];
-    console.log(artwork)
-    const commentElements = commentsFake.map((comment, index) => {
+    const comments = artwork.comments || [];
+
+
+    const commentElements = comments.map((comment, index) => {
         const username = Object.keys(comment)[0];
         const commentText = comment[username];
+        const [comments, setComments] = useState([]);
+
+
         return (
             <div
                 key={index}
