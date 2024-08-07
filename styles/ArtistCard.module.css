@@ -1,7 +1,7 @@
 .artistCard {
     width: 300px;
     margin: 20px;
-    background-color: #2c2c2c;
+    background-color: #2c2c2c !important;
     border : 10px solid #2c2c2c;
     border-radius: 8px 8px 0 0;
   }
@@ -13,19 +13,23 @@
 
 /* Ajoutez des classes pour le texte */
 .artistName {
-  color: white;
+  color: #FEB830;
 }
 
 .artistDescription {
-  color: #FEB830;
+  color: white !important;
+  margin-bottom: 100x !important;
+  padding-bottom: 80 px !important; 
+  /* border: #fbff06 5px solid; */
+  /* text-align: justify;  */
 }
 
-.sectionTitle {
+/* .sectionTitle {
   color: #FEB830;
-}
+} */
 
 .workTitle {
-  color: #FEB830;
+  color: #FEB830 !important;
 }
 
 

@@ -4,17 +4,20 @@
     min-height: 100vh; 
     background-color: #424141;
     overflow: auto; 
+    /* border: yellow 4px solid; */
   }
   
   .header {
     width: 100%;
     flex: 0 0 auto;
+    /* border: rgb(0, 255, 76) 4px solid; */
   }
   
   .container {
     flex: 1; 
     display: flex;
     flex-direction: column;
+    /* border: rgb(0, 81, 255) 4px solid; */
     /* align-items: center;
     justify-content: flex-start; */
   }
@@ -23,8 +26,9 @@
     width: 100%;
     padding: 1rem;
     display: flex;
-    /* flex-direction: column;
-    justify-content: flex-start; */
+    /* border: rgb(255, 0, 170) 4px solid; */
+    flex-direction: column;
+    justify-content: flex-start; 
   }
   
   .title {
@@ -32,9 +36,16 @@
     margin-bottom: 1rem;
     font-family: 'Khand', sans-serif;
     font-size: 2rem;
+    /* border: rgb(255, 0, 0) 4px solid; */
   }
 
-
+  .artistsList {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Utilisation de CSS Grid pour alignement horizontal */
+    gap: 20px; /* Ajouter de l'espace entre les cartes */
+    justify-items: center; /* Centre les éléments horizontalement */
+    width: 100%;
+  }
 
 
 

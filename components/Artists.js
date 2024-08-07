@@ -16,10 +16,13 @@ const ArtistsPage = () => {
       .then(response => response.json())
       .then(data => {
         console.log('Données chargées:', data);
-        setArtists(data); 
-    });
-}, []); 
-  
+        // setArtists(data); 
+        // Duplication de l'artiste 10 fois
+        const duplicatedArtists = Array(10).fill(data[0]);
+        setArtists(duplicatedArtists);
+      });
+  }, []);
+
   const handleOpenModal = (type) => {
     setModalType(type);
     setIsModalOpen(true);
@@ -41,7 +44,7 @@ const ArtistsPage = () => {
           {modalType === 'signin' && <SignIn isOpen={isModalOpen} onClose={handleCloseModal} />}
         </div>
         <div className={styles.featuredSection}>
-          <h1 className={styles.title}>Featured Artists</h1> {/* S'assurer d'importer le style global pour cette classe */}
+          <h1 className={styles.title}>Artists</h1> {/* S'assurer d'importer le style global pour cette classe */}
           <div className={styles.artistsList}>
             {artists.map((artist, index) => (
               <ArtistCard key={index} artist={artist} />

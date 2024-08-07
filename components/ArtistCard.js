@@ -20,16 +20,16 @@ const ArtistCard = ({ artist }) => {
           className={styles.artistImage}
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography gutterBottom variant="h5" component="div" className={styles.artistName}>
             {artist.name}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" color="text.secondary" className={styles.artistDescription}>
             {artist.description}
           </Typography>
-          <Typography variant="h6" component="div">
-            Ses œuvres
+          <Typography variant="h6" component="div" className={styles.sectionTitle}>
+            {/* Ses œuvres */}
           </Typography>
-          <Grid container spacing={2}>
+          <Grid container spacing={2} className={styles.gridContainer}> 
             {artist.works.map((work, index) => (
               <Grid item key={index} xs={12} sm={4}>
                 <CardMedia
@@ -38,7 +38,7 @@ const ArtistCard = ({ artist }) => {
                   image={work.image}
                   alt={work.title}
                 />
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" color="text.secondary"  className={styles.workTitle}>
                   {work.title}
                 </Typography>
               </Grid>
