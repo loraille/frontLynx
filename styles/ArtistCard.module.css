@@ -1,0 +1,63 @@
+.artistCard {
+    width: 300px;
+    margin: 20px;
+    background-color: #2c2c2c !important;
+    border : 10px solid #2c2c2c;
+    border-radius: 8px 8px 0 0;
+  }
+  
+  .artistImage {
+    width: 100%;
+    object-fit: cover;
+  }
+
+/* Ajoutez des classes pour le texte */
+.artistName {
+  color: #FEB830;
+}
+
+.artistDescription {
+  color: white !important;
+  margin-bottom: 100x !important;
+  padding-bottom: 80 px !important; 
+  /* border: #fbff06 5px solid; */
+  /* text-align: justify;  */
+}
+
+/* .sectionTitle {
+  color: #FEB830;
+} */
+
+.workTitle {
+  color: #FEB830 !important;
+}
+
+
+
+/* 
+  .artistCard {
+    background-color: #2c2c2c;
+    color: white; 
+    margin: 20px;
+    width: 100%;   } */
+  
+  /* .artistImage {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  .cardContent {
+    padding: 16px;
+  }
+  
+  .gridContainer {
+    padding-top: 16px;
+  }
+  
+  .typography {
+    color: white;
+  }
+
+  
+   */
