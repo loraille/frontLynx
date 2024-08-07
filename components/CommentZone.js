@@ -1,38 +1,75 @@
 import styles from '../styles/CommentZone.module.css';
-import { useState } from 'react';
 import { urlBackend } from '../assets/varGlobal';
-import { useSelector } from 'react-redux'
-
+import { useSelector } from 'react-redux';
+import { useState, useEffect } from 'react';
 
 function CommentZone({ artwork }) {
-    const owner = useSelector((state) => state.user.value.username)
-    const comments = artwork.comments
+    const visitor = useSelector((state) => state.user.value.username);
+    const [comments, setComments] = useState([]);
+    const uploader = artwork.uploader;
+    const [newComment, setNewComment] = useState('');
 
-    console.log(artwork)
-    // const commentsList = comments.map((comment, index) => {
-    //     const username = Object.keys(comment)[0];
-    //     const commentText = comment[username];
-    //     return (
-    //         <div
-    //             key={index}
-    //             className={username === owner ? styles.commentOwner : styles.comment}
-    //         >
-    //             <strong>{username}:</strong> {commentText}
-    //         </div>
-    //     );
-    // });
-    // console.log(commentsList)
+    useEffect(() => {
+        if (artwork.comments) {
+            setComments(artwork.comments);
+        }
+    }, [artwork.comments]);
+
+    const commentsList = comments.map((comment, index) => {
+        const username = comment.username;
+        const commentText = comment.comment;
+        return (
+            <div key={index} className={username === uploader ? styles.commentUploader : styles.comment}>
+                <div>{username}</div>
+                <div>{commentText}</div>
+            </div>
+        );
+    });
+
+    const handleSendComment = async () => {
+        if (newComment.trim() === '') return;
+
+        try {
+            const response = await fetch(`${urlBackend}/artworks/comment/${artwork._id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: visitor,
+                    comment: newComment,
+                }),
+            });
+
+            if (response.ok) {
+                const updatedArtwork = await response.json();
+                // Update the local state with the new comment
+                setComments(updatedArtwork.comments);
+                setNewComment('');
+            } else {
+                console.error('Failed to add comment');
+            }
+        } catch (error) {
+            console.error('Error adding comment:', error);
+        }
+    };
 
     return (
-        <div >
+        <div>
             <div className={styles.commentArea}>
-                {/* {commentElements} */}
+                {commentsList}
             </div>
             <div className={styles.newComment}>
-                <textarea placeholder="Your comment!" id="yourComment" className={styles.yourComment} />
-                {/* <button id="send" className={`button ${styles.send}`} onClick={()=>send()}>
+                <textarea
+                    placeholder="Your comment!"
+                    id="yourComment"
+                    className={styles.yourComment}
+                    value={newComment}
+                    onChange={(e) => setNewComment(e.target.value)}
+                />
+                <button id="send" className={`button ${styles.send}`} onClick={handleSendComment}>
                     Send
-                </button> */}
+                </button>
             </div>
         </div>
     );
