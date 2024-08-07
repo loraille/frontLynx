@@ -1,0 +1,24 @@
+[
+    {
+        "name": "FruitasticArt",
+        "avatar": "/Candy Loop/FruitasticArt.jpg",
+        "description": "FruitasticArt is a digital artist specializing in creating vibrant and playful pop art illustrations. Their colorful and whimsical works transform fruits into charming characters and fantastical landscapes.",
+        "works": [
+            {
+                "title": "Fruity Island Adventure",
+                "image": "/Candy Loop/Fruity Island Adventure.jpg",
+                "description": "An imaginary island where cute and joyful fruits live adventures. Each section of the island represents a different fruit, creating a vibrant and delicious landscape."
+            },
+            {
+                "title": "Pop Art Orchard",
+                "image": "/Candy Loop/Pop Art Orchard.jpg",
+                "description": "A collection of fruit illustrations in a pop art style. The bright colors and geometric shapes highlight the diversity and beauty of fruits."
+            },
+            {
+                "title": "Fruit Fiesta",
+                "image": "/Candy Loop/Fruit Fiesta.jpg",
+                "description": "A vibrant and repetitive pattern of various fruits on a dark background. This artwork captures the energy and joy of a true fruit fiesta."
+            }
+        ]
+    }
+]

@@ -1,0 +1,10 @@
+.artistCard {
+    width: 300px;
+    margin: 20px;
+  }
+  
+  .artistImage {
+    width: 100%;
+    object-fit: cover;
+  }
+  
