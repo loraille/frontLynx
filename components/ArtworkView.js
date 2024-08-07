@@ -80,7 +80,7 @@ function ArtworkView() {
                         </div>
                     </div>
                     <div className={styles.textZone}>
-                        <div className={`titleArtworkTextZone ${styles.artist}`} >Artist</div>
+                        <div className={`titleArtworkTextZone ${styles.artist}`} >{artwork.uploader}</div>
                         <div className="titleArtworkTextZone">Description</div>
                         <div className={styles.descriptionText}>{artwork.description}</div>
                         <div className="titleArtworkTextZone">Comments</div>
