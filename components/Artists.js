@@ -9,17 +9,19 @@ const ArtistsPage = () => {
   const [artists, setArtists] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState('');
-
+  // const [error, setError] = useState(null); 
+  // MàJ de l'état 'error' avec msg d'erreur approprié
   useEffect(() => {
     // Charger les données depuis le fichier JSON local
-    fetch('/artists.json')
+    // fetch('/artists.json')
+    fetch('http://localhost:3000/users')
       .then(response => response.json())
       .then(data => {
-        console.log('Données chargées:', data);
-        // setArtists(data); 
+        console.log('Données chargées:', data.users);
+        setArtists(data.users); 
         // Duplication de l'artiste 10 fois
-        const duplicatedArtists = Array(10).fill(data[0]);
-        setArtists(duplicatedArtists);
+        // const duplicatedArtists = Array(10).fill(data[0]);
+        // setArtists(duplicatedArtists);
       });
   }, []);
 
@@ -55,5 +57,22 @@ const ArtistsPage = () => {
     </div>
   );
 };
-
+// useEffect(() => {
+//   Charger les données depuis l'API
+//   fetch('http://localhost:3000/api/artists  ') // Remplacez par l'URL de votre API
+//     .then(response => {
+//       if (!response.ok) {
+//         throw new Error('Network response was not ok');
+//       }
+//       return response.json();
+//     })
+//     .then(data => {
+//       console.log('Données chargées:', data);
+//       setArtists(data);
+//     })
+//     .catch(error => {
+//       console.error('Erreur lors du chargement des données:', error);
+//       setError('Erreur lors du chargement des données');
+//     });
+// }, []); 
 export default ArtistsPage;
