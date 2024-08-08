@@ -30,7 +30,7 @@ const ArtistCard = ({ artist }) => {
             {/* Ses œuvres */}
           </Typography>
           <Grid container spacing={2} sx={styles.gridContainer}>
-            {artist.works.map((work, index) => (
+            {/* {artist.works.map((work, index) => (
               <Grid item key={index} xs={12} sm={4}>
                 <CardMedia
                   component="img"
@@ -42,7 +42,7 @@ const ArtistCard = ({ artist }) => {
                   {work.title}
                 </Typography>
               </Grid>
-            ))}
+            ))} */}
           </Grid>
         </CardContent>
       </CardActionArea>
@@ -51,17 +51,17 @@ const ArtistCard = ({ artist }) => {
 };
 // js.doc pour l'auto-complétion (importe que ds l'environnement dev)
 /**@type {import('@mui/system').SxProps} */
-const styles = { 
-  card: { 
+const styles = {
+  card: {
     width: 300,
     margin: '20px',
-    backgroundColor: "#2c2c2c", 
-    border: "10px solid #2c2c2c", 
+    backgroundColor: "#2c2c2c",
+    border: "10px solid #2c2c2c",
     borderRadius: "8px 8px 0 0",
     color: "white"
   },
   artistImage: {
-    width: '100%', 
+    width: '100%',
     objectFit: 'cover'
   },
   text: {

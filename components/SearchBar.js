@@ -2,9 +2,11 @@ import { useState } from 'react';
 import { TextField, InputAdornment, IconButton, Menu, MenuItem, Box } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-import styles from '../styles/SearchBar.module.css'; // Importez les styles
+import styles from '../styles/SearchBar.module.css';
+import { useRouter } from 'next/router';
 
 const SearchBar = () => {
+    const router = useRouter();
     const [anchorEl, setAnchorEl] = useState(null);
     const [category, setCategory] = useState('');
     const [query, setQuery] = useState('');
@@ -26,7 +28,9 @@ const SearchBar = () => {
         event.preventDefault();
         const searchQuery = query.trim();
         if (searchQuery.length >= 3) {
-            console.log(`Searching for: ${searchQuery} in category: ${category}`);
+            const searchUrl = `/resultSearch?category=${category}&query=${encodeURIComponent(searchQuery)}`;
+            console.log(searchUrl)
+            router.push(searchUrl);
         } else {
             console.log('Please enter at least 3 characters.');
         }
@@ -59,7 +63,7 @@ const SearchBar = () => {
     };
 
     const menuItemStyles = {
-        fontFamily: 'Khan, sans-serif',
+        fontFamily: 'Khan, sans-serif', // ca marche pas
     };
 
     return (
