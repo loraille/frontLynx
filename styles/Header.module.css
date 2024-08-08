@@ -18,10 +18,12 @@
 .headerContent {
   display: flex;
   padding-left: 2rem;
+  align-items: center;
+  gap:2rem;
 }
 .h1 {
   font-family: 'Nabla';
-  font-size: 50px;
+  font-size: 60px;
   cursor: pointer;
 
   /* border:1px solid red; */
@@ -133,4 +135,5 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-right: 30px;
 }

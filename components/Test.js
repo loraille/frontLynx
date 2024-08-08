@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Modal from './ArtworkUpload';
+import SearchBar from './SearchBar'
 import styles from '../styles/Test.module.css';
 
 function Test() {
@@ -15,10 +16,12 @@ function Test() {
 
     return (
         <div className={styles.main}>
+            <SearchBar />
             <button onClick={handleOpenModal} className={styles.btn}>
                 Open Modal
             </button>
             <Modal isOpen={isModalOpen} onClose={handleCloseModal} />
+
         </div>
     );
 }

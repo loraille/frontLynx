@@ -15,6 +15,14 @@ function CommentZone({ artwork }) {
         }
     }, [artwork.comments]);
 
+    useEffect(() => {
+        if (!visitor) {
+            setNewComment('You must be logged in!');
+        } else {
+            setNewComment('');
+        }
+    }, [visitor]);
+
     const commentsList = comments.map((comment, index) => {
         const username = comment.username;
         const commentText = comment.comment;
@@ -56,18 +64,24 @@ function CommentZone({ artwork }) {
 
     return (
         <div>
-            <div className={styles.commentArea}>
+            <div className={styles.commentArea} id={styles.scrollbar1}>
                 {commentsList}
             </div>
             <div className={styles.newComment}>
                 <textarea
-                    placeholder="Your comment!"
+                    placeholder={visitor ? "Your comment!" : ""}
                     id="yourComment"
                     className={styles.yourComment}
                     value={newComment}
                     onChange={(e) => setNewComment(e.target.value)}
+                    disabled={!visitor}
                 />
-                <button id="send" className={`button ${styles.send}`} onClick={handleSendComment}>
+                <button
+                    id="send"
+                    className={`button ${styles.send}`}
+                    onClick={handleSendComment}
+                    disabled={!visitor}
+                >
                     Send
                 </button>
             </div>
