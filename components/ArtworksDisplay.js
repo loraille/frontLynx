@@ -14,14 +14,7 @@ const ArtworkList = () => {
                 })
     }, []);
 
-    // let artz; 
-    // if (artworks.length) {
-    //     artz = artworks.map(artwork => (
-    //         <ArtistCard key={artwork._id} artwork={artwork} />
-    //     ));
-    // }
-
-    // console.log("artz", artz);
+    
     let renderedArtworks = artworks.map(artwork => (
         <ArtworkCard key={artwork._id} artwork={artwork} />
     ));
