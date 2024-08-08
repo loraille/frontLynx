@@ -19,6 +19,7 @@ const ArtworkList = () => {
         <ArtworkCard key={artwork._id} artwork={artwork} />
     ));
     
+    
     return (
         <div className={styles.artworkList}>
             {renderedArtworks}
