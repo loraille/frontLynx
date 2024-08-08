@@ -30,7 +30,7 @@ const ArtistCard = ({ artist }) => {
             {/* Ses œuvres */}
           </Typography>
           <Grid container spacing={2} sx={styles.gridContainer}>
-            {artist.collections && artist.collections.map((collection) =>
+            {/* {artist.collections && artist.collections.map((collection) =>
               collection.artworks.map((work, index) => (
                 <Grid item key={index} xs={12} sm={4}>
                   <CardMedia
@@ -44,7 +44,7 @@ const ArtistCard = ({ artist }) => {
                   </Typography>
                 </Grid>
               ))
-            )}
+            )} */}
           </Grid>
         </CardContent>
       </CardActionArea>

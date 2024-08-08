@@ -27,6 +27,15 @@ body {
   color: #979797;
 }
 
+
+.titlePage {
+  color: #fff;
+  margin-bottom: 1rem;
+  font-family: 'Khand', sans-serif;
+  font-size: 2rem;
+  margin-left: 2rem;
+}
+
 .titleArt{
   font-family: 'khand';
   font-size: 50px;
