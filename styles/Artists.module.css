@@ -14,7 +14,7 @@
   }
   
   .container {
-    flex: 1; 
+    /* flex: 1;  */
     display: flex;
     flex-direction: column;
     /* border: rgb(0, 81, 255) 4px solid; */
@@ -22,14 +22,14 @@
     justify-content: flex-start; */
   }
   
-  .featuredSection {
+  /* .featuredSection {
     width: 100%;
     padding: 1rem;
     display: flex;
     /* border: rgb(255, 0, 170) 4px solid; */
-    flex-direction: column;
+    /* flex-direction: column;
     justify-content: flex-start; 
-  }
+  } */
   
   .title {
     color: #fff;

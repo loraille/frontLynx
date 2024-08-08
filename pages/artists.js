@@ -1,4 +1,3 @@
-import React from 'react';
 import ArtistsPage from '../components/Artists';
 
 const Artists = () => {

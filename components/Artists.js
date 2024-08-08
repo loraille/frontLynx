@@ -45,7 +45,7 @@ const ArtistsPage = () => {
           {modalType === 'signup' && <Signup isOpen={isModalOpen} onClose={handleCloseModal} />}
           {modalType === 'signin' && <SignIn isOpen={isModalOpen} onClose={handleCloseModal} />}
         </div>
-        <div className={styles.featuredSection}>
+        <div>
           <h1 className={styles.title}>Artists</h1> 
           <div className={styles.artistsList}>
             {artists.map((artist, index) => (
