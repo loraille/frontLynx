@@ -89,4 +89,5 @@ function CommentZone({ artwork }) {
     );
 }
 
+
 export default CommentZone;
