@@ -49,6 +49,12 @@ function Header({ onOpenModal }) {
         handleClose()
         router.push('/editSettings')
     }
+
+    const handleProfile = () => {
+        handleClose()
+        router.push('/user')
+    }
+
     const handleLogout = () => {
         handleClose()
         dispatch(logout())
@@ -81,7 +87,7 @@ function Header({ onOpenModal }) {
                                 'aria-labelledby': 'basic-button',
                             }}
                         >
-                            <MenuItem onClick={handleClose}>My Profile</MenuItem>
+                            <MenuItem onClick={handleProfile}>My Profile</MenuItem>
                             <MenuItem onClick={handleUploadArtwork}>Create</MenuItem> {/*DEMO*/}
                             <MenuItem onClick={handleClose}>My Collections</MenuItem>
                             <MenuItem onClick={handleClose}>My Followings</MenuItem>

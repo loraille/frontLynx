@@ -7,7 +7,7 @@ import styles from '../styles/ArtworkCard.module.css';
 const ArtworkCard = ({ artwork }) => {
   //let artistName = "Gregor S";
   //let artistName = useSelector((state) => state.user.value.username)
-  let artistName = artwork.uploader
+  let artistName = artwork.username;
   console.log(artwork.url, artistName);
 
   return (
