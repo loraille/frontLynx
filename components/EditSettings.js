@@ -12,6 +12,7 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import EditIcon from '@mui/icons-material/Edit';
 import DoneIcon from '@mui/icons-material/Done';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
+import Image from 'next/image';
 
 function EditSettings() {
     //////////////////////////////////Modale/////////////////////////////////
@@ -43,6 +44,8 @@ function EditSettings() {
     ///////////////Fonction de modification///////////////////////////////
     const [isEditing, setIsEditing] = useState(false);
     const [bio, setBio] = useState('');
+    const [avatarUrl, setAvatarUrl] = useState('');
+    const [bannerUrl, setBannerUrl] = useState('');
 
     const UploadButton = styled(Button)(({ theme }) => ({
         cursor: 'pointer',
@@ -81,6 +84,12 @@ function EditSettings() {
         if (settings.bio) {
             setBio(settings.bio);
         }
+        if (settings.avatarUrl) {
+            setAvatarUrl(settings.avatarUrl);
+        }
+        if (settings.bannerUrl) {
+            setBannerUrl(settings.bannerUrl);
+        }
     }, [settings]);
 
     const handleEditClick = () => {
@@ -92,18 +101,30 @@ function EditSettings() {
         // fetch
     };
 
+    const handleFileChange = (event, setUrl) => {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setUrl(reader.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
     return (
         <div>
             <main className={styles.main}>
                 <div className={styles.header}>
                     <Header onOpenModal={handleOpenModal} />
                 </div>
+                <div>
+                    <h1 className='titlePage'>My Settings</h1>
+                </div>
                 <div className={styles.container}>
                     {modalType === 'signup' && <Signup isOpen={isModalOpen} onClose={handleCloseModal} />}
                     {modalType === 'signin' && <SignIn isOpen={isModalOpen} onClose={handleCloseModal} />}
-                    <div className={styles.featuredSection}>
-                        <h1 className='titlePage'>My Settings</h1>
-                    </div>
+
                     <div className={styles.settings}>
                         <div>username:{settings.username}</div>
                         <div>email:{settings.email}</div>
@@ -116,7 +137,7 @@ function EditSettings() {
                             startIcon={<CloudUploadIcon />}
                         >
                             Upload file
-                            <VisuallyHiddenInput type="file" />
+                            <VisuallyHiddenInput type="file" onChange={(e) => handleFileChange(e, setAvatarUrl)} />
                         </UploadButton></div>
                         <div className={styles.inline}>banner:<UploadButton
                             component="label"
@@ -126,7 +147,7 @@ function EditSettings() {
                             startIcon={<CloudUploadIcon />}
                         >
                             Upload file
-                            <VisuallyHiddenInput type="file" />
+                            <VisuallyHiddenInput type="file" onChange={(e) => handleFileChange(e, setBannerUrl)} />
                         </UploadButton></div>
 
                         <div>bio</div>
@@ -139,7 +160,9 @@ function EditSettings() {
                                     onChange={(e) => setBio(e.target.value)}
                                 />
                             ) : (
-                                <div className={styles.bioText} id={styles.scrollbar1}>{bio}</div>
+                                <div className={styles.bioText} id={styles.scrollbar1}>
+                                    {bio ? bio : 'Add your bio'}
+                                </div>
                             )}
                             {isEditing ? (
                                 <DoneIcon onClick={handleUpdateClick} className={styles.icon} />
@@ -155,7 +178,39 @@ function EditSettings() {
                             Update!
                         </button>
                     </div>
-
+                    <div className={styles.imgZone}>
+                        <span className='title'>Banner</span>
+                        {bannerUrl ? (
+                            <div className={styles.imageContainer}>
+                                <Image
+                                    src={bannerUrl}
+                                    alt="a modifier"
+                                    width={1000}
+                                    height={120}
+                                />
+                            </div>
+                        ) : (
+                            <div className={styles.imageContainer}>
+                                <span>Add your banner</span>
+                            </div>
+                        )}
+                        <div><span className='title'>Avatar</span></div>
+                        {avatarUrl ? (
+                            <div className={styles.imageAvatar}>
+                                <Image
+                                    src={avatarUrl}
+                                    alt="a modifier"
+                                    width={300}
+                                    height={300}
+                                    objectFit="cover"
+                                />
+                            </div>
+                        ) : (
+                            <div className={styles.imageAvatar}>
+                                <span>Add your avatar</span>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </main>
         </div>

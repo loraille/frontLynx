@@ -1,7 +1,7 @@
-import Categories from '../components/Categories';
+import Collections from '../components/Collections';
 
-function CategoriesPage() {
-    return <Categories />;
+function CollectionsPage() {
+    return <Collections />;
 }
 
-export default CategoriesPage;
+export default CollectionsPage;

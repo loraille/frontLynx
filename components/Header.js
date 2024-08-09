@@ -1,4 +1,4 @@
-import React from 'react'                          
+import React from 'react'
 import styles from '../styles/Header.module.css'
 import Link from 'next/link'
 import { useSelector } from 'react-redux'
@@ -36,7 +36,7 @@ function Header({ onOpenModal }) {
     /// DEMO 
     const handleUploadArtwork = (event) => {
         handleClose();
-        console.log("Create -> Upload an artwork",event.currentTarget );
+        console.log("Create -> Upload an artwork", event.currentTarget);
         setIsModalOpen(true);
     };
     /// OMED
@@ -48,6 +48,12 @@ function Header({ onOpenModal }) {
     const handleSettings = () => {
         handleClose()
         router.push('/editSettings')
+    }
+
+
+    const handleCollection = () => {
+        handleClose()
+        router.push('/collections')
     }
 
     const handleProfile = () => {
@@ -89,7 +95,7 @@ function Header({ onOpenModal }) {
                         >
                             <MenuItem onClick={handleProfile}>My Profile</MenuItem>
                             <MenuItem onClick={handleUploadArtwork}>Create</MenuItem> {/*DEMO*/}
-                            <MenuItem onClick={handleClose}>My Collections</MenuItem>
+                            <MenuItem onClick={handleCollection}>My Collections</MenuItem>
                             <MenuItem onClick={handleClose}>My Followings</MenuItem>
                             <MenuItem onClick={handleClose}>My Bookmarks</MenuItem>
                             <MenuItem onClick={handleSettings}>My Settings</MenuItem>

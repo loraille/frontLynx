@@ -5,6 +5,7 @@ import Signup from './Signup';
 import Header from './Header';
 import CollectionsCard from './CollectionsCard'
 import { urlBackend } from '../assets/varGlobal';
+import { useSelector } from 'react-redux';
 
 
 function Collections() {
@@ -20,16 +21,18 @@ function Collections() {
         setModalType('');
     };
     ///////////////Recuperation des collections///////////////////////////////
-    console.log('############State collections:', collections); // voir l'état des collections
+    // console.log('############State collections:', collections); // voir l'état des collections
+    const username = useSelector(state => state.user.value.username)
+    console.log('Collections------------->', Collections)
 
-    
+
     const [collections, setCollections] = useState([]);
     useEffect(() => {
-        fetch(`${urlBackend}/collections`)
+        fetch(`${urlBackend}/users/${username}`)
             .then(response => response.json())
             .then(data => {
                 console.log('Data fetched from backend:', data);
-                setCollections(data.collections);
+                setCollections(data.userInfo.collections);
             });
     }, []);
     ////////////////Mappage des collections//////////////////////////////////
