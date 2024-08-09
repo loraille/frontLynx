@@ -1,10 +1,15 @@
 import React from 'react';
-import styles from '../styles/ArtworkCard.module.css';
+// import { useSelector } from 'react-redux';
 import Link from 'next/link';
 
+import styles from '../styles/ArtworkCard.module.css';
+
 const ArtworkCard = ({ artwork }) => {
-  console.log(artwork.url);
-  let artistName = "Gregor S";
+  //let artistName = "Gregor S";
+  //let artistName = useSelector((state) => state.user.value.username)
+  let artistName = artwork.uploader
+  console.log(artwork.url, artistName);
+
   return (
     <div className={styles.artworkCard}>
       <Link href={{ pathname: '/artworkView', query: { id: artwork._id } }}>
