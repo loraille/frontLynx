@@ -31,8 +31,8 @@ function Home() {
         </div>
         <div className={styles.featuredSection}>
           <h1 className={styles.title}>Featured Artists</h1> {/* S'assurer d'importer le style global pour cette classe */}
-          <ArtworkList/> {/* Insérer "featured Artists" */}
-        </div>   
+          <ArtworkList /> {/* Insérer "featured Artists" */}
+        </div>
       </main>
     </div>
   );
