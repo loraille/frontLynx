@@ -25,11 +25,11 @@ const ArtworksDisplay = ({ category }) => {
             console.error("Category is not defined");
             return;
         }
-
-        fetch(`http://localhost:3000/categories/${category}/artworks`)
+        fetch(`http://localhost:3000/artworks/category/${category}`) 
+        // fetch(`http://localhost:3000/categories/${category}/artworks`)
             .then(response => response.json())
             .then(data => {
-                if (data && data.result) {
+                if (data) {
                     console.log("Fetched artworks:", data.artworks);
                     setArtworks(data.artworks);
                 } else {
