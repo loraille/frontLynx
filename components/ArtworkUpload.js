@@ -74,8 +74,21 @@ const CustomInputLabel = styled(InputLabel)(({ theme }) => ({
     },
 }));
 
+// todo / WIP : 
+// - on init create button should be disabled
+//   enable it once all required fields are populated 
+//   optional : tags ? description ? 
+// - when file selected display filename ?  
+
 const ArtworkUpload = ({ isOpen, onClose, children }) => {
     if (!isOpen) return null;
+    // test uncomment and remove hardcoded username: 
+    // const username = useSelector((state) => state.user.value.username);
+    // test : 
+    let username="gregorS";
+    let uploader=username;
+
+    let imageToUpload;
 
     const [categories, setCategories] = useState([]);
     const [category, setCategory] = useState('');
@@ -95,9 +108,48 @@ const ArtworkUpload = ({ isOpen, onClose, children }) => {
     const listCategory = categories.map(e => {
         return <MenuItem value={e.name}>{e.name}</MenuItem>;
     });
-
+    
     const handleUpload = () => {
-        // Handle upload logic here
+        const formData = new FormData();
+        console.log("\\\\\\\\\\\\\\\\\\\\\\\\\\", title, description, category, collection, uploader);
+        let formJson = {
+            uploader: uploader,
+            category: category,
+            collection,
+            description,
+            title,
+            tags,
+        };
+        JSON.stringify(formJson);
+        // console.log("\\\\\\\formJson to send to backend:", formJson ) 
+
+        formData.append('imageFromFront', imageToUpload); // ok req.files
+
+        formData.append('uploader', uploader);
+        formData.append('category', category);
+        formData.append('collection', collection);
+        formData.append('description', description);
+        formData.append('title', title);
+        formData.append('tags', tags);
+
+        fetch('http://localhost:3000/artworks/upload', {
+            method: 'POST',
+            body: formData,
+        }).then((response) => response.json())
+            .then((data) => {
+                if (data.result) {
+                    // TODO: if we want to share with other components update reducer:  dispatch(addImage(data.artwork.url));
+                    console.log("Uploaded!  data.artwork.url:", data.artwork.url)
+                }
+                else {
+                    console.log("something went wrong", data.error);
+                }
+            });
+    };
+
+    const getFileToUpload = (e) => {
+        // console.log("set imageToUpload to selected file :  e.target.files[0]", e.target.files[0]);
+        imageToUpload = e.target.files[0];
     };
 
     const handleChange = (event) => {
@@ -169,7 +221,7 @@ const ArtworkUpload = ({ isOpen, onClose, children }) => {
                         startIcon={<CloudUploadIcon />}
                     >
                         Upload file
-                        <VisuallyHiddenInput type="file" />
+                        <VisuallyHiddenInput type="file"  onChange={(e) => getFileToUpload(e)} />
                     </UploadButton>
                     <button
                         id="create"
