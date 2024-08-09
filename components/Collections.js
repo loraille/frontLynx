@@ -20,7 +20,7 @@ function Collections() {
         setModalType('');
     };
     ///////////////Recuperation des collections///////////////////////////////
-    console.log('State collections:', collections); // voir l'état des collections
+    console.log('############State collections:', collections); // voir l'état des collections
 
     
     const [collections, setCollections] = useState([]);
