@@ -1,6 +1,6 @@
 import styles from '../styles/ArtworkUpload.module.css';
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { urlBackend } from '../assets/varGlobal';
 import * as React from 'react';
 import InputLabel from '@mui/material/InputLabel';
@@ -82,10 +82,11 @@ const CustomInputLabel = styled(InputLabel)(({ theme }) => ({
 
 const ArtworkUpload = ({ isOpen, onClose, children }) => {
     if (!isOpen) return null;
+    // DEMO
     // test uncomment and remove hardcoded username: 
-    // const username = useSelector((state) => state.user.value.username);
+    const username = useSelector((state) => state.user.value.username);
     // test : 
-    let username="gregorS";
+    //let username="gregorS";
     let uploader=username;
 
     let imageToUpload;
