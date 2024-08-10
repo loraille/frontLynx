@@ -3,13 +3,16 @@ import Header from './Header';
 import ArtworkUpload from '../components/ArtworkUpload'
 import ArtworkCard from '../components/ArtworkCard';
 import CollectionsCard from '../components/CollectionsCard';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { urlBackend } from '../assets/varGlobal'
+import { useRouter } from 'next/router';
 
 function User() {
+    const router = useRouter();
+    const { username } = router.query;
     const [isModalOpen, setIsModalOpen] = useState(false);
-
+    console.log(username)
     const handleOpenModal = () => {
         setIsModalOpen(true);
     };
@@ -18,6 +21,16 @@ function User() {
         setIsModalOpen(false);
     };
 
+    const [settings, setSettings] = useState([])
+    useEffect(() => {
+        fetch(`${urlBackend}/users/${username}`)
+            .then(response => response.json())
+            .then(data => {
+                setSettings(data.userInfo);
+                console.log(data.message)
+            });
+    }, []);
+
     return (
         <div>
             <main className={styles.main}>
@@ -25,20 +38,12 @@ function User() {
                     <Header onOpenModal={handleOpenModal} />
                 </div>
                 <div className={styles.container}>
-                    <button onClick={handleOpenModal} className={styles.btn}>
-                        Open Modal
-                    </button>
-                    {/* <ArtworkUpload isOpen={isModalOpen} onClose={handleCloseModal} /> */}
+                    <div className={styles.infos}>
+                        <div className='titlePage'>{settings.username}</div>
+                    </div>
+                    <div className={styles.collection}>
 
-                    {/* Ajout des nouvelles sections ici */}
-                    {/* <div className={styles.mainContent}>
-                        <div className={styles.artworkSection}>
-                            <ArtworkCard />
-                        </div>
-                        <div className={styles.collectionsSection}>
-                            <CollectionsCard />
-                        </div>
-                    </div> */}
+                    </div>
                 </div>
             </main>
         </div>
