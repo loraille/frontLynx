@@ -1,35 +1,39 @@
 .artworkCard {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center; /* Centre uniquement l'image */
-    text-align: left;
     width: 220px;
-    margin: 1rem;
     padding: 1rem;
-    background-color: #2c2c2c;
+    background-color: #212020;
+    border: 1px solid white;
     border-radius: 8px;
-    color: white;
-    font-family: 'Khand', sans-serif; /*Inutile ? => global.css */
+    font-family: 'Khand';
 }
 .artworkImage {
     cursor: pointer;
 }
 .artworkCard .artworkImage {
-    width: 100%; 
+    width: 100%;
     height: auto;
-    border-radius: 8px 8px 0 0; 
+    border-radius: 8px 8px 0 0;
 }
-
-.artworkCard h3 {
-    margin: 0.5rem 0 0.25rem 0;
+.infos {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    margin-top: 10px;
+}
+.cardTitle {
     font-weight: 600;
-    color: white; 
+    font-size: 20px;
+    color: #ffcc00;
+    margin: 0;
 }
-
-.artworkCard .artistName {
-    font-weight: 300;
-    font-size: 14px;
-    color: #ffcc00; /* Couleur jaune pour le titre */
-    margin: 0.25rem 0;
+.artistName {
+    font-weight: 500;
+    font-size: 15px;
+    color: #D9D9D9;
+    margin: 5px 0 0 0;
 }

@@ -3,10 +3,9 @@ import { useState, useEffect } from 'react';
 import SignIn from './SignIn';
 import Signup from './Signup';
 import Header from './Header';
-import CollectionsCard from './CollectionsCard'
+import CollectionsCard from './CollectionsCard';
 import { urlBackend } from '../assets/varGlobal';
 import { useSelector } from 'react-redux';
-
 
 function Collections() {
     //////////////////////////////////Modale/////////////////////////////////
@@ -21,10 +20,7 @@ function Collections() {
         setModalType('');
     };
     ///////////////Recuperation des collections///////////////////////////////
-    // console.log('############State collections:', collections); // voir l'état des collections
-    const username = useSelector(state => state.user.value.username)
-    console.log('Collections------------->', Collections)
-
+    const username = useSelector(state => state.user.value.username);
 
     const [collections, setCollections] = useState([]);
     useEffect(() => {
@@ -34,35 +30,19 @@ function Collections() {
                 console.log('Data fetched from backend:', data);
                 setCollections(data.userInfo.collections);
             });
-    }, []);
-    ////////////////Mappage des collections//////////////////////////////////
-    // console.log('user.collections:', user.collections);  
-    console.log('collections:', collections);
+    }, [username]);
 
+    ////////////////Mappage des collections//////////////////////////////////
     const listCollectionsCard = collections.map(collection => {
         return (
             <CollectionsCard
                 key={collection._id}
                 collectionName={collection.name}
                 artworks={collection.artworks}
-                image_url={collection.image_url}
-            // artworks si besoin de contrôler plus précisemment ce qui est accessible?
-            // disponibilité des url d'images pour collections à régler
+                image_url={collection.artworks[collection.artworks.length - 1].url}
             />
         );
     });
-
-
-    // const listCollectionsCard = collections.map(collection => {
-    //     return (
-    //         <CollectionsCard
-    //             key={collection._id}
-    //             collection={collection}  // Passe l'objet complet
-    //         />
-    //     );
-    // });
-
-    ////////////////////////////////////////////////////////////////////////
 
     return (
         <div>
@@ -74,14 +54,12 @@ function Collections() {
                     {modalType === 'signup' && <Signup isOpen={isModalOpen} onClose={handleCloseModal} />}
                     {modalType === 'signin' && <SignIn isOpen={isModalOpen} onClose={handleCloseModal} />}
                     <div className={styles.featuredSection}>
-                        <h1 className={styles.title}>My collections</h1>
+                        <h2 className='titlePage'>My collections</h2>
                     </div>
                     <div className={styles.cardContainer}>
                         {listCollectionsCard}
                     </div>
                 </div>
-
-
             </main>
         </div>
     );

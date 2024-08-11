@@ -18,7 +18,7 @@ const ArtistsPage = () => {
       .then(response => response.json())
       .then(data => {
         console.log('Données chargées:', data.users);
-        setArtists(data.users); 
+        setArtists(data.users);
         // Duplication de l'artiste 10 fois
         // const duplicatedArtists = Array(10).fill(data[0]);
         // setArtists(duplicatedArtists);
@@ -44,35 +44,19 @@ const ArtistsPage = () => {
         <div className={styles.container}>
           {modalType === 'signup' && <Signup isOpen={isModalOpen} onClose={handleCloseModal} />}
           {modalType === 'signin' && <SignIn isOpen={isModalOpen} onClose={handleCloseModal} />}
-        </div>
-        <div>
-          <h1 className={styles.title}>Artists</h1> 
-          <div className={styles.artistsList}>
-            {artists.map((artist, index) => (
-              <ArtistCard key={index} artist={artist} />
-            ))}
+
+          <div>
+            <h2 className='titlePage'>Artists</h2>
+            <div className={styles.artistsList}>
+              {artists.map((artist, index) => (
+                <ArtistCard key={index} artist={artist} />
+              ))}
+            </div>
           </div>
         </div>
       </main>
     </div>
   );
 };
-// useEffect(() => {
-//   Charger les données depuis l'API
-//   fetch('http://localhost:3000/api/artists  ') // Remplacez par l'URL de votre API
-//     .then(response => {
-//       if (!response.ok) {
-//         throw new Error('Network response was not ok');
-//       }
-//       return response.json();
-//     })
-//     .then(data => {
-//       console.log('Données chargées:', data);
-//       setArtists(data);
-//     })
-//     .catch(error => {
-//       console.error('Erreur lors du chargement des données:', error);
-//       setError('Erreur lors du chargement des données');
-//     });
-// }, []); 
+
 export default ArtistsPage;

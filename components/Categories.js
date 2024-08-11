@@ -43,8 +43,8 @@ function Categories() {
                 <div className={styles.container}>
                     {modalType === 'signup' && <Signup isOpen={isModalOpen} onClose={handleCloseModal} />}
                     {modalType === 'signin' && <SignIn isOpen={isModalOpen} onClose={handleCloseModal} />}
-                    <div className={styles.featuredSection}>
-                        <h1 className={styles.title}>Categories</h1>
+                    <div>
+                        <h2 className='titlePage'>Categories</h2>
                     </div>
                     <div className={styles.cardContainer}>
                         {listCategoriesCard}

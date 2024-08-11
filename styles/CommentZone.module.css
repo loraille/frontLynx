@@ -12,7 +12,8 @@
   border: 2px solid #D9D9D9;
   border-radius: 15px;
   background-color: transparent;
-  max-height: 30rem;
+  min-height: 200px;
+  max-height: 300px;
   overflow: auto;
   display: flex;
   flex-direction: column;
@@ -20,22 +21,37 @@
   position: relative; /* Ajouté pour positionner la scrollbar */
 }
 
-
-
+/* pour les bulles de comment */
 .comment {
-  background-color: #f0f0f0;
-  margin: 10px 0;
+  color:#D9D9D9;
   padding: 10px;
-  border-radius: 5px;
   align-self: flex-start;
 }
-
+.commentText {
+  border:1px solid #D9D9D9;;
+  border-radius: 25px;
+  padding:5px 20px;
+}
+.commentator{
+  margin:0px 10px ;
+  cursor: pointer;
+}
+.commentator:hover {
+  font-weight: 700;
+}
 .commentUploader {
-  background-color: #e0ffe0;
-  margin: 10px 0;
+  color: #FEB830;
   padding: 10px;
-  border-radius: 5px;
   align-self: flex-end;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.commentTextUploader{
+  color:white;
+  border:1px solid #FEB830;
+  border-radius: 25px;
+  padding:5px 20px;
 }
 
 /*       ScrollBar 1        */
@@ -62,18 +78,38 @@
 
 .newComment {
   display: flex;
+  margin-top: 15px;
+  
 }
 
 .yourComment {
+  color:#D9D9D9;
   margin-top: 20px;
   padding: 15px;
   border-left: 2px solid #D9D9D9;
   border-bottom: 2px solid #D9D9D9;
   border-radius: 0px 0px 0px 15px;
   background-color: transparent;
+  resize: none;
+  border-top: none; 
+  border-right: none;
+  outline: none; 
+  width:100%
+}
+
+.yourComment:focus {
+  outline: none; 
+}
+
+.characterCount{
+  font-family: 'khand';
 }
 
 .send {
-  /* Ajoutez vos styles ici */
+  cursor: pointer;
+  color: #FEB830;
+  font-size: 24px;
+  margin-left: 10px; 
 }
+
 

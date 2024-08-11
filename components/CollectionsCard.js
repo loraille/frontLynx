@@ -1,15 +1,17 @@
 import React from 'react';
 import styles from '../styles/CategoriesCard.module.css';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const CollectionsCard = ({ collectionName, image_url, artworks }) => {
+  const router = useRouter();
+  const handleCollectionClick = (collection) => {
+    router.push(`/artworksDisplay/?fromLink=collection&toDisplay=${collection}`);
+  };
   return (
     <div className={styles.categoryCard}>
-      <Link href={{ pathname: '/artworksDisplay', query: { name: collectionName } }}>
-        <img src={image_url || '/default_image.png'} alt={ collectionName || 'untitled'} className={styles.categoryImage} />
-      </Link>
+      <img src={image_url || '/default_image.png'} alt={collectionName || 'untitled'} className={styles.categoryImage} onClick={() => handleCollectionClick(collectionName)} />
       <h3>{collectionName}</h3>
-      <p>{artworks.length} artworks</p>  {/* Afficher le nombre d'œuvres ? A confirmer */}
+      <p>{artworks.length} artworks</p>
     </div>
   );
 };

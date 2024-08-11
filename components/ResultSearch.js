@@ -71,6 +71,11 @@ function ResultSearch() {
       ))
     }
   }
+  ///////////category vs categories///////////////
+  let result = category
+  if (total == 1) {
+    result = result.slice(0, - 1)
+  }
 
 
 
@@ -90,7 +95,7 @@ function ResultSearch() {
           {category === 'artists' && <h1 className="titlePage">Results for Artists</h1>}
         </div>
         <div>
-          {total === 0 ? (<span className={styles.reponseText}>"No result found in <span className={styles.lynx}>Lynx</span>"</span>) : (<span className={styles.reponseText}>"{total} {category} found"</span>)}
+          {total === 0 ? (<span className={styles.reponseText}>"No result found in <span className={styles.lynx}>Lynx</span>"</span>) : (<span className={styles.reponseText}>"{total} {result} found"</span>)}
         </div>
         <div className={styles.cardsDisplay}>
           {cardsResult}

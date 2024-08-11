@@ -29,8 +29,8 @@ function Home() {
           {modalType === 'signup' && <Signup isOpen={isModalOpen} onClose={handleCloseModal} />}
           {modalType === 'signin' && <SignIn isOpen={isModalOpen} onClose={handleCloseModal} />}
         </div>
-        <div className={styles.featuredSection}>
-          <h1 className='titlePage'>Featured Artists</h1> {/* S'assurer d'importer le style global pour cette classe */}
+        <div>
+          <h2 className='titlePage'>Featured Artists</h2>
           <ArtworkList /> {/* Insérer "featured Artists" */}
         </div>
       </main>

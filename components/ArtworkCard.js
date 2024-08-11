@@ -1,5 +1,4 @@
 import React from 'react';
-// import { useSelector } from 'react-redux';
 import Link from 'next/link';
 
 import styles from '../styles/ArtworkCard.module.css';
@@ -15,8 +14,11 @@ const ArtworkCard = ({ artwork }) => {
       <Link href={{ pathname: '/artworkView', query: { id: artwork._id } }}>
         <img src={artwork.url} alt={artwork.title} className={styles.artworkImage} />
       </Link>
-      <h3>{artwork.title}</h3>
-      <p className={styles.artistName}>Artiste : {artistName}</p>
+      <div className={styles.infos}>
+        <p className={styles.artistName}>{artwork.uploader}</p>
+        <div className={styles.cardTitle}>{artwork.title}</div>
+      </div>
+
     </div>
   );
 };

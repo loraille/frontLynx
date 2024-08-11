@@ -41,7 +41,7 @@
 }
 
 .infos {
-  padding:15px;
+
   flex: 2;
   /* border: 1px solid red; */
   display: flex;
@@ -49,6 +49,7 @@
   position: relative;
   width: 100%;
   height: auto;
+  border:1px solid red
 }
 
 .collections {
@@ -62,6 +63,7 @@
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 10px;
+ 
 }
 
 .imageContainer {

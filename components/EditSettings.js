@@ -27,9 +27,8 @@ function EditSettings() {
         setIsModalOpen(false);
         setModalType('');
     };
-    ///////////////Recuperation des setings///////////////////////////////
+    ///////////////Recuperation des settings///////////////////////////////
     const username = useSelector(state => state.user.value.username)
-    console.log(username)
     const [settings, setSettings] = useState([]);
 
     useEffect(() => {
@@ -37,6 +36,7 @@ function EditSettings() {
             .then(response => response.json())
             .then(data => {
                 setSettings(data.userInfo);
+                console.log(data.message)
             });
     }, []);
     console.log(settings)
@@ -46,6 +46,78 @@ function EditSettings() {
     const [bio, setBio] = useState('');
     const [avatarUrl, setAvatarUrl] = useState('');
     const [bannerUrl, setBannerUrl] = useState('');
+
+    useEffect(() => {
+        if (settings.bio) {
+            setBio(settings.bio);
+        }
+        if (settings.avatarUrl) {
+            setAvatarUrl(settings.avatarUrl);
+        }
+        if (settings.bannerUrl) {
+            setBannerUrl(settings.bannerUrl);
+        }
+    }, [settings]);
+
+    const handleEditClick = () => {
+        setIsEditing(true);
+    };
+
+    //////////////upload avatar & banner/////////////////////////////////////////
+    const handleFileChange = async (e, setUrl) => {
+        const file = e.target.files[0];
+        const formData = new FormData();
+        formData.append('image', file);
+
+        try {
+            const response = await fetch(`${urlBackend}/users/upload`, {
+                method: 'POST',
+                body: formData,
+            });
+
+            const data = await response.json();
+            if (data.result) {
+                setUrl(data.imageUrl);
+                console.log(data.message);
+            } else {
+                console.error('Failed to upload file:', data.error);
+            }
+        } catch (error) {
+            console.error('Error during file upload:', error);
+        }
+    };
+
+    /////////////////////Update///////////////////////////////////////////////////////
+    const handleUpdateClick = async () => {
+        setIsEditing(false);
+
+        const updatedData = {
+            bio,
+            avatarUrl,
+            bannerUrl
+        };
+
+        try {
+            const response = await fetch(`${urlBackend}/users/${username}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(updatedData)
+            });
+
+            const data = await response.json();
+            if (data.message === 'User updated successfully') {
+                setSettings(data.userInfo);
+                console.log(data.message);
+            } else {
+                console.error('Failed to update user:', data.error);
+            }
+        } catch (error) {
+            console.error('Error during user update:', error);
+        }
+    };
+    /////////////////style des boutons///////////////////
 
     const UploadButton = styled(Button)(({ theme }) => ({
         cursor: 'pointer',
@@ -80,37 +152,6 @@ function EditSettings() {
         width: 1,
     });
 
-    useEffect(() => {
-        if (settings.bio) {
-            setBio(settings.bio);
-        }
-        if (settings.avatarUrl) {
-            setAvatarUrl(settings.avatarUrl);
-        }
-        if (settings.bannerUrl) {
-            setBannerUrl(settings.bannerUrl);
-        }
-    }, [settings]);
-
-    const handleEditClick = () => {
-        setIsEditing(true);
-    };
-
-    const handleUpdateClick = () => {
-        setIsEditing(false);
-        // fetch
-    };
-
-    const handleFileChange = (event, setUrl) => {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setUrl(reader.result);
-            };
-            reader.readAsDataURL(file);
-        }
-    };
 
     return (
         <div>
@@ -119,38 +160,40 @@ function EditSettings() {
                     <Header onOpenModal={handleOpenModal} />
                 </div>
                 <div>
-                    <h1 className='titlePage'>My Settings</h1>
+                    <h2 className='titlePage'>My Settings</h2>
                 </div>
                 <div className={styles.container}>
                     {modalType === 'signup' && <Signup isOpen={isModalOpen} onClose={handleCloseModal} />}
                     {modalType === 'signin' && <SignIn isOpen={isModalOpen} onClose={handleCloseModal} />}
 
                     <div className={styles.settings}>
-                        <div>username:{settings.username}</div>
-                        <div>email:{settings.email}</div>
-                        <div>password</div>
-                        <div className={styles.inline}>avatar:<UploadButton
+                        <div className='title'>Infos</div>
+                        <div>Username:<span className={styles.datas}>{settings.username}</span></div>
+                        <div>Email:<span className={styles.datas}>{settings.email}</span></div>
+                        {/* <div>password</div> /////////Alert:a voir si on peut rajouter en fin de projet*/}
+                        <div className={styles.inline}>Avatar: <UploadButton
                             component="label"
                             role={undefined}
                             variant="contained"
                             tabIndex={-1}
                             startIcon={<CloudUploadIcon />}
                         >
-                            Upload file
+                            Upload Avatar
                             <VisuallyHiddenInput type="file" onChange={(e) => handleFileChange(e, setAvatarUrl)} />
-                        </UploadButton></div>
-                        <div className={styles.inline}>banner:<UploadButton
+                        </UploadButton>
+                        </div>
+                        <div className={styles.inline}>Banner:<UploadButton
                             component="label"
                             role={undefined}
                             variant="contained"
                             tabIndex={-1}
                             startIcon={<CloudUploadIcon />}
                         >
-                            Upload file
+                            Upload Banner
                             <VisuallyHiddenInput type="file" onChange={(e) => handleFileChange(e, setBannerUrl)} />
                         </UploadButton></div>
 
-                        <div>bio</div>
+                        <div>Bio</div>
                         <div className={styles.bioContainer}>
                             {isEditing ? (
                                 <textarea
@@ -173,7 +216,7 @@ function EditSettings() {
                         <button
                             id="create"
                             className={`button ${styles.validate}`}
-                            onClick={() => handleUpload()}
+                            onClick={handleUpdateClick}
                         >
                             Update!
                         </button>
@@ -218,4 +261,3 @@ function EditSettings() {
 }
 
 export default EditSettings;
-

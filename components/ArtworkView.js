@@ -7,6 +7,8 @@ import { urlBackend } from '../assets/varGlobal';
 import Image from 'next/image';
 import CommentZone from './CommentZone';
 import styles from '../styles/ArtworkView.module.css';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 
 function ArtworkView() {
 
@@ -36,6 +38,7 @@ function ArtworkView() {
                 .then(data => {
                     setArtwork(data.artworkInfo);
                     setTags(data.artworkInfo.tags);
+                    console.log(data.message)
                 })
                 .catch(error => {
                     console.error('Erreur lors de la récupération de l\'œuvre d\'art:', error);
@@ -43,8 +46,19 @@ function ArtworkView() {
         }
     }, [id]);
 
+    const handleTagClick = (tagName) => {
+        router.push(`/resultSearch?category=tags&query=${tagName}`);
+    };
+
     const listTags = tags.map(tag => (
-        <div className={styles.tags} key={tag._id}>{tag.name}</div>
+        <div
+            className={styles.tags}
+            key={tag._id}
+            onClick={() => handleTagClick(tag.name)}
+            style={{ cursor: 'pointer' }}
+        >
+            {tag.name}
+        </div>
     ));
 
     return (

@@ -4,11 +4,16 @@ import SignIn from './SignIn';
 import Signup from './Signup';
 import Header from './Header';
 import styles from '../styles/ArtworksDisplay.module.css';
+import { urlBackend } from '../assets/varGlobal';
+import { useRouter } from 'next/router';
 
-const ArtworksDisplay = ({ category }) => {
+function ArtworksDisplay() {
+    const router = useRouter();
+    const { toDisplay, fromLink } = router.query;
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalType, setModalType] = useState('');
     const [artworks, setArtworks] = useState([]);
+
 
     const handleOpenModal = (type) => {
         setModalType(type);
@@ -21,25 +26,28 @@ const ArtworksDisplay = ({ category }) => {
     };
 
     useEffect(() => {
-        if (!category) {
-            console.error("Category is not defined");
-            return;
+        if (fromLink === 'category') {
+            if (!toDisplay) {
+                console.error(" is not defined");
+                return;
+            }
+            fetch(`${urlBackend}/artworks/category/${toDisplay}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data && data.artworks) {
+                        console.log("Artworks fetched:", data.artworks);
+                        setArtworks(data.artworks);
+                    } else {
+                        console.error("Unexpected API response:", data);
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching artworks:", error);
+                });
+        } else {
+            console.log('fromLink is not "category"');
         }
-        fetch(`http://localhost:3000/artworks/category/${category}`) 
-        // fetch(`http://localhost:3000/categories/${category}/artworks`)
-            .then(response => response.json())
-            .then(data => {
-                if (data) {
-                    console.log("Fetched artworks:", data.artworks);
-                    setArtworks(data.artworks);
-                } else {
-                    console.error("Unexpected API response:", data);
-                }
-            })
-            .catch(error => {
-                console.error("Error fetching artworks:", error);
-            });
-    }, [category]);
+    }, [toDisplay]);
 
     return (
         <div>
@@ -48,11 +56,11 @@ const ArtworksDisplay = ({ category }) => {
                     <Header onOpenModal={handleOpenModal} />
                 </div>
                 <div className={styles.container}>
-                    {modalType === 'signup' && <Signup isOpen={isModalOpen} onClose={handleCloseModal} />}
-                    {modalType === 'signin' && <SignIn isOpen={isModalOpen} onClose={handleCloseModal} />}
+                    {isModalOpen && modalType === 'signup' && <Signup isOpen={isModalOpen} onClose={handleCloseModal} />}
+                    {isModalOpen && modalType === 'signin' && <SignIn isOpen={isModalOpen} onClose={handleCloseModal} />}
                 </div>
-                <div className={styles.featuredSection}>
-                    <h1 className={styles.title}>Artworks in {category} Category</h1>
+                <div>
+                    <h2 className='titlePage'>Artworks in {toDisplay} {fromLink}</h2>
                     {artworks.length > 0 ? (
                         <div className={styles.artworkList}>
                             {artworks.map(artwork => (

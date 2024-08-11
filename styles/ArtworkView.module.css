@@ -76,6 +76,7 @@
   font-size: 20px;
 }
 .tags{
+  cursor: pointer;
   margin:10px;
   padding:10px 20px;
   display: flex;

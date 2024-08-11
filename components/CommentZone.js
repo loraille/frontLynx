@@ -1,13 +1,17 @@
 import styles from '../styles/CommentZone.module.css';
 import { urlBackend } from '../assets/varGlobal';
 import { useSelector } from 'react-redux';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import SendIcon from '@mui/icons-material/Send';
+import { useRouter } from 'next/router';
 
 function CommentZone({ artwork }) {
     const visitor = useSelector((state) => state.user.value.username);
     const [comments, setComments] = useState([]);
     const uploader = artwork.uploader;
     const [newComment, setNewComment] = useState('');
+    const commentAreaRef = useRef(null);
+    const router = useRouter();
 
     useEffect(() => {
         if (artwork.comments) {
@@ -23,13 +27,25 @@ function CommentZone({ artwork }) {
         }
     }, [visitor]);
 
+    useEffect(() => {
+        if (commentAreaRef.current) {
+            commentAreaRef.current.scrollTop = commentAreaRef.current.scrollHeight;
+        }
+    }, [comments]); // Depend on comments to ensure scrolling happens after comments are updated
+
+    const handleUsernameClick = (username) => {
+        router.push(`/user/?username=${username}`);
+    };
+
     const commentsList = comments.map((comment, index) => {
         const username = comment.username;
         const commentText = comment.comment;
         return (
             <div key={index} className={username === uploader ? styles.commentUploader : styles.comment}>
-                <div>{username}</div>
-                <div>{commentText}</div>
+                <div className={styles.commentator} onClick={() => handleUsernameClick(username)}>
+                    {username}
+                </div>
+                <div className={username === uploader ? styles.commentTextUploader : styles.commentText}>{commentText}</div>
             </div>
         );
     });
@@ -54,6 +70,11 @@ function CommentZone({ artwork }) {
                 // Update the local state with the new comment
                 setComments(updatedArtwork.comments);
                 setNewComment('');
+
+                // Scroll to the bottom of the comment area
+                if (commentAreaRef.current) {
+                    commentAreaRef.current.scrollTop = commentAreaRef.current.scrollHeight;
+                }
             } else {
                 console.error('Failed to add comment');
             }
@@ -64,7 +85,7 @@ function CommentZone({ artwork }) {
 
     return (
         <div>
-            <div className={styles.commentArea} id={styles.scrollbar1}>
+            <div className={styles.commentArea} id={styles.scrollbar1} ref={commentAreaRef}>
                 {commentsList}
             </div>
             <div className={styles.newComment}>
@@ -76,18 +97,19 @@ function CommentZone({ artwork }) {
                     onChange={(e) => setNewComment(e.target.value)}
                     disabled={!visitor}
                 />
+                <span className={styles.characterCount}>{newComment.length}/255</span>
                 <button
                     id="send"
                     className={`button ${styles.send}`}
                     onClick={handleSendComment}
-                    disabled={!visitor}
+                    disabled={!visitor || newComment.length > 255}
                 >
                     Send
+                    <SendIcon />
                 </button>
             </div>
         </div>
     );
 }
-
 
 export default CommentZone;

@@ -58,7 +58,7 @@ function Header({ onOpenModal }) {
 
     const handleProfile = () => {
         handleClose()
-        router.push('/user')
+        router.push(`/user?username=${username}`)
     }
 
     const handleLogout = () => {

@@ -12,7 +12,7 @@ function User() {
     const router = useRouter();
     const { username } = router.query;
     const [isModalOpen, setIsModalOpen] = useState(false);
-    console.log(username)
+
     const handleOpenModal = () => {
         setIsModalOpen(true);
     };
@@ -39,10 +39,10 @@ function User() {
                 </div>
                 <div className={styles.container}>
                     <div className={styles.infos}>
-                        <div className='titlePage'>{settings.username}</div>
+                        <h2 className='titlePage'>Profile</h2>
                     </div>
                     <div className={styles.collection}>
-
+                        <h2 className='titlePage'>Collections</h2>
                     </div>
                 </div>
             </main>
