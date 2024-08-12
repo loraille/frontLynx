@@ -20,9 +20,7 @@
   outline: 1px solid rgba(255, 255, 255, 0.5); /* Bordure légère pour voir les lignes */
 }
 
-.header, .infos, .container, .artworkSection, .collectionsSection {
-  outline: 1px solid rgba(0, 255, 0, 0.5); /* Bordures visibles pour chaque section */
-}
+
 
 /* .main {
   display: grid;
@@ -52,15 +50,15 @@
 .infos {
   grid-row: 1 / 2; /* Place infos en dessous du header */
   grid-column: 1 / 7; /* Occupe toute la largeur */
-  padding: 40px; /* Ajuste le padding pour réduire la hauteur */
+  padding: 40px; 
   background-color: #333;
   color: #fff;
   font-size: 1rem;
-  border: 3px solid rgb(0, 21, 255);
+  /* border: 3px solid rgb(0, 21, 255); */
   overflow: hidden; /* Masque le contenu excédentaire */
   text-overflow: ellipsis; /* Affiche des points de suspension si le texte dépasse */
   /* white-space: nowrap; Empêche le texte de s'étendre sur plusieurs lignes */
-  display: flex; /* Utilise Flexbox pour contrôler l'alignement */
+  display: flex; 
   align-items: flex-start; /* Aligne le contenu en haut */
   justify-content: flex-start; /* Aligne le contenu à gauche */
   box-sizing: border-box; /* Inclut padding et bordure dans les dimensions */
@@ -82,15 +80,15 @@
 
   overflow-y: auto; /* Défilement si contenu excédentaire */
   padding: 20px; /* Espacement interne */
-  border: 3px solid red;
+  /* border: 3px solid red; */
 }
 
 .collectionsSection {
   grid-column: 2 / 3; /* Deuxième colonne de la grille */
-  grid-row: 2 / 13; /* Place infos en dessous des infos */
+  grid-row: 2 / 13; 
   overflow-y: auto;
   padding: 20px;
-  border: 3px solid rgb(225, 255, 0);
+  /* border: 3px solid rgb(225, 255, 0); */
 
 }
 
