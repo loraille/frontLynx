@@ -5,6 +5,7 @@ import SignIn from './SignIn';
 import Signup from './Signup';
 import Header from './Header';
 import styles from '../styles/ArtworksDisplay.module.css';
+import ArtistCard from './ArtistCard';
 import { urlBackend } from '../assets/varGlobal';
 import { useRouter } from 'next/router';
 
@@ -24,7 +25,8 @@ function ArtworksDisplay() {
     const router = useRouter();
     const { toDisplay, fromLink } = router.query;
     const [artworks, setArtworks] = useState([]);
-    const username = useSelector(state => state.user.value.username)
+    const [artists, setArtists] = useState([]);
+    const username = useSelector(state => state.user.value.username);
 
     useEffect(() => {
         if (fromLink === 'category') {
@@ -80,16 +82,35 @@ function ArtworksDisplay() {
                 .catch(error => {
                     console.error("Error fetching artworks:", error);
                 });
+        } else if (fromLink === 'following') {
+            if (!toDisplay) {
+                console.error(" is not defined");
+                return;
+            }
+            fetch(`${urlBackend}/users/${username}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data) {
+                        setArtists(data.userInfo.following);
+                    } else {
+                        console.error("Unexpected BDD response:", data);
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching artworks:", error);
+                });
         } else {
-
-            console.log('fromLink or toDisplay are  not correct');
+            console.log('fromLink or toDisplay are not correct');
         }
-    }, [toDisplay]);
+    }, [toDisplay, fromLink]);
 
     const artworksList = artworks.map(artwork => {
         return <ArtworkCard key={artwork._id} artwork={artwork} />
-    })
-    console.log('fromlink', fromLink, username)
+    });
+
+    const artistsList = artists.map(artist => {
+        return <ArtistCard key={artist._id} artist={artist} />
+    });
 
     return (
         <div>
@@ -102,13 +123,23 @@ function ArtworksDisplay() {
                     {isModalOpen && modalType === 'signin' && <SignIn isOpen={isModalOpen} onClose={handleCloseModal} />}
                 </div>
                 <div>
-                    <h2 className='titlePage'>Artworks in {toDisplay} {fromLink}</h2>
-                    {artworks.length > 0 ? (
-                        <div className={styles.artworkList}>
-                            {artworksList}
-                        </div>
+                    <h2 className='titlePage'>Artworks in {toDisplay}'s {fromLink}</h2>
+                    {fromLink === 'following' ? (
+                        artists.length > 0 ? (
+                            <div className={styles.artworkList}>
+                                {artistsList}
+                            </div>
+                        ) : (
+                            <p className={styles.noArtworks}>No artists available</p>
+                        )
                     ) : (
-                        <p className={styles.noArtworks}>No artworks available</p>
+                        artworks.length > 0 ? (
+                            <div className={styles.artworkList}>
+                                {artworksList}
+                            </div>
+                        ) : (
+                            <p className={styles.noArtworks}>No artworks available</p>
+                        )
                     )}
                 </div>
             </main>

@@ -1,12 +1,12 @@
 /* FONTS */
-@font-face {
+/* @font-face {
   font-family: 'Nabla';
   src: url('../assets/Nabla-Regular-VariableFont_EDPT,EHLT.ttf') format('truetype');
 }
 @font-face {
   font-family: 'Khand';
   src: url('../assets/Khand-Regular.ttf') format('truetype');
-}
+} */
 /* MAIN */
 .main {
   display: flex;
@@ -129,11 +129,19 @@
   font-family: "Khand";
   font-size: 14px;
   color: rgb(254, 184, 48);
-  padding: 5px 15px;
-  border-radius: 9px;
+  border: 2px solid  rgb(254, 184, 48);
+ 
+  border-radius: 50%;
   background: rgb(66, 65, 65);
   display: flex;
   justify-content: center;
   align-items: center;
   margin-right: 30px;
+}
+.image{
+  border-radius: 50%;
+  border: 1px solid  rgb(254, 184, 48);
+}
+.placeholder{
+  font-size: 50px;
 }

@@ -1,26 +1,26 @@
-import React from 'react'
-import styles from '../styles/Header.module.css'
-import Link from 'next/link'
-import { useSelector } from 'react-redux'
-import Button from '@mui/material/Button'
-import Menu from '@mui/material/Menu'
-import MenuItem from '@mui/material/MenuItem'
-import { useDispatch } from 'react-redux'
-import { logout } from '../reducers/user'
-import { useRouter } from 'next/router'
-import SearchBar from './SearchBar'
-
-import Modal from './ArtworkUpload'; //DEMO
+import React, { useEffect, useState } from 'react';
+import styles from '../styles/Header.module.css';
+import Link from 'next/link';
+import { useSelector, useDispatch } from 'react-redux';
+import Image from 'next/image';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import { logout } from '../reducers/user';
+import { useRouter } from 'next/router';
+import { urlBackend } from '../assets/varGlobal';
+import SearchBar from './SearchBar';
+import PermIdentityIcon from '@mui/icons-material/PermIdentity';
+import Modal from './ArtworkUpload'; // DEMO
 
 function Header({ onOpenModal }) {
+    const [userInfo, setUserInfo] = useState(null);
+    const dispatch = useDispatch();
+    const username = useSelector((state) => state.user.value.username);
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
+    const router = useRouter();
 
-    const dispatch = useDispatch()
-    const username = useSelector((state) => state.user.value.username)
-    const [anchorEl, setAnchorEl] = React.useState(null)
-    const open = Boolean(anchorEl)
-    const router = useRouter()
-
-    const [isModalOpen, setIsModalOpen] = React.useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleOpenModal = () => {
         setIsModalOpen(true);
@@ -30,46 +30,64 @@ function Header({ onOpenModal }) {
     };
 
     const handleClick = (event) => {
-        setAnchorEl(event.currentTarget)
+        setAnchorEl(event.currentTarget);
     };
 
-    /// DEMO 
+    // Fetch user info when username changes
+    useEffect(() => {
+        if (username) {
+            fetch(`${urlBackend}/users/${username}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.message);
+                    setUserInfo(data.userInfo);
+                })
+                .catch(error => console.error('Error fetching user info:', error));
+        }
+    }, [username]);
+
     const handleUploadArtwork = (event) => {
         handleClose();
         console.log("Create -> Upload an artwork", event.currentTarget);
         setIsModalOpen(true);
     };
-    /// OMED
 
     const handleClose = () => {
-        setAnchorEl(null)
+        setAnchorEl(null);
+    };
+
+    const handleFollowings = () => {
+        handleClose();
+        router.push(`/artworksDisplay/?fromLink=following&toDisplay=${username}`);
     };
 
     const handleBookmarks = () => {
-        handleClose()
-        router.push(`/artworksDisplay/?fromLink=bookmarks&toDisplay=${username}`)
-    }
-    const handleSettings = () => {
-        handleClose()
-        router.push('/editSettings')
-    }
+        handleClose();
+        router.push(`/artworksDisplay/?fromLink=bookmarks&toDisplay=${username}`);
+    };
 
+    const handleSettings = () => {
+        handleClose();
+        router.push('/editSettings');
+    };
 
     const handleCollection = () => {
-        handleClose()
-        router.push('/collections')
-    }
+        handleClose();
+        router.push('/collections');
+    };
 
     const handleProfile = () => {
-        handleClose()
-        router.push(`/user?username=${username}`)
-    }
+        handleClose();
+        router.push(`/user?username=${username}`);
+    };
 
     const handleLogout = () => {
-        handleClose()
-        dispatch(logout())
-        router.push('/')
-    }
+        handleClose();
+        dispatch(logout());
+        router.push('/');
+    };
+
+    console.log('--------------------------', userInfo);
 
     return (
         <div className={styles.main}>
@@ -86,7 +104,18 @@ function Header({ onOpenModal }) {
                 {username ? (
                     <>
                         <div className={styles.user} onClick={handleClick}>
-                            {username}
+                            {userInfo && userInfo.avatarUrl ? (
+                                <Image
+                                    src={userInfo.avatarUrl}
+                                    alt={userInfo.username}
+                                    width={65}
+                                    height={65}
+                                    objectFit="cover"
+                                    className={`${styles.image}`}
+                                />
+                            ) : (
+                                <PermIdentityIcon className={styles.placeholder} />
+                            )}
                         </div>
                         <Menu
                             id="basic-menu"
@@ -98,9 +127,9 @@ function Header({ onOpenModal }) {
                             }}
                         >
                             <MenuItem onClick={handleProfile}>My Profile</MenuItem>
-                            <MenuItem onClick={handleUploadArtwork}>Create</MenuItem> {/*DEMO*/}
+                            <MenuItem onClick={handleUploadArtwork}>Create</MenuItem> {/* DEMO */}
                             <MenuItem onClick={handleCollection}>My Collections</MenuItem>
-                            <MenuItem onClick={handleClose}>My Followings</MenuItem>
+                            <MenuItem onClick={handleFollowings}>My Followings</MenuItem>
                             <MenuItem onClick={handleBookmarks}>My Bookmarks</MenuItem>
                             <MenuItem onClick={handleSettings}>My Settings</MenuItem>
                             <MenuItem onClick={handleLogout}>Logout</MenuItem>
