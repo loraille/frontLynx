@@ -35,6 +35,7 @@ function Collections() {
     ////////////////Mappage des collections//////////////////////////////////
     const listCollectionsCard = collections.map(collection => {
         return (
+            collection.artworks.length && // ISSUE 001 when a collection is empty don't try to display it
             <CollectionsCard
                 key={collection._id}
                 collectionName={collection.name}
