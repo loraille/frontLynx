@@ -1,10 +1,3 @@
-/* .artistList {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-  } */
-
-
 .main {
   display: flex;
   flex-direction: column;
@@ -15,7 +8,6 @@
 
 .header {
   width: 100%;
-  flex: 0 0 auto;
 }
 
 .container {
@@ -36,12 +28,10 @@
 }
 
 .artworkList {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
-  padding: 16px;
-  justify-items: center;
-  /* Centre les éléments horizontalement */
+display:flex;
+flex-wrap:wrap;
+gap:20px;
+margin:0px 15px ;
 }
 
 @media (max-width: 768px) {

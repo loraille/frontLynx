@@ -26,7 +26,7 @@ function ArtworkView() {
     };
     const [artwork, setArtwork] = useState({});
     const [tags, setTags] = useState([]);
-    /////////////////////////////////////////////////////////////
+    //////////////////artwork by ID///////////////////////////////////////////
 
     const router = useRouter();
     const { id } = router.query;
@@ -45,21 +45,28 @@ function ArtworkView() {
                 });
         }
     }, [id]);
-
+    //////////////search by tagName/////////////////////////////////////
     const handleTagClick = (tagName) => {
         router.push(`/resultSearch?category=tags&query=${tagName}`);
     };
-
+    /////////////map tag to display//////////////////////////////////////
     const listTags = tags.map(tag => (
         <div
             className={styles.tags}
             key={tag._id}
             onClick={() => handleTagClick(tag.name)}
-            style={{ cursor: 'pointer' }}
         >
             {tag.name}
         </div>
     ));
+    /////////////clic to artist profile///////////////////////////////////
+    const handleUsernameClick = (username) => {
+        router.push(`/user/?username=${username}`);
+    };
+    ////////////clic to image source in a new window//////////////////////
+    const handleImageClick = (url) => {
+        window.open(url, '_blank');
+    };
 
     return (
         <div>
@@ -79,14 +86,16 @@ function ArtworkView() {
                     <div className={styles.artworkZone}>
                         <div className="titleArt">{artwork.title}</div>
                         {artwork.url && (
-                            <div className={styles.imageContainer}>
+                            <div className={styles.imageContainer} onClick={() => handleImageClick(artwork.url)}>
                                 <Image
                                     src={artwork.url}
                                     alt={artwork.title}
                                     width={500}
                                     height={500}
                                     objectFit="cover"
+                                    className={`${styles.image}`}
                                 />
+                                <BookmarkBorderIcon />
                             </div>
                         )}
                         <div className={styles.tagsTitle}>
@@ -94,9 +103,10 @@ function ArtworkView() {
                         </div>
                     </div>
                     <div className={styles.textZone}>
-                        <div className={`titleArtworkTextZone ${styles.artist}`} >{artwork.uploader}</div>
+                        <div className={`titleArtworkTextZone ${styles.artist}`} onClick={() => handleUsernameClick(artwork.uploader)}>{artwork.uploader}</div>
                         <div className="titleArtworkTextZone">Description</div>
-                        <div className={styles.descriptionText}>{artwork.description}</div>
+                        <div className={styles.descriptionText}>{artwork.description}
+                        </div>
                         <div className="titleArtworkTextZone">Comments</div>
                         <CommentZone artwork={artwork} />
                     </div>
