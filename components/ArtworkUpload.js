@@ -73,23 +73,22 @@ const CustomInputLabel = styled(InputLabel)(({ theme }) => ({
         color: 'orange',
     },
 }));
+ 
+// - DEMO2 : on init CREATE button is disabled
+//   enabled when all required fields are populated and file selected
+//   optional fields: all fields including are mandatory for the DEMO
+//   close modal when artwork uploaded.
+// -TODO:  
+//   when artwork uploaded navigate to related collection
+//   when file selected display filename 
 
-// todo / WIP : 
-// - on init create button should be disabled
-//   enable it once all required fields are populated 
-//   optional : tags ? description ? 
-// - when file selected display filename ?  
 
 const ArtworkUpload = ({ isOpen, onClose, children }) => {
     if (!isOpen) return null;
     // DEMO
-    // test uncomment and remove hardcoded username: 
+    //  artworks.uploader will store artist who is currently connected and uploading his artwork
     const username = useSelector((state) => state.user.value.username);
-    // test : 
-    //let username="gregorS";
     let uploader=username;
-
-    let imageToUpload;
 
     const [categories, setCategories] = useState([]);
     const [category, setCategory] = useState('');
@@ -97,6 +96,8 @@ const ArtworkUpload = ({ isOpen, onClose, children }) => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [tags, setTags] = useState([]);
+    const [imageToUpload,setimageToUpload] = useState(''); //DEMO2
+    const [isCreate,setisCreate] = useState(false);        //DEMO2
 
     useEffect(() => {
         fetch(`${urlBackend}/categories`)
@@ -106,6 +107,17 @@ const ArtworkUpload = ({ isOpen, onClose, children }) => {
             });
     }, []);
 
+
+    useEffect(() => {
+        console.log("enable Create button if all required form fields are populated");
+        // DEMO2 enable create button when user finished to fill required fields and selected the file to upload
+        //       disable create if user clear one of required field or during test file name cleared (for the moment we are blind no filename displayed)
+        if (category && collection && title && description && imageToUpload) // remove description if not required
+            setisCreate(true);
+        else 
+            setisCreate(false);
+        }, [imageToUpload,category,collection,title,description,imageToUpload]); // remove description if not required
+    
     const listCategory = categories.map(e => {
         return <MenuItem value={e.name}>{e.name}</MenuItem>;
     });
@@ -113,6 +125,7 @@ const ArtworkUpload = ({ isOpen, onClose, children }) => {
     const handleUpload = () => {
         const formData = new FormData();
         console.log("\\\\\\\\\\\\\\\\\\\\\\\\\\", title, description, category, collection, uploader);
+        /* DO NOT TRY IT LIKE THIS  (and also do not use header in fetch below it will be added automatically ):
         let formJson = {
             uploader: uploader,
             category: category,
@@ -123,9 +136,11 @@ const ArtworkUpload = ({ isOpen, onClose, children }) => {
         };
         JSON.stringify(formJson);
         // console.log("\\\\\\\formJson to send to backend:", formJson ) 
-
+        */
+        // append to FormData all user inputs:
+        // 1. the selected file:
         formData.append('imageFromFront', imageToUpload); // ok req.files
-
+        // 2. form fields values:
         formData.append('uploader', uploader);
         formData.append('category', category);
         formData.append('collection', collection);
@@ -135,7 +150,7 @@ const ArtworkUpload = ({ isOpen, onClose, children }) => {
 
         fetch('http://localhost:3000/artworks/upload', {
             method: 'POST',
-            body: formData,
+            body: formData,  // do not add any header, simply set body with FormData ... et voilà.
         }).then((response) => response.json())
             .then((data) => {
                 if (data.result) {
@@ -146,11 +161,15 @@ const ArtworkUpload = ({ isOpen, onClose, children }) => {
                     console.log("something went wrong", data.error);
                 }
             });
+            // WIP : currently simply closing modal 
+            /// pull last changes and navigate to the collection
+            //  passing collectionName of new uploaded artwork
+            onClose();
     };
 
     const getFileToUpload = (e) => {
         // console.log("set imageToUpload to selected file :  e.target.files[0]", e.target.files[0]);
-        imageToUpload = e.target.files[0];
+        setimageToUpload(e.target.files[0]);
     };
 
     const handleChange = (event) => {
@@ -207,7 +226,7 @@ const ArtworkUpload = ({ isOpen, onClose, children }) => {
                     <div>
                         <input
                             type="text"
-                            placeholder="Tags"
+                            placeholder="Tags: one anotherOne no_1"
                             id="tags"
                             className={styles.inputField}
                             onChange={(e) => setTags(e.target.value)}
@@ -224,13 +243,18 @@ const ArtworkUpload = ({ isOpen, onClose, children }) => {
                         Upload file
                         <VisuallyHiddenInput type="file"  onChange={(e) => getFileToUpload(e)} />
                     </UploadButton>
-                    <button
-                        id="create"
-                        className={`button ${styles.validate}`}
-                        onClick={() => handleUpload()}
-                    >
-                        Create
-                    </button>
+                    { isCreate ?
+                        <button id="create"
+                            className={`button ${styles.validate}`} onClick={() => handleUpload()}>
+                                Create
+                        </button>
+                        :
+                        <button id="create"
+                            className={`button ${styles.validate}`}
+                            onClick={() => handleUpload()} disabled>
+                                Create
+                        </button>
+                    }
                 </div>
             </div>
             <div>
