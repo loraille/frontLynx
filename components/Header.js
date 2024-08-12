@@ -45,6 +45,10 @@ function Header({ onOpenModal }) {
         setAnchorEl(null)
     };
 
+    const handleBookmarks = () => {
+        handleClose()
+        router.push(`/artworksDisplay/?fromLink=bookmarks&toDisplay=${username}`)
+    }
     const handleSettings = () => {
         handleClose()
         router.push('/editSettings')
@@ -97,7 +101,7 @@ function Header({ onOpenModal }) {
                             <MenuItem onClick={handleUploadArtwork}>Create</MenuItem> {/*DEMO*/}
                             <MenuItem onClick={handleCollection}>My Collections</MenuItem>
                             <MenuItem onClick={handleClose}>My Followings</MenuItem>
-                            <MenuItem onClick={handleClose}>My Bookmarks</MenuItem>
+                            <MenuItem onClick={handleBookmarks}>My Bookmarks</MenuItem>
                             <MenuItem onClick={handleSettings}>My Settings</MenuItem>
                             <MenuItem onClick={handleLogout}>Logout</MenuItem>
                         </Menu>

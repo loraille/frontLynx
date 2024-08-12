@@ -9,6 +9,7 @@ import CommentZone from './CommentZone';
 import styles from '../styles/ArtworkView.module.css';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import { useSelector } from 'react-redux';
 
 function ArtworkView() {
 
@@ -67,6 +68,36 @@ function ArtworkView() {
     const handleImageClick = (url) => {
         window.open(url, '_blank');
     };
+    ///////////////////////bookmark///////////////////////////////
+    const username = useSelector(state => state.user.value.username)
+    const [isBookmarked, setIsbookmarked] = useState(false)
+    const handleBookmarkClick = () => {
+        if (isBookmarked) {
+            setIsbookmarked(false)
+            try {
+                fetch(`${urlBackend}/users/bookmark/${username}/${artwork._id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => console.log(data.message))
+            } catch (error) { console.error('problem to remove artwork from favorite') }
+        } else {
+            setIsbookmarked(true)
+            try {
+                fetch(`${urlBackend}/users/bookmark/${username}/${artwork._id}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => console.log(data.message))
+            } catch (error) { console.error('problem to add artwork to favorite') }
+        }
+    }
 
     return (
         <div>
@@ -86,7 +117,7 @@ function ArtworkView() {
                     <div className={styles.artworkZone}>
                         <div className="titleArt">{artwork.title}</div>
                         {artwork.url && (
-                            <div className={styles.imageContainer} onClick={() => handleImageClick(artwork.url)}>
+                            <div className={styles.imageContainer} >
                                 <Image
                                     src={artwork.url}
                                     alt={artwork.title}
@@ -94,8 +125,9 @@ function ArtworkView() {
                                     height={500}
                                     objectFit="cover"
                                     className={`${styles.image}`}
+                                    onClick={() => handleImageClick(artwork.url)}
                                 />
-                                <BookmarkBorderIcon />
+                                {!isBookmarked ? (<BookmarkBorderIcon className={styles.bookmark} onClick={() => handleBookmarkClick()} />) : (<BookmarkIcon className={styles.bookmark} onClick={() => handleBookmarkClick()} />)}
                             </div>
                         )}
                         <div className={styles.tagsTitle}>

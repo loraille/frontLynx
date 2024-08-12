@@ -39,7 +39,7 @@ function ArtworksDisplay() {
                         console.log("Artworks fetched");
                         setArtworks(data.artworks);
                     } else {
-                        console.error("Unexpected API response:", data);
+                        console.error("Unexpected BDD response:", data);
                     }
                 })
                 .catch(error => {
@@ -57,7 +57,24 @@ function ArtworksDisplay() {
                         console.log(data.message);
                         setArtworks(data.artworks);
                     } else {
-                        console.error("Unexpected API response:", data);
+                        console.error("Unexpected BDD response:", data);
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching artworks:", error);
+                });
+        } else if (fromLink === 'bookmarks') {
+            if (!toDisplay) {
+                console.error(" is not defined");
+                return;
+            }
+            fetch(`${urlBackend}/users/${username}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data) {
+                        setArtworks(data.userInfo.favorites);
+                    } else {
+                        console.error("Unexpected BDD response:", data);
                     }
                 })
                 .catch(error => {
@@ -65,14 +82,14 @@ function ArtworksDisplay() {
                 });
         } else {
 
-            console.log('fromLink is not "category" or a "collection');
+            console.log('fromLink or toDisplay are  not correct');
         }
     }, [toDisplay]);
 
     const artworksList = artworks.map(artwork => {
         return <ArtworkCard key={artwork._id} artwork={artwork} />
     })
-
+    console.log('fromlink', fromLink, username)
 
     return (
         <div>
