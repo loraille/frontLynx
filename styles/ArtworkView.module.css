@@ -77,6 +77,7 @@
   cursor: pointer;
 }
 
+
 .tagsTitle{
   display:flex;
   font-size: 20px;
@@ -91,10 +92,13 @@
   border-radius: 20px;
 }
 /* zone droite */
-.artist{
+.zoneArtist{
   display:flex;
   justify-content: flex-end;
+  align-items: center;
   margin-right: 2rem;
+}
+.artist{
   cursor: pointer;
 }
 .descriptionText{

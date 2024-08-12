@@ -12,7 +12,6 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import { useSelector } from 'react-redux';
 
 function ArtworkView() {
-
     //////////Modale/////////////////////////////////////////////
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalType, setModalType] = useState('');
@@ -25,10 +24,62 @@ function ArtworkView() {
         setIsModalOpen(false);
         setModalType('');
     };
+
+    ////////////////////variables/////////////////////////////////////////////
+    const username = useSelector(state => state.user.value.username);
     const [artwork, setArtwork] = useState({});
     const [tags, setTags] = useState([]);
-    //////////////////artwork by ID///////////////////////////////////////////
+    const [isBookmarked, setIsbookmarked] = useState(false);
+    const [isFollowed, setIsFollowed] = useState(false);
+    const [userInfo, setUserInfo] = useState([]);
 
+    //////////////////check if artworks and artist are followed//////////////
+    // Fetch user info when username changes
+    useEffect(() => {
+        if (username) {
+            fetch(`${urlBackend}/users/${username}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.message);
+                    setUserInfo(data.userInfo);
+                })
+                .catch(error => console.error('Error fetching user info:', error));
+        }
+    }, [username]);
+
+    // Check if artwork is bookmarked when username, userInfo, or artwork changes
+    useEffect(() => {
+        if (username && userInfo && artwork) {
+            checkBookmark();
+        }
+    }, [username, userInfo, artwork]);
+
+    const checkBookmark = async () => {
+        if (userInfo.favorites && artwork._id) {
+            const isInBookmark = userInfo.favorites.some(e => e._id === artwork._id.toString());
+            setIsbookmarked(isInBookmark);
+        } else {
+            console.error('userInfo.favorites,artwork._id is undefined');
+        }
+    };
+
+    // Check if artist is followed//////////////////////////////////////////
+    useEffect(() => {
+        if (username && userInfo) {
+            checkFollowing();
+        }
+    }, [username, userInfo]);
+
+    const checkFollowing = async () => {
+        if (userInfo.following) {
+            const isInFollowing = userInfo.following.some(e => e.username === artwork.uploader);
+            setIsFollowed(isInFollowing);
+        } else {
+            console.error('userInfo.following is undefined');
+        }
+    };
+
+    //////////////////artwork by ID///////////////////////////////////////////
     const router = useRouter();
     const { id } = router.query;
 
@@ -39,17 +90,19 @@ function ArtworkView() {
                 .then(data => {
                     setArtwork(data.artworkInfo);
                     setTags(data.artworkInfo.tags);
-                    console.log(data.message)
+                    console.log(data.message);
                 })
                 .catch(error => {
                     console.error('Erreur lors de la récupération de l\'œuvre d\'art:', error);
                 });
         }
     }, [id]);
+
     //////////////search by tagName/////////////////////////////////////
     const handleTagClick = (tagName) => {
         router.push(`/resultSearch?category=tags&query=${tagName}`);
     };
+
     /////////////map tag to display//////////////////////////////////////
     const listTags = tags.map(tag => (
         <div
@@ -60,44 +113,82 @@ function ArtworkView() {
             {tag.name}
         </div>
     ));
+
     /////////////clic to artist profile///////////////////////////////////
     const handleUsernameClick = (username) => {
         router.push(`/user/?username=${username}`);
     };
+
     ////////////clic to image source in a new window//////////////////////
     const handleImageClick = (url) => {
         window.open(url, '_blank');
     };
+
     ///////////////////////bookmark///////////////////////////////
-    const username = useSelector(state => state.user.value.username)
-    const [isBookmarked, setIsbookmarked] = useState(false)
-    const handleBookmarkClick = () => {
+    const handleBookmarkClick = async () => {
         if (isBookmarked) {
-            setIsbookmarked(false)
+            setIsbookmarked(false);
             try {
-                fetch(`${urlBackend}/users/bookmark/${username}/${artwork._id}`, {
+                const response = await fetch(`${urlBackend}/users/bookmark/${username}/${artwork._id}`, {
                     method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json'
                     }
-                })
-                    .then(response => response.json())
-                    .then(data => console.log(data.message))
-            } catch (error) { console.error('problem to remove artwork from favorite') }
+                });
+                const data = await response.json();
+                console.log(data.message);
+            } catch (error) {
+                console.error('problem to remove artwork from favorite', error);
+            }
         } else {
-            setIsbookmarked(true)
+            setIsbookmarked(true);
             try {
-                fetch(`${urlBackend}/users/bookmark/${username}/${artwork._id}`, {
+                const response = await fetch(`${urlBackend}/users/bookmark/${username}/${artwork._id}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     }
-                })
-                    .then(response => response.json())
-                    .then(data => console.log(data.message))
-            } catch (error) { console.error('problem to add artwork to favorite') }
+                });
+                const data = await response.json();
+                console.log(data.message);
+            } catch (error) {
+                console.error('problem to add artwork to favorite', error);
+            }
         }
-    }
+    };
+
+    /////////////////////////Following///////////////////////////////////////////////////
+    const handleFollowingClick = async () => {
+        if (isFollowed) {
+            setIsFollowed(false);
+            try {
+                const response = await fetch(`${urlBackend}/users/following/${username}/${artwork.uploader}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                const data = await response.json();
+                console.log(data.message);
+            } catch (error) {
+                console.error('problem to remove artist from following', error);
+            }
+        } else {
+            setIsFollowed(true);
+            try {
+                const response = await fetch(`${urlBackend}/users/following/${username}/${artwork.uploader}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                const data = await response.json();
+                console.log(data.message);
+            } catch (error) {
+                console.error('problem to add artist to following', error);
+            }
+        }
+    };
 
     return (
         <div>
@@ -117,7 +208,7 @@ function ArtworkView() {
                     <div className={styles.artworkZone}>
                         <div className="titleArt">{artwork.title}</div>
                         {artwork.url && (
-                            <div className={styles.imageContainer} >
+                            <div className={styles.imageContainer}>
                                 <Image
                                     src={artwork.url}
                                     alt={artwork.title}
@@ -127,7 +218,11 @@ function ArtworkView() {
                                     className={`${styles.image}`}
                                     onClick={() => handleImageClick(artwork.url)}
                                 />
-                                {!isBookmarked ? (<BookmarkBorderIcon className={styles.bookmark} onClick={() => handleBookmarkClick()} />) : (<BookmarkIcon className={styles.bookmark} onClick={() => handleBookmarkClick()} />)}
+                                {!isBookmarked ? (
+                                    <BookmarkBorderIcon className={styles.bookmark} onClick={handleBookmarkClick} />
+                                ) : (
+                                    <BookmarkIcon className={styles.bookmark} onClick={handleBookmarkClick} />
+                                )}
                             </div>
                         )}
                         <div className={styles.tagsTitle}>
@@ -135,10 +230,18 @@ function ArtworkView() {
                         </div>
                     </div>
                     <div className={styles.textZone}>
-                        <div className={`titleArtworkTextZone ${styles.artist}`} onClick={() => handleUsernameClick(artwork.uploader)}>{artwork.uploader}</div>
-                        <div className="titleArtworkTextZone">Description</div>
-                        <div className={styles.descriptionText}>{artwork.description}
+                        <div className={styles.zoneArtist}>
+                            <div onClick={() => handleUsernameClick(artwork.uploader)} className={`titleArtworkTextZone ${styles.artist}`}>{artwork.uploader}</div>
+                            <div>
+                                {!isFollowed ? (
+                                    <BookmarkBorderIcon className={styles.bookmark} onClick={handleFollowingClick} />
+                                ) : (
+                                    <BookmarkIcon className={styles.bookmark} onClick={handleFollowingClick} />
+                                )}
+                            </div>
                         </div>
+                        <div className="titleArtworkTextZone">Description</div>
+                        <div className={styles.descriptionText}>{artwork.description}</div>
                         <div className="titleArtworkTextZone">Comments</div>
                         <CommentZone artwork={artwork} />
                     </div>
