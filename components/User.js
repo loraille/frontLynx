@@ -1,4 +1,4 @@
-import styles from '../styles/UserTest2.module.css';
+import styles from '../styles/User.module.css';
 import Header from './Header';
 // import ArtworkUpload from '../components/ArtworkUpload'
 import ArtworkCard from '../components/ArtworkCard';
