@@ -78,6 +78,7 @@ function User() {
     // Préparation de la liste des cartes de collections
     const listCollectionsCard = collections.map(collection => {
         return (
+            collection.artworks.length && // skip empty collections 
             <CollectionsCard
                 key={collection._id}
                 collectionName={collection.name}
