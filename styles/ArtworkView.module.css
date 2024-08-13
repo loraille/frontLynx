@@ -26,7 +26,7 @@
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  z-index: 1001; 
+  z-index: 1001;
 }
 .header {
   grid-row: 1 / 2;
@@ -39,9 +39,13 @@
   grid-column: 1 / 7;
   flex-direction: row;
 }
-
+.titleZone{
+  display: flex;
+align-items: center;
+gap:0.5rem;
+}
 .artworkZone {
-  padding:15px;
+  padding: 15px;
   flex: 2;
   display: flex;
   flex-direction: column;
@@ -51,7 +55,7 @@
 }
 
 .textZone {
-  padding:15px;
+  padding: 15px;
   margin-right: 15px;
   flex: 1;
 }
@@ -63,57 +67,60 @@
 }
 
 .imageContainer {
+  position: relative;
+  height: 100%;
   display: flex;
-  width: 500px;
-  height: 500px;
-  margin: 0 auto; 
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  /* border:1px solid red; */
 }
-.image{
+.image {
   cursor: pointer;
 }
-.bookmark{
-  color:#FEB830;
+.bookmark {
+  color: #FEB830;
   font-size: 40px;
   cursor: pointer;
 }
-.bookmarkOff{
-  color:#D9D9D9;
+.bookmarkOff {
+  color: #D9D9D9;
   font-size: 40px;
   cursor: pointer;
 }
-.bookmarkOff:hover{
-  color:#FEB830;
+.bookmarkOff:hover {
+  color: #FEB830;
   font-size: 40px;
   cursor: pointer;
 }
 
-
-.tagsTitle{
-  display:flex;
+.tagsTitle {
+  display: flex;
   font-size: 20px;
 }
-.tags{
+.tags {
   cursor: pointer;
-  margin:10px;
-  padding:10px 20px;
+  margin: 10px;
+  padding: 10px 20px;
   display: flex;
-  gap:20px;
-  border:1px solid #D9D9D9;
+  gap: 20px;
+  border: 1px solid #D9D9D9;
   border-radius: 20px;
 }
 /* zone droite */
-.zoneArtist{
-  display:flex;
+.zoneArtist {
+  display: flex;
   justify-content: flex-end;
   align-items: center;
   margin-right: 2rem;
+  gap:0.5rem;
 }
-.artist{
+.artist {
   cursor: pointer;
 }
-.descriptionText{
-  padding:10px;
-  border:2px solid #D9D9D9;
+.descriptionText {
+  padding: 10px;
+  border: 2px solid #D9D9D9;
   border-radius: 15px;
   background-color: transparent;
   color: #D9D9D9;

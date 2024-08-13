@@ -193,7 +193,7 @@ function ArtworkView() {
             }
         }
     };
-    console.log('username----------------', username)
+    const x = 800
     return (
         <div>
             <main className={styles.main}>
@@ -210,25 +210,29 @@ function ArtworkView() {
                 </div>
                 <div className={styles.container}>
                     <div className={styles.artworkZone}>
-                        <div className="titleArt">{artwork.title}</div>
+                        <div className={styles.titleZone}>
+                            <div className="titleArt">{artwork.title}</div>
+                            {username !== null ? (
+                                !isBookmarked ? (
+                                    <BookmarkBorderIcon className={styles.bookmark} onClick={handleBookmarkClick} />
+                                ) : (
+                                    <BookmarkIcon className={styles.bookmark} onClick={handleBookmarkClick} />
+                                )
+                            ) : <BookmarkBorderIcon className={styles.bookmarkOff} onClick={handleLogin} />}
+                        </div>
+
                         {artwork.url && (
                             <div className={styles.imageContainer}>
                                 <Image
                                     src={artwork.url}
                                     alt={artwork.title}
-                                    width={500}
-                                    height={500}
-                                    objectFit="cover"
+                                    layout='fill'
+                                    objectFit='contain'
+                                    // width={x}
+                                    // height={x}
                                     className={`${styles.image}`}
                                     onClick={() => handleImageClick(artwork.url)}
                                 />
-                                {username !== null ? (
-                                    !isBookmarked ? (
-                                        <BookmarkBorderIcon className={styles.bookmark} onClick={handleBookmarkClick} />
-                                    ) : (
-                                        <BookmarkIcon className={styles.bookmark} onClick={handleBookmarkClick} />
-                                    )
-                                ) : <BookmarkBorderIcon className={styles.bookmarkOff} onClick={handleLogin} />}
                             </div>
                         )}
                         <div className={styles.tagsTitle}>
