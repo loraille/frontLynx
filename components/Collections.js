@@ -2,6 +2,7 @@ import styles from '../styles/Categories.module.css';
 import { useState, useEffect } from 'react';
 import SignIn from './SignIn';
 import Signup from './Signup';
+import ArtworkUpload from './ArtworkUpload';
 import Header from './Header';
 import CollectionsCard from './CollectionsCard';
 import { urlBackend } from '../assets/varGlobal';
@@ -54,6 +55,7 @@ function Collections() {
                 <div className={styles.container}>
                     {modalType === 'signup' && <Signup isOpen={isModalOpen} onClose={handleCloseModal} />}
                     {modalType === 'signin' && <SignIn isOpen={isModalOpen} onClose={handleCloseModal} />}
+                    {modalType === 'upload' && <ArtworkUpload isOpen={isModalOpen} onClose={handleCloseModal} />}
                     <div className={styles.featuredSection}>
                         <h2 className='titlePage'>My collections</h2>
                     </div>

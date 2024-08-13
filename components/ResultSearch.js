@@ -2,6 +2,7 @@ import styles from '../styles/ResultSearch.module.css';
 import { useEffect, useState } from 'react';
 import SignIn from './SignIn';
 import Signup from './Signup';
+import ArtworkUpload from './ArtworkUpload';
 import Header from './Header';
 import ArtworkList from './ArtworkList';
 import { urlBackend } from '../assets/varGlobal';
@@ -88,6 +89,7 @@ function ResultSearch() {
         <div className={styles.container}>
           {modalType === 'signup' && <Signup isOpen={isModalOpen} onClose={handleCloseModal} />}
           {modalType === 'signin' && <SignIn isOpen={isModalOpen} onClose={handleCloseModal} />}
+          {modalType === 'upload' && <ArtworkUpload isOpen={isModalOpen} onClose={handleCloseModal} />}
         </div>
         <div>
           {category === 'artworks' && <h1 className="titlePage">Results for Artworks</h1>}

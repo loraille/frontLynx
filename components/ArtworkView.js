@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import Header from './Header';
 import SignIn from './SignIn';
 import Signup from './Signup';
+import ArtworkUpload from './ArtworkUpload';
 import { urlBackend } from '../assets/varGlobal';
 import Image from 'next/image';
 import CommentZone from './CommentZone';
@@ -205,6 +206,7 @@ function ArtworkView() {
                         <div className={styles.modalBackdrop}>
                             {modalType === 'signup' && <Signup isOpen={isModalOpen} onClose={handleCloseModal} />}
                             {modalType === 'signin' && <SignIn isOpen={isModalOpen} onClose={handleCloseModal} />}
+                            {modalType === 'upload' && <ArtworkUpload isOpen={isModalOpen} onClose={handleCloseModal} />}
                         </div>
                     )}
                 </div>

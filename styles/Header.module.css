@@ -8,6 +8,7 @@
   src: url('../assets/Khand-Regular.ttf') format('truetype');
 } */
 /* MAIN */
+
 .main {
   display: flex;
   justify-content: space-between;
