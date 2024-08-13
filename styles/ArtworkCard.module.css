@@ -4,6 +4,7 @@
     justify-content: space-between;
     align-items: center; /* Centre uniquement l'image */
     width: 220px;
+    height: 280px;
     padding: 1rem;
     background-color: #212020;
     border: 1px solid white;
@@ -15,7 +16,7 @@
 }
 .artworkCard .artworkImage {
     width: 100%;
-    height: auto;
+    height: 100%;
     border-radius: 8px 8px 0 0;
 }
 .infos {

@@ -34,8 +34,22 @@ gap:20px;
 margin:0px 15px ;
 }
 
-@media (max-width: 768px) {
-  .artworkList {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  }
+.artworkCard {
+  position: relative;
+  height: 100%;
 }
+
+.deleteIcon {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  font-size: 40px;
+  color: #FEB830;
+  cursor: pointer;
+}
+.deleteIcon:hover {
+
+  color: #ffffff;
+  
+}
+

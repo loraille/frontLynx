@@ -9,6 +9,7 @@ import styles from '../styles/ArtworksDisplay.module.css';
 import ArtistCard from './ArtistCard';
 import { urlBackend } from '../assets/varGlobal';
 import { useRouter } from 'next/router';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 function ArtworksDisplay() {
     ////////////modale///////////////////////////////////////////
@@ -105,13 +106,43 @@ function ArtworksDisplay() {
         }
     }, [toDisplay, fromLink]);
 
-    const artworksList = artworks.map(artwork => {
-        return <ArtworkCard key={artwork._id} artwork={artwork} />
-    });
+    const handleDelete = (id) => {
+        console.log(id)
+        fetch(`${urlBackend}/artworks/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    setArtworks(data);
+                } else {
+                    console.error("Unexpected BDD response:", data);
+                }
+            })
+    }
 
-    const artistsList = artists.map(artist => {
-        return <ArtistCard key={artist._id} artist={artist} />
-    });
+    let artworksList;
+
+    if (fromLink === 'collection') {
+        console.log('fromLink-------------->', fromLink)
+        artworksList = artworks.map(artwork => (
+            <div key={artwork._id} className={styles.artworkCard}>
+                <ArtworkCard artwork={artwork} />
+                <HighlightOffIcon className={styles.deleteIcon} onClick={() => handleDelete(artwork._id)} />
+            </div>
+        ));
+    } else {
+        artworksList = artworks.map(artwork => (
+            <ArtworkCard key={artwork._id} artwork={artwork} />
+        ));
+    }
+
+    const artistsList = artists.map(artist => (
+        <ArtistCard key={artist._id} artist={artist} />
+    ));
 
     return (
         <div>
@@ -122,7 +153,7 @@ function ArtworksDisplay() {
                 <div className={styles.container}>
                     {isModalOpen && modalType === 'signup' && <Signup isOpen={isModalOpen} onClose={handleCloseModal} />}
                     {isModalOpen && modalType === 'signin' && <SignIn isOpen={isModalOpen} onClose={handleCloseModal} />}
-                    {modalType === 'upload' && <ArtworkUpload isOpen={isModalOpen} onClose={handleCloseModal} />}
+                    {isModalOpen && modalType === 'upload' && <ArtworkUpload isOpen={isModalOpen} onClose={handleCloseModal} />}
                 </div>
                 <div>
                     <h2 className='titlePage'>Artworks in {toDisplay}'s {fromLink}</h2>
