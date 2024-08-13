@@ -68,6 +68,7 @@
   width: 60%;
   position: relative; /* Nécessaire pour positionner le pseudo-élément correctement */
   z-index: 1; /* Assure que le texte reste au-dessus de l'overlay */
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   /* border: 3px solid rgb(0, 94, 255); */
 }
 
@@ -78,7 +79,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.61); 
+  background-color: rgba(51, 51, 51, 0.61); 
   z-index: -1; /* Place l'overlay derrière le texte */
   pointer-events: none; /* Permet de cliquer à travers l'overlay */
 }
