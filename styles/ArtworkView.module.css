@@ -76,6 +76,16 @@
   font-size: 40px;
   cursor: pointer;
 }
+.bookmarkOff{
+  color:#D9D9D9;
+  font-size: 40px;
+  cursor: pointer;
+}
+.bookmarkOff:hover{
+  color:#FEB830;
+  font-size: 40px;
+  cursor: pointer;
+}
 
 
 .tagsTitle{

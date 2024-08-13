@@ -19,7 +19,7 @@ function User() {
     const [bio, setBio] = useState('');
 
 
-    
+
     const handleOpenModal = () => {
         setIsModalOpen(true);
     };
@@ -65,8 +65,8 @@ function User() {
     console.log("YoupiYOUPI//////////////", artworks);
 
 
-     // Préparation de la liste des cartes d'œuvres d'art
-     const listArtworkCards = artworks.map(artwork => {
+    // Préparation de la liste des cartes d'œuvres d'art
+    const listArtworkCards = artworks.map(artwork => {
         return (
             <ArtworkCard
                 key={artwork._id}
@@ -102,53 +102,53 @@ function User() {
     //         });
     // }, []);
 
-//     return (
-//         <div>
-//             <main className={styles.main}>
-//                 <div className={styles.header}>
-//                     <Header onOpenModal={handleOpenModal} />
-//                 </div>
-//                 <div className={styles.container}>
-//                     <div className={styles.infos}>
-//                         <h2 className='titlePage'>Profile</h2>
-//                     </div>
-//                     <div className={styles.collection}>
-//                         <h2 className='titlePage'>Collections</h2>
-//                     </div>
-//                 </div>
-//             </main>
-//         </div>
-//     );
-// }
+    //     return (
+    //         <div>
+    //             <main className={styles.main}>
+    //                 <div className={styles.header}>
+    //                     <Header onOpenModal={handleOpenModal} />
+    //                 </div>
+    //                 <div className={styles.container}>
+    //                     <div className={styles.infos}>
+    //                         <h2 className='titlePage'>Profile</h2>
+    //                     </div>
+    //                     <div className={styles.collection}>
+    //                         <h2 className='titlePage'>Collections</h2>
+    //                     </div>
+    //                 </div>
+    //             </main>
+    //         </div>
+    //     );
+    // }
 
 
-return (
-    <div>
-        <main className={styles.main}>
-            <div className={styles.header}>
-                <Header onOpenModal={handleOpenModal} />
-            </div>
-            <div className={styles.container}>
-                <div className={styles.infos}>
-                    <h2 className={styles.titlePage}>{settings.username}</h2>
-                    <p>{bio}</p>
+    return (
+        <div>
+            <main className={styles.main}>
+                <div className={styles.header}>
+                    <Header onOpenModal={handleOpenModal} />
                 </div>
-                <div className={styles.artworkSection}>
-                    <h2 className={styles.titlePage}>Artworks</h2>
-                    <div className={styles.cardContainer}>
-                        {listArtworkCards}
+                <div className={styles.container}>
+                    <div className={styles.infos}>
+                        <h2 className='titlePage'>{settings.username}</h2>
+                        <p className={styles.bio}>{bio}</p>
+                    </div>
+                    <div className={styles.artworkSection}>
+                        <h2 className='titlePage'>Artworks</h2>
+                        <div className={styles.cardContainer}>
+                            {listArtworkCards}
+                        </div>
+                    </div>
+                    <div className={styles.collectionsSection}>
+                        <h2 className='titlePage'>Collections</h2>
+                        <div className={styles.cardContainer}>
+                            {listCollectionsCard}
+                        </div>
                     </div>
                 </div>
-                <div className={styles.collectionsSection}>
-                    <h2 className={styles.titlePage}>Collections</h2>
-                    <div className={styles.cardContainer}>
-                        {listCollectionsCard}
-                    </div>
-                </div>
-            </div>
-        </main>
-    </div>
-);
+            </main>
+        </div>
+    );
 }
 
 export default User;
