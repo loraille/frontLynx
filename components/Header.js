@@ -87,8 +87,6 @@ function Header({ onOpenModal }) {
         router.push('/');
     };
 
-    console.log('--------------------------', userInfo);
-
     return (
         <div className={styles.main}>
             <Modal isOpen={isModalOpen} onClose={handleCloseModal} />
