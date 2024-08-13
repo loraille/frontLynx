@@ -2,6 +2,7 @@ import styles from '../styles/EditSettings.module.css';
 import { useState, useEffect } from 'react';
 import SignIn from './SignIn';
 import Signup from './Signup';
+import ArtworkUpload from './ArtworkUpload';
 import Header from './Header';
 import { useSelector } from 'react-redux';
 import { urlBackend } from '../assets/varGlobal';
@@ -175,7 +176,7 @@ function EditSettings() {
                 <div className={styles.container}>
                     {modalType === 'signup' && <Signup isOpen={isModalOpen} onClose={handleCloseModal} />}
                     {modalType === 'signin' && <SignIn isOpen={isModalOpen} onClose={handleCloseModal} />}
-
+                    {modalType === 'upload' && <ArtworkUpload isOpen={isModalOpen} onClose={handleCloseModal} />}
                     <div className={styles.settings}>
                         <div className='title'>Infos</div>
                         <div>Username:<span className={styles.datas}>{settings.username}</span></div>

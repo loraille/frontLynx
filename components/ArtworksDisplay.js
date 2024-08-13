@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import ArtworkCard from './ArtworkCard';
 import SignIn from './SignIn';
 import Signup from './Signup';
+import ArtworkUpload from './ArtworkUpload';
 import Header from './Header';
 import styles from '../styles/ArtworksDisplay.module.css';
 import ArtistCard from './ArtistCard';
@@ -121,6 +122,7 @@ function ArtworksDisplay() {
                 <div className={styles.container}>
                     {isModalOpen && modalType === 'signup' && <Signup isOpen={isModalOpen} onClose={handleCloseModal} />}
                     {isModalOpen && modalType === 'signin' && <SignIn isOpen={isModalOpen} onClose={handleCloseModal} />}
+                    {modalType === 'upload' && <ArtworkUpload isOpen={isModalOpen} onClose={handleCloseModal} />}
                 </div>
                 <div>
                     <h2 className='titlePage'>Artworks in {toDisplay}'s {fromLink}</h2>

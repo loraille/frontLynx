@@ -125,7 +125,10 @@ function Header({ onOpenModal }) {
                             }}
                         >
                             <MenuItem onClick={handleProfile}>My Profile</MenuItem>
-                            <MenuItem onClick={handleUploadArtwork}>Create</MenuItem> {/* DEMO */}
+                            <MenuItem onClick={() => {
+                                onOpenModal('upload')
+                                handleClose()
+                            }}>Create</MenuItem> {/* DEMO */}
                             <MenuItem onClick={handleCollection}>My Collections</MenuItem>
                             <MenuItem onClick={handleFollowings}>My Followings</MenuItem>
                             <MenuItem onClick={handleBookmarks}>My Bookmarks</MenuItem>

@@ -11,10 +11,10 @@
 }
 
 .modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%); 
   background-color: #212020;
   padding: 20px;
   border-radius: 15px;
@@ -26,7 +26,6 @@
   flex-direction: column;
   align-items: center;
   border: none;
-  z-index: 1000;
 }
 
 
@@ -55,25 +54,4 @@
   opacity: 0.5;
 }
 
-.button {
-  cursor: pointer;
-  border: 1px solid rgb(255, 255, 255);
-  font-family: 'Khand';
-  font-size: 15px;
-  color: rgb(254, 184, 48);
-  padding: 5px 15px;
-  transition: all 327ms ease 0s;
-  width: auto;
-  box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px;
-  border-radius: 9px;
-  background: rgb(66, 65, 65);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
-.button:hover {
-  color: rgb(255, 255, 255);
-  background: rgb(254, 184, 48);
-  border-color: rgb(255, 255, 255);
-}

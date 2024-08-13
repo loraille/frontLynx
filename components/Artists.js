@@ -3,6 +3,7 @@ import ArtistCard from './ArtistCard';
 import Header from './Header';
 import SignIn from './SignIn';
 import Signup from './Signup';
+import ArtworkUpload from './ArtworkUpload';
 import styles from '../styles/Artists.module.css';
 
 const ArtistsPage = () => {
@@ -44,7 +45,7 @@ const ArtistsPage = () => {
         <div className={styles.container}>
           {modalType === 'signup' && <Signup isOpen={isModalOpen} onClose={handleCloseModal} />}
           {modalType === 'signin' && <SignIn isOpen={isModalOpen} onClose={handleCloseModal} />}
-
+          {modalType === 'upload' && <ArtworkUpload isOpen={isModalOpen} onClose={handleCloseModal} />}
           <div>
             <h2 className='titlePage'>Artists</h2>
             <div className={styles.artistsList}>
