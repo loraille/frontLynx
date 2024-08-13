@@ -9,18 +9,21 @@ const ArtworkCard = ({ artwork }) => {
   let artistName = artwork.username;
   console.log(artwork.url, artistName);
 
-  return (
-    <div className={styles.artworkCard}>
-      <Link href={{ pathname: '/artworkView', query: { id: artwork._id } }}>
-        <img src={artwork.url} alt={artwork.title} className={styles.artworkImage} />
-      </Link>
-      <div className={styles.infos}>
-        <p className={styles.artistName}>{artwork.uploader}</p>
-        <div className={styles.cardTitle}>{artwork.title}</div>
-      </div>
 
+return (
+  <div className={styles.artworkCard}>
+    <Link href={{ pathname: '/artworkView', query: { id: artwork._id } }}>
+      <img src={artwork.url} alt={artwork.title} className={styles.artworkImage} />
+    </Link>
+    <div className={styles.infos}>
+      <Link href={{ pathname: '/user', query: { username: artwork.uploader } }}>
+        <a className={styles.artistName}>{artwork.uploader}</a>
+      </Link>
+      <div className={styles.cardTitle}>{artwork.title}</div>
     </div>
-  );
+  </div>
+);
+
 };
 
 export default ArtworkCard;
