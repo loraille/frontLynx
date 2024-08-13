@@ -33,8 +33,8 @@ function Signup({ isOpen, onClose }) {
     };
 
     return (
-        <div className={styles.overlay} onClick={onClose}>
-            <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+        <div className={styles.overlay} onClick={onClose} style={{ zIndex: 1300 }} >
+            <div className={styles.modal} onClick={(e) => e.stopPropagation()} style={{ zIndex: 1301 }} >
                 <p className="title">Create your account</p>
                 <div className={styles.form}>
                     <div>

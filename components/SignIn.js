@@ -30,8 +30,8 @@ function SignIn({ isOpen, onClose }) {
     };
 
     return (
-        <div className={styles.overlay} onClick={onClose}>
-            <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+        <div className={styles.overlay} onClick={onClose} style={{ zIndex: 1300 }}>
+            <div className={styles.modal} onClick={(e) => e.stopPropagation()} style={{ zIndex: 1301 }}>
                 <p className="title">Enter in the place!</p>
                 <div>
                     <div><input type="text" placeholder="Username" id="signUpUsername" className={styles.inputField} onChange={(e) => setSignUpUsername(e.target.value)} value={signUpUsername} /></div>
