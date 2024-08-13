@@ -13,8 +13,8 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import EditIcon from '@mui/icons-material/Edit';
 import DoneIcon from '@mui/icons-material/Done';
 import Image from 'next/image';
-import Link from 'next/link'; // Import Link
-import { useRouter } from 'next/router'; // Import useRouter for redirection
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 function EditSettings() {
     //////////////////////////////////Modale/////////////////////////////////
@@ -47,7 +47,7 @@ function EditSettings() {
     const [bio, setBio] = useState('');
     const [avatarUrl, setAvatarUrl] = useState('');
     const [bannerUrl, setBannerUrl] = useState('');
-    const [redirect, setRedirect] = useState(false); // State for redirection
+    const [redirect, setRedirect] = useState(false);
     const router = useRouter();
 
     useEffect(() => {
@@ -63,7 +63,11 @@ function EditSettings() {
     }, [settings]);
 
     const handleEditClick = () => {
-        setIsEditing(true);
+        if (isEditing) {
+            setIsEditing(false)
+        } else {
+            setIsEditing(true);
+        }
         setIsModified(true)
     };
 
@@ -163,7 +167,6 @@ function EditSettings() {
         width: 1,
     });
 
-    console.log('isModified', isModified)
     return (
         <div>
             <main className={styles.main}>
@@ -219,7 +222,7 @@ function EditSettings() {
                                 </div>
                             )}
                             {isEditing ? (
-                                <DoneIcon onClick={handleUpdateClick} className={styles.icon} />
+                                <DoneIcon onClick={handleEditClick} className={styles.icon} />
                             ) : (
                                 <EditIcon onClick={handleEditClick} className={styles.icon} />
                             )}

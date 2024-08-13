@@ -10,6 +10,7 @@ import ArtistCard from './ArtistCard';
 import { urlBackend } from '../assets/varGlobal';
 import { useRouter } from 'next/router';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import Tooltip from '@mui/material/Tooltip';
 
 function ArtworksDisplay() {
     ////////////modale///////////////////////////////////////////
@@ -23,6 +24,7 @@ function ArtworksDisplay() {
         setIsModalOpen(false);
         setModalType('');
     };
+
     ////////////////////////Gestion de l'affichage/////////////////
     const router = useRouter();
     const { toDisplay, fromLink } = router.query;
@@ -33,7 +35,7 @@ function ArtworksDisplay() {
     useEffect(() => {
         if (fromLink === 'category') {
             if (!toDisplay) {
-                console.error(" is not defined");
+                console.error("toDisplay is not defined");
                 return;
             }
             fetch(`${urlBackend}/artworks/category/${toDisplay}`)
@@ -51,7 +53,7 @@ function ArtworksDisplay() {
                 });
         } else if (fromLink === 'collection') {
             if (!toDisplay) {
-                console.error(" is not defined");
+                console.error("toDisplay is not defined");
                 return;
             }
             fetch(`${urlBackend}/users/collection/${username}/${toDisplay}`)
@@ -69,7 +71,7 @@ function ArtworksDisplay() {
                 });
         } else if (fromLink === 'bookmarks') {
             if (!toDisplay) {
-                console.error(" is not defined");
+                console.error("toDisplay is not defined");
                 return;
             }
             fetch(`${urlBackend}/users/${username}`)
@@ -86,7 +88,7 @@ function ArtworksDisplay() {
                 });
         } else if (fromLink === 'following') {
             if (!toDisplay) {
-                console.error(" is not defined");
+                console.error("toDisplay is not defined");
                 return;
             }
             fetch(`${urlBackend}/users/${username}`)
@@ -104,10 +106,9 @@ function ArtworksDisplay() {
         } else {
             console.log('fromLink or toDisplay are not correct');
         }
-    }, [toDisplay, fromLink]);
+    }, [toDisplay, fromLink, username]);
 
     const handleDelete = (id) => {
-        console.log(id)
         fetch(`${urlBackend}/artworks/${id}`, {
             method: 'DELETE',
             headers: {
@@ -117,28 +118,32 @@ function ArtworksDisplay() {
             .then(response => response.json())
             .then(data => {
                 if (data) {
-                    setArtworks(data);
+                    setArtworks(prevArtworks => prevArtworks.filter(artwork => artwork._id !== id));
                 } else {
                     console.error("Unexpected BDD response:", data);
                 }
             })
-    }
+            .catch(error => {
+                console.error("Error deleting artwork:", error);
+            });
+    };
 
-    let artworksList;
-
-    if (fromLink === 'collection') {
-        console.log('fromLink-------------->', fromLink)
-        artworksList = artworks.map(artwork => (
-            <div key={artwork._id} className={styles.artworkCard}>
-                <ArtworkCard artwork={artwork} />
-                <HighlightOffIcon className={styles.deleteIcon} onClick={() => handleDelete(artwork._id)} />
-            </div>
-        ));
-    } else {
-        artworksList = artworks.map(artwork => (
-            <ArtworkCard key={artwork._id} artwork={artwork} />
-        ));
-    }
+    const renderArtworks = () => {
+        if (fromLink === 'collection') {
+            return artworks.map(artwork => (
+                <div key={artwork._id} className={styles.artworkCard}>
+                    <ArtworkCard artwork={artwork} />
+                    <Tooltip title="Delete" arrow>
+                        <HighlightOffIcon className={styles.deleteIcon} onClick={() => handleDelete(artwork._id)} />
+                    </Tooltip>
+                </div>
+            ));
+        } else {
+            return artworks.map(artwork => (
+                <ArtworkCard key={artwork._id} artwork={artwork} />
+            ));
+        }
+    };
 
     const artistsList = artists.map(artist => (
         <ArtistCard key={artist._id} artist={artist} />
@@ -168,7 +173,7 @@ function ArtworksDisplay() {
                     ) : (
                         artworks.length > 0 ? (
                             <div className={styles.artworkList}>
-                                {artworksList}
+                                {renderArtworks()}
                             </div>
                         ) : (
                             <p className={styles.noArtworks}>No artworks available</p>
