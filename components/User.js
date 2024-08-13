@@ -19,7 +19,7 @@ function User() {
     const [bio, setBio] = useState('');
 
 
-    
+
     const handleOpenModal = () => {
         setIsModalOpen(true);
     };
@@ -64,8 +64,13 @@ function User() {
     // console.log("YoupiYOUPI//////////////", artworks);
 
 
+<<<<<<< HEAD
      //////////////// Préparation de la liste des artworkCard//////////////////////
      const listArtworkCards = artworks.map(artwork => {
+=======
+    // Préparation de la liste des cartes d'œuvres d'art
+    const listArtworkCards = artworks.map(artwork => {
+>>>>>>> 8e5ea11c7271b8209aee80c5db840055afb132e0
         return (
             <ArtworkCard
                 key={artwork._id}
@@ -77,7 +82,11 @@ function User() {
     ////////////////// Préparation de la liste des collectionsCard/////////////////////
     const listCollectionsCard = collections.map(collection => {
         return (
+<<<<<<< HEAD
             collection.artworks.length && //skip empty collection
+=======
+            collection.artworks.length && // skip empty collections 
+>>>>>>> 8e5ea11c7271b8209aee80c5db840055afb132e0
             <CollectionsCard
                 key={collection._id}
                 collectionName={collection.name}
@@ -89,6 +98,41 @@ function User() {
 
 
 
+<<<<<<< HEAD
+=======
+
+
+    // const [settings, setSettings] = useState([])
+    // useEffect(() => {
+    //     fetch(`${urlBackend}/users/${username}`)
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             setSettings(data.userInfo);
+    //             console.log(data.message)
+    //         });
+    // }, []);
+
+    //     return (
+    //         <div>
+    //             <main className={styles.main}>
+    //                 <div className={styles.header}>
+    //                     <Header onOpenModal={handleOpenModal} />
+    //                 </div>
+    //                 <div className={styles.container}>
+    //                     <div className={styles.infos}>
+    //                         <h2 className='titlePage'>Profile</h2>
+    //                     </div>
+    //                     <div className={styles.collection}>
+    //                         <h2 className='titlePage'>Collections</h2>
+    //                     </div>
+    //                 </div>
+    //             </main>
+    //         </div>
+    //     );
+    // }
+
+
+>>>>>>> 8e5ea11c7271b8209aee80c5db840055afb132e0
     return (
         <div>
             <main className={styles.main}>
@@ -100,13 +144,21 @@ function User() {
                         <h2 className='titlePage'>{settings.username}</h2>
                         <p className={styles.bio}>{bio}</p>
                     </div>
+<<<<<<< HEAD
                     <div className={styles.artworkSection} id={styles.scrollbar1}>
+=======
+                    <div className={styles.artworkSection}>
+>>>>>>> 8e5ea11c7271b8209aee80c5db840055afb132e0
                         <h2 className='titlePage'>Artworks</h2>
                         <div className={styles.cardContainer}>
                             {listArtworkCards}
                         </div>
                     </div>
+<<<<<<< HEAD
                     <div className={styles.collectionsSection} id={styles.scrollbar1}>
+=======
+                    <div className={styles.collectionsSection}>
+>>>>>>> 8e5ea11c7271b8209aee80c5db840055afb132e0
                         <h2 className='titlePage'>Collections</h2>
                         <div className={styles.cardContainer}>
                             {listCollectionsCard}

@@ -119,11 +119,15 @@ function ArtworkView() {
         router.push(`/user/?username=${username}`);
     };
 
+
     ////////////clic to image source in a new window//////////////////////
     const handleImageClick = (url) => {
         window.open(url, '_blank');
     };
-
+    ////////////clic to image source in a new window//////////////////////
+    const handleLogin = (url) => {
+        console.log('SIGNUP/SIGNIN');
+    };
     ///////////////////////bookmark///////////////////////////////
     const handleBookmarkClick = async () => {
         if (isBookmarked) {
@@ -189,7 +193,7 @@ function ArtworkView() {
             }
         }
     };
-
+    const x = 800
     return (
         <div>
             <main className={styles.main}>
@@ -206,23 +210,29 @@ function ArtworkView() {
                 </div>
                 <div className={styles.container}>
                     <div className={styles.artworkZone}>
-                        <div className="titleArt">{artwork.title}</div>
+                        <div className={styles.titleZone}>
+                            <div className="titleArt">{artwork.title}</div>
+                            {username !== null ? (
+                                !isBookmarked ? (
+                                    <BookmarkBorderIcon className={styles.bookmark} onClick={handleBookmarkClick} />
+                                ) : (
+                                    <BookmarkIcon className={styles.bookmark} onClick={handleBookmarkClick} />
+                                )
+                            ) : <BookmarkBorderIcon className={styles.bookmarkOff} onClick={handleLogin} />}
+                        </div>
+
                         {artwork.url && (
                             <div className={styles.imageContainer}>
                                 <Image
                                     src={artwork.url}
                                     alt={artwork.title}
-                                    width={500}
-                                    height={500}
-                                    objectFit="cover"
+                                    layout='fill'
+                                    objectFit='contain'
+                                    // width={x}
+                                    // height={x}
                                     className={`${styles.image}`}
                                     onClick={() => handleImageClick(artwork.url)}
                                 />
-                                {!isBookmarked ? (
-                                    <BookmarkBorderIcon className={styles.bookmark} onClick={handleBookmarkClick} />
-                                ) : (
-                                    <BookmarkIcon className={styles.bookmark} onClick={handleBookmarkClick} />
-                                )}
                             </div>
                         )}
                         <div className={styles.tagsTitle}>
@@ -233,11 +243,12 @@ function ArtworkView() {
                         <div className={styles.zoneArtist}>
                             <div onClick={() => handleUsernameClick(artwork.uploader)} className={`titleArtworkTextZone ${styles.artist}`}>{artwork.uploader}</div>
                             <div>
-                                {!isFollowed ? (
-                                    <BookmarkBorderIcon className={styles.bookmark} onClick={handleFollowingClick} />
-                                ) : (
-                                    <BookmarkIcon className={styles.bookmark} onClick={handleFollowingClick} />
-                                )}
+                                {username !== null ? (
+                                    !isFollowed ? (
+                                        <BookmarkBorderIcon className={styles.bookmark} onClick={handleFollowingClick} />
+                                    ) : (
+                                        <BookmarkIcon className={styles.bookmark} onClick={handleFollowingClick} />
+                                    )) : <BookmarkBorderIcon className={styles.bookmarkOff} onClick={handleLogin} />}
                             </div>
                         </div>
                         <div className="titleArtworkTextZone">Description</div>
