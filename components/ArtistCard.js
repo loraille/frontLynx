@@ -9,7 +9,7 @@ import Grid from '@mui/material/Grid';
 
 const ArtistCard = ({ artist }) => {
   return (
-    <Card sx={styles.card}>
+    <Card sx={{ ...styles.card, zIndex: -0.9}}>
       <CardActionArea>
         <CardMedia
           component="img"
@@ -17,7 +17,7 @@ const ArtistCard = ({ artist }) => {
           height="200"
           image={artist.avatarUrl || 'defaultImage.jpg'} // Utilise une image par défaut si `avatar` est absent}
           title={artist.username}
-          sx={styles.artistImage}
+          sx={{ ...styles.artistImage, zIndex: -0.9 }}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div" sx={styles.text}>
