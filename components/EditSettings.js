@@ -11,8 +11,9 @@ import Button from '@mui/material/Button';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import EditIcon from '@mui/icons-material/Edit';
 import DoneIcon from '@mui/icons-material/Done';
-import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 import Image from 'next/image';
+import Link from 'next/link'; // Import Link
+import { useRouter } from 'next/router'; // Import useRouter for redirection
 
 function EditSettings() {
     //////////////////////////////////Modale/////////////////////////////////
@@ -39,13 +40,14 @@ function EditSettings() {
                 console.log(data.message)
             });
     }, []);
-    console.log(settings)
-
     ///////////////Fonction de modification///////////////////////////////
+    const [isModified, setIsModified] = useState(false)
     const [isEditing, setIsEditing] = useState(false);
     const [bio, setBio] = useState('');
     const [avatarUrl, setAvatarUrl] = useState('');
     const [bannerUrl, setBannerUrl] = useState('');
+    const [redirect, setRedirect] = useState(false); // State for redirection
+    const router = useRouter();
 
     useEffect(() => {
         if (settings.bio) {
@@ -61,10 +63,12 @@ function EditSettings() {
 
     const handleEditClick = () => {
         setIsEditing(true);
+        setIsModified(true)
     };
 
     //////////////upload avatar & banner/////////////////////////////////////////
     const handleFileChange = async (e, setUrl) => {
+        setIsModified(true)
         const file = e.target.files[0];
         const formData = new FormData();
         formData.append('image', file);
@@ -110,6 +114,9 @@ function EditSettings() {
             if (data.message === 'User updated successfully') {
                 setSettings(data.userInfo);
                 console.log(data.message);
+                setRedirect(true);
+
+                console.log('done')
             } else {
                 console.error('Failed to update user:', data.error);
             }
@@ -117,6 +124,9 @@ function EditSettings() {
             console.error('Error during user update:', error);
         }
     };
+    if (redirect) {
+        router.push(`/user?username=${username}`);
+    }
     /////////////////style des boutons///////////////////
 
     const UploadButton = styled(Button)(({ theme }) => ({
@@ -152,7 +162,7 @@ function EditSettings() {
         width: 1,
     });
 
-
+    console.log('isModified', isModified)
     return (
         <div>
             <main className={styles.main}>
@@ -178,7 +188,7 @@ function EditSettings() {
                             tabIndex={-1}
                             startIcon={<CloudUploadIcon />}
                         >
-                            Upload Avatar
+                            Upload
                             <VisuallyHiddenInput type="file" onChange={(e) => handleFileChange(e, setAvatarUrl)} />
                         </UploadButton>
                         </div>
@@ -189,7 +199,7 @@ function EditSettings() {
                             tabIndex={-1}
                             startIcon={<CloudUploadIcon />}
                         >
-                            Upload Banner
+                            Upload
                             <VisuallyHiddenInput type="file" onChange={(e) => handleFileChange(e, setBannerUrl)} />
                         </UploadButton></div>
 
@@ -213,13 +223,21 @@ function EditSettings() {
                                 <EditIcon onClick={handleEditClick} className={styles.icon} />
                             )}
                         </div>
-                        <button
-                            id="create"
-                            className={`button ${styles.validate}`}
-                            onClick={handleUpdateClick}
-                        >
-                            Update!
-                        </button>
+                        {isModified ?
+                            <button
+                                id="create"
+                                className={`button ${styles.validate}`}
+                                onClick={handleUpdateClick}>
+                                Update!
+                            </button>
+                            :
+                            <button
+                                id="create"
+                                className={`button ${styles.validate}`}
+                                onClick={handleUpdateClick} disabled>
+                                Update!
+                            </button>
+                        }
                     </div>
                     <div className={styles.imgZone}>
                         <span className='title'>Banner</span>
