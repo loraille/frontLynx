@@ -15,7 +15,7 @@ function User() {
     /////// État pour stocker la liste des œuvres d’art/olletions pour l’utilisateur: ////////
     const [artworks, setArtworks] = useState([]);
     const [collections, setCollections] = useState([]);
-    const [settings, setSettings] = useState([]);
+    const [settings, setSettings] = useState(null); //remplace ([]) afin de représenter l'état initial ou les données ne sont pas encore chargées
     const [bio, setBio] = useState('');
 
 
@@ -64,8 +64,8 @@ function User() {
     // console.log("YoupiYOUPI//////////////", artworks);
 
 
-     //////////////// Préparation de la liste des artworkCard//////////////////////
-     const listArtworkCards = artworks.map(artwork => {
+    //////////////// Préparation de la liste des artworkCard//////////////////////
+    const listArtworkCards = artworks.map(artwork => {
         return (
             <ArtworkCard
                 key={artwork._id}
@@ -87,6 +87,9 @@ function User() {
         );
     });
 
+    if (!settings) {
+        return <div>Loading...</div>; // Ou un autre indicateur de chargement
+    }
 
     return (
         <div>
@@ -95,7 +98,10 @@ function User() {
                     <Header onOpenModal={handleOpenModal} />
                 </div>
                 <div className={styles.container}>
-                    <div className={styles.infos}>
+                    <div
+                        className={`${styles.infos} ${styles.bannerBackground}`}
+                        style={settings.bannerUrl ? { backgroundImage: `url(${settings.bannerUrl})` } : {}}>
+                        <div className={styles.overlay}></div> {/* Overlay semi-transparent */}
                         <h2 className='titlePage'>{settings.username}</h2>
                         <p className={styles.bio}>{bio}</p>
                     </div>
