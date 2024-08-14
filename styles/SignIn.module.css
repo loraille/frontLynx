@@ -29,19 +29,21 @@
 }
 
 
+  /*show password*/
+  .showPassword{
+    color: #FEB830;
+  }
+  .showPasswordOff{
+    color: #D9D9D9;
+  }
+  /* Button SignUP */
 
-/* Style pour les champs de saisie */
-.inputField {
-  color: white;
-  font-family: 'Khand';
-  background-color:transparent;
-  padding: 10px;
-  border: 0.1px solid #ffffff;
-  margin-bottom: 10px;
-}
+  .register{
+    font-size: 30px;
+    width: auto;
+  }
 
-.register{
-  font-size: 30px;
-  width: auto;
-}
+  .errorMessage{
+    color: red;
+  }
 
