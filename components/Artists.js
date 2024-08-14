@@ -5,25 +5,42 @@ import SignIn from './SignIn';
 import Signup from './Signup';
 import ArtworkUpload from './ArtworkUpload';
 import styles from '../styles/Artists.module.css';
+import { urlBackend } from '../assets/varGlobal';
 
 const ArtistsPage = () => {
   const [artists, setArtists] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState('');
-  // const [error, setError] = useState(null); 
-  // MàJ de l'état 'error' avec msg d'erreur approprié
+
   useEffect(() => {
-    // Charger les données depuis le fichier JSON local
-    // fetch('/artists.json')
-    fetch('http://localhost:3000/users')
+    // Fetch des utilisateurs
+    fetch(`${urlBackend}/users`)
       .then(response => response.json())
       .then(data => {
-        console.log('Données chargées:', data.users);
-        setArtists(data.users);
-        // Duplication de l'artiste 10 fois
-        // const duplicatedArtists = Array(10).fill(data[0]);
-        // setArtists(duplicatedArtists);
-      });
+        const users = data.users;
+        // Process each user one by one
+        const artistsWithArtworks = [];
+
+        users.forEach(user => {
+          // Utilisation du req.query.limit dans la route
+          fetch(`${urlBackend}/artworks/uploader/${user.username}?limit=3`)
+          .then(response => response.json())
+            .then(data => {
+              console.log("/////////////////////////////////Fetched artworks for", user.username, ":", data.artworkInfo);
+
+              user.artworks = data.artworkInfo || [];
+              // Ajout des users avec artworks au tableau
+              artistsWithArtworks.push(user);
+              
+              // Une fois tous les users traités, màj de l'état
+              if (artistsWithArtworks.length === users.length) {
+                setArtists(artistsWithArtworks);
+              }
+            })
+            .catch(error => console.error('Error fetching artworks:', error));
+        });
+      })
+      .catch(error => console.error('Error fetching users:', error));
   }, []);
 
   const handleOpenModal = (type) => {
