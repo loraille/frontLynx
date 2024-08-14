@@ -3,6 +3,9 @@ import Head from 'next/head';
 import { Provider } from 'react-redux'
 import user from '../reducers/user';
 
+import { GoogleOAuthProvider } from '@react-oauth/google';
+
+
 import { persistStore, persistReducer } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import storage from 'redux-persist/lib/storage';
@@ -22,14 +25,18 @@ const persistConfig = { key: 'lynX', storage };
 
 function App({ Component, pageProps }) {
   return (
+    <GoogleOAuthProvider clientId="xxx">
+
     <Provider store={store}>
       {/* <PersistGate persistor={persistor}> */}
         <Head>
           <title>Next.js App</title>
         </Head>
         <Component {...pageProps} />
+
       {/* </PersistGate> */}
     </Provider>
+    </GoogleOAuthProvider>
   );
 }
 

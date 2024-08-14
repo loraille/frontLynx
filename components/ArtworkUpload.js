@@ -141,7 +141,7 @@ const ArtworkUpload = ({ isOpen, onClose, children }) => {
         }).then((response) => response.json())
             .then((data) => {
                 if (data.result) {
-                    console.log("Uploaded!  data.artwork.url:", data.artwork.url);
+                    console.log("Uploaded!  data.url:", data.url);
                     setRedirect(true);
                 }
                 else {
