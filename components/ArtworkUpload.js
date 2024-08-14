@@ -2,7 +2,6 @@ import styles from '../styles/ArtworkUpload.module.css';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { urlBackend } from '../assets/varGlobal';
-import * as React from 'react';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -10,6 +9,9 @@ import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
+import { useRouter } from 'next/router';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -73,22 +75,11 @@ const CustomInputLabel = styled(InputLabel)(({ theme }) => ({
         color: 'orange',
     },
 }));
- 
-// - DEMO2 : on init CREATE button is disabled
-//   enabled when all required fields are populated and file selected
-//   optional fields: all fields including are mandatory for the DEMO
-//   close modal when artwork uploaded.
-// -TODO:  
-//   when artwork uploaded navigate to related collection
-//   when file selected display filename 
-
 
 const ArtworkUpload = ({ isOpen, onClose, children }) => {
     if (!isOpen) return null;
-    // DEMO
-    //  artworks.uploader will store artist who is currently connected and uploading his artwork
     const username = useSelector((state) => state.user.value.username);
-    let uploader=username;
+    let uploader = username;
 
     const [categories, setCategories] = useState([]);
     const [category, setCategory] = useState('');
@@ -96,8 +87,13 @@ const ArtworkUpload = ({ isOpen, onClose, children }) => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [tags, setTags] = useState([]);
-    const [imageToUpload,setimageToUpload] = useState(''); //DEMO2
-    const [isCreate,setisCreate] = useState(false);        //DEMO2
+    const [imageToUpload, setimageToUpload] = useState('');
+    const [isCreate, setisCreate] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+    const [redirect, setRedirect] = useState(false);
+    const [loading, setLoading] = useState(false); // Ajout de l'état de chargement
+
+    const router = useRouter();
 
     useEffect(() => {
         fetch(`${urlBackend}/categories`)
@@ -107,40 +103,29 @@ const ArtworkUpload = ({ isOpen, onClose, children }) => {
             });
     }, []);
 
-
     useEffect(() => {
         console.log("enable Create button if all required form fields are populated");
-        // DEMO2 enable create button when user finished to fill required fields and selected the file to upload
-        //       disable create if user clear one of required field or during test file name cleared (for the moment we are blind no filename displayed)
-        if (category && collection && title && description && imageToUpload) // remove description if not required
+        if (category && collection && title && description && imageToUpload)
             setisCreate(true);
-        else 
+        else
             setisCreate(false);
-        }, [imageToUpload,category,collection,title,description,imageToUpload]); // remove description if not required
-    
+    }, [imageToUpload, category, collection, title, description]);
+
+    useEffect(() => {
+        if (redirect) {
+            console.log("Redirecting to user page");
+            router.push(`/user?username=${username}`);
+            onClose();
+        }
+    }, [redirect, router, username, onClose]);
+
     const listCategory = categories.map(e => {
-        return <MenuItem value={e.name}>{e.name}</MenuItem>;
+        return <MenuItem key={e.name} value={e.name}>{e.name}</MenuItem>;
     });
-    
+
     const handleUpload = () => {
         const formData = new FormData();
-        console.log("\\\\\\\\\\\\\\\\\\\\\\\\\\", title, description, category, collection, uploader);
-        /* DO NOT TRY IT LIKE THIS  (and also do not use header in fetch below it will be added automatically ):
-        let formJson = {
-            uploader: uploader,
-            category: category,
-            collection,
-            description,
-            title,
-            tags,
-        };
-        JSON.stringify(formJson);
-        // console.log("\\\\\\\formJson to send to backend:", formJson ) 
-        */
-        // append to FormData all user inputs:
-        // 1. the selected file:
-        formData.append('imageFromFront', imageToUpload); // ok req.files
-        // 2. form fields values:
+        formData.append('imageFromFront', imageToUpload);
         formData.append('uploader', uploader);
         formData.append('category', category);
         formData.append('collection', collection);
@@ -148,27 +133,26 @@ const ArtworkUpload = ({ isOpen, onClose, children }) => {
         formData.append('title', title);
         formData.append('tags', tags);
 
-        fetch('http://localhost:3000/artworks/upload', {
+        setLoading(true); // Début du chargement
+
+        fetch(`${urlBackend}/artworks/upload`, {
             method: 'POST',
-            body: formData,  // do not add any header, simply set body with FormData ... et voilà.
+            body: formData,
         }).then((response) => response.json())
             .then((data) => {
                 if (data.result) {
-                    // TODO: if we want to share with other components update reducer:  dispatch(addImage(data.artwork.url));
-                    console.log("Uploaded!  data.artwork.url:", data.artwork.url)
+                    console.log("Uploaded!  data.artwork.url:", data.artwork.url);
+                    setRedirect(true);
                 }
                 else {
                     console.log("something went wrong", data.error);
+                    setErrorMessage(data.error);
                 }
+                setLoading(false); // Fin du chargement
             });
-            // WIP : currently simply closing modal 
-            /// pull last changes and navigate to the collection
-            //  passing collectionName of new uploaded artwork
-            onClose();
     };
 
     const getFileToUpload = (e) => {
-        // console.log("set imageToUpload to selected file :  e.target.files[0]", e.target.files[0]);
         setimageToUpload(e.target.files[0]);
     };
 
@@ -241,20 +225,22 @@ const ArtworkUpload = ({ isOpen, onClose, children }) => {
                         startIcon={<CloudUploadIcon />}
                     >
                         Upload file
-                        <VisuallyHiddenInput type="file"  onChange={(e) => getFileToUpload(e)} />
+                        <VisuallyHiddenInput type="file" onChange={(e) => getFileToUpload(e)} />
                     </UploadButton>
-                    { isCreate ?
-                        <button id="create"
-                            className={`button ${styles.validate}`} onClick={() => handleUpload()}>
-                                Create
-                        </button>
-                        :
+                    {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
+                    {loading ? (
+                        <Box sx={{ display: 'flex' }}>
+                            <CircularProgress />
+                        </Box>
+                    ) : (
                         <button id="create"
                             className={`button ${styles.validate}`}
-                            onClick={() => handleUpload()} disabled>
-                                Create
+                            onClick={() => handleUpload()}
+                            disabled={!isCreate}
+                        >
+                            Create
                         </button>
-                    }
+                    )}
                 </div>
             </div>
             <div>

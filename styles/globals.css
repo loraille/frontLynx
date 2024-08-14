@@ -33,6 +33,7 @@ body {
   margin-bottom: 1rem;
   font-family: 'Khand', sans-serif;
   font-size: 2rem;
+  white-space: nowrap;
 }
 
 .titleArt{
