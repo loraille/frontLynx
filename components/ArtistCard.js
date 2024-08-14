@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link'; 
 import Card from '@mui/material/Card';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent';
@@ -9,46 +10,48 @@ import Grid from '@mui/material/Grid';
 
 const ArtistCard = ({ artist }) => {
   return (
-    <Card sx={{ ...styles.card, zIndex: -0.9}}>
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          alt={artist.username}
-          height="200"
-          image={artist.avatarUrl || 'defaultImage.jpg'} // Utilise une image par défaut si `avatar` est absent}
-          title={artist.username}
-          sx={{ ...styles.artistImage, zIndex: -0.9 }}
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div" sx={styles.text}>
-            {artist.username}
-          </Typography>
-          <Typography variant="body2" color="text.secondary" sx={styles.artistDescription}>
-            {artist.bio || 'No biography available.'} {/* Utilise `bio` ou un texte par défaut */}
-          </Typography>
-          <Typography variant="h6" component="div" sx={styles.sectionTitle}>
-            {/* Ses œuvres */}
-          </Typography>
-          <Grid container spacing={2} sx={styles.gridContainer}>
-            {/* {artist.collections && artist.collections.map((collection) =>
-              collection.artworks.map((work, index) => (
-                <Grid item key={index} xs={12} sm={4}>
-                  <CardMedia
-                    component="img"
-                    height="100"
-                    image={`http://localhost:3000/artworks/${work}`} // Assurez-vous que ce chemin est correct
-                    alt={`Artwork ${index + 1}`}
-                  />
-                  <Typography variant="body2" color="text.secondary" sx={styles.workTitle}>
-                    {work.title}
-                  </Typography>
-                </Grid>
-              ))
-            )} */}
-          </Grid>
-        </CardContent>
-      </CardActionArea>
-    </Card>
+    <Link href={{ pathname: '/user', query: { username: artist.username } }}>
+      <a> {/* Ensemble de la carte cliquable */}
+        <Card sx={{ ...styles.card, zIndex: -0.9 }}>
+          <CardActionArea>
+            <CardMedia
+              component="img"
+              alt={artist.username}
+              height="200"
+              image={artist.avatarUrl || 'defaultImage.jpg'} // Utilise une image par défaut si `avatar` est absent}
+              title={artist.username}
+              sx={{ ...styles.artistImage, zIndex: -0.9 }}
+            />
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="div" sx={styles.text}>
+                {artist.username}
+              </Typography>
+              <Typography variant="body2" color="text.secondary" sx={styles.artistDescription}>
+                {artist.bio || 'No biography available.'} {/* Utilise `bio` ou texte par défaut */}
+              </Typography>
+              <Typography variant="h6" component="div" sx={styles.sectionTitle}>
+                {/* Ses œuvres */}
+              </Typography>
+              <Grid container spacing={2} sx={styles.gridContainer}>
+                {artist.artworks && artist.artworks.map((work, index) => (
+                  <Grid item key={index} xs={12} sm={4}>
+                    <CardMedia
+                      component="img"
+                      height="100"
+                      image={work.url}
+                      alt={`Artwork ${index + 1}`}
+                    />
+                    <Typography variant="body2" color="text.secondary" sx={styles.workTitle}>
+                      {work.title}
+                    </Typography>
+                  </Grid>
+                ))}
+              </Grid>
+            </CardContent>
+          </CardActionArea>
+        </Card>
+      </a>
+    </Link>
   );
 };
 

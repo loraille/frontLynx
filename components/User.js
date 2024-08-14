@@ -1,10 +1,10 @@
 import styles from '../styles/User.module.css';
 import Header from './Header';
-// import ArtworkUpload from '../components/ArtworkUpload'
+import ArtworkUpload from '../components/ArtworkUpload'
 import ArtworkCard from '../components/ArtworkCard';
 import CollectionsCard from '../components/CollectionsCard';
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import { urlBackend } from '../assets/varGlobal'
 import { useRouter } from 'next/router';
 
