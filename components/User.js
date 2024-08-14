@@ -118,7 +118,7 @@ function User() {
                 </div>
                 <div className={styles.collectionsSection} id={styles.scrollbar1}>
                     <h2 className='titlePage'>Collections</h2>
-                    <div className={styles.cardContainer}>
+                    <div className={styles.cardContainerCollections}>
                         {listCollectionsCard}
                     </div>
                 </div>
