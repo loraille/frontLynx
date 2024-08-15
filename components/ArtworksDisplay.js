@@ -27,17 +27,22 @@ function ArtworksDisplay() {
 
     ////////////////////////Gestion de l'affichage/////////////////
     const router = useRouter();
-    const { toDisplay, fromLink } = router.query;
+    const { uploader, toDisplay, fromLink } = router.query;
     const [artworks, setArtworks] = useState([]);
     const [artists, setArtists] = useState([]);
-    const username = useSelector(state => state.user.value.username);
+    const  [isDeletable, setisDeletable]  = useState(true);
+
+    let username = useSelector(state => state.user.value.username);
+
 
     useEffect(() => {
+        console.log("###username,uploader", username,uploader);
         if (fromLink === 'category') {
             if (!toDisplay) {
                 console.error("toDisplay is not defined");
                 return;
             }
+            
             fetch(`${urlBackend}/artworks/category/${toDisplay}`)
                 .then(response => response.json())
                 .then(data => {
@@ -52,6 +57,14 @@ function ArtworksDisplay() {
                     console.error("Error fetching artworks:", error);
                 });
         } else if (fromLink === 'collection') {
+            // only logged in user can delete his own artwork
+            if (username != uploader) {
+                console.log("###username,uploader", username,uploader);
+                setisDeletable(false);
+            }
+
+            username=uploader; // not logged in visitor or logged in 
+
             if (!toDisplay) {
                 console.error("toDisplay is not defined");
                 return;
@@ -88,7 +101,7 @@ function ArtworksDisplay() {
                 });
         } else if (fromLink === 'following') {
             if (!toDisplay) {
-                console.error("toDisplay is not defined");
+                console.error("toDisisDeletableplay is not defined");
                 return;
             }
             fetch(`${urlBackend}/users/${username}`)
@@ -106,7 +119,7 @@ function ArtworksDisplay() {
         } else {
             console.log('fromLink or toDisplay are not correct');
         }
-    }, [toDisplay, fromLink, username]);
+    }, [toDisplay, fromLink, username, uploader]);
 
     const handleDelete = (id) => {
         fetch(`${urlBackend}/artworks/${id}`, {
@@ -129,7 +142,7 @@ function ArtworksDisplay() {
     };
 
     const renderArtworks = () => {
-        if (fromLink === 'collection') {
+        if (fromLink === 'collection' && isDeletable) {
             return artworks.map(artwork => (
                 <div key={artwork._id} className={styles.artworkCard}>
                     <ArtworkCard artwork={artwork} />

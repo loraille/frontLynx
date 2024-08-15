@@ -79,8 +79,10 @@ function User() {
     ////////////////// Préparation de la liste des collectionsCard/////////////////////
     const listCollectionsCard = collections.map(collection => {
         return (
+            collection.artworks.length && // ISSUE 001 when a collection is empty don't try to display it
             <CollectionsCard
                 key={collection._id}
+                uploader = {settings.username} // ISSUE 002 missing uploader for ArtworksDisplay collection's artworks when visitor
                 collectionName={collection.name}
                 artworks={collection.artworks}
                 image_url={collection.artworks[collection.artworks.length - 1].url}

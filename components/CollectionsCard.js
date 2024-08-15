@@ -2,10 +2,10 @@ import React from 'react';
 import styles from '../styles/CategoriesCard.module.css';
 import { useRouter } from 'next/router';
 
-const CollectionsCard = ({ collectionName, image_url, artworks }) => {
+const CollectionsCard = ({ uploader, collectionName, image_url, artworks }) => {
   const router = useRouter();
   const handleCollectionClick = (collection) => {
-    router.push(`/artworksDisplay/?fromLink=collection&toDisplay=${collection}`);
+    router.push(`/artworksDisplay/?fromLink=collection&toDisplay=${collection}&uploader=${uploader}`);
   };
   return (
     <div className={styles.categoryCard}>
