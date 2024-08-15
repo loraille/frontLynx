@@ -7,11 +7,13 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
 import { useRouter } from 'next/router';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import { orange } from "@mui/material/colors";
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -50,9 +52,7 @@ const UploadButton = styled(Button)(({ theme }) => ({
 const CustomSelect = styled(Select)(({ theme }) => ({
     backgroundColor: 'transparent',
     border: '1px solid rgb(255, 255, 255)',
-    fontFamily: '"Khand"',
-    fontSize: '14px',
-    color: 'rgb(254, 184, 48)',
+    color: 'white',
     padding: '5px 15px',
     borderRadius: '9px',
     '&:hover .MuiOutlinedInput-notchedOutline': {
@@ -68,8 +68,6 @@ const CustomSelect = styled(Select)(({ theme }) => ({
 
 const CustomInputLabel = styled(InputLabel)(({ theme }) => ({
     color: 'rgb(254, 184, 48)',
-    fontFamily: '"Khand"',
-    fontSize: '14px',
     textShadow: '1px 1px 0 #212020, -1px -1px 0 #212020, 1px -1px 0 #212020, -1px 1px 0 #212020',
     '&.Mui-focused': {
         color: 'orange',
@@ -165,7 +163,7 @@ const ArtworkUpload = ({ isOpen, onClose, children }) => {
             <div className={styles.modal} onClick={(e) => e.stopPropagation()} style={{ zIndex: 1301 }}>
                 <p className="title">My new creation!</p>
                 <div className={styles.form}>
-                    <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+                    <FormControl sx={{ m: 1, width: '50ch' }} >
                         <CustomInputLabel id="demo-select-small-label">Category</CustomInputLabel>
                         <CustomSelect
                             labelId="demo-select-small-label"
@@ -177,60 +175,88 @@ const ArtworkUpload = ({ isOpen, onClose, children }) => {
                             {listCategory}
                         </CustomSelect>
                     </FormControl>
-                    <div>
-                        <input
-                            type="text"
-                            placeholder="Collection"
-                            id="collection"
-                            className={styles.inputField}
+                    <Box
+                        component="form"
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            color: 'white',
+                            '& > :not(style)': { m: 1, width: '50ch' },
+                        }}
+                        noValidate
+                        autoComplete="off"
+                    >
+                        <TextField
+                            id="outlined-basic-collection"
+                            label="Collection"
+                            variant="outlined"
+                            className="customTextField"
                             onChange={(e) => setCollection(e.target.value)}
                             value={collection}
                         />
-                    </div>
-                    <div>
-                        <input
-                            type="text"
-                            placeholder="Title"
-                            id="title"
-                            className={styles.inputField}
+                        <TextField
+                            id="outlined-basic-title"
+                            label="Title"
+                            variant="outlined"
+                            className="customTextField"
                             onChange={(e) => setTitle(e.target.value)}
                             value={title}
                         />
-                    </div>
-                    <div>
-                        <input
-                            type="textarea"
-                            placeholder="Description"
-                            id="description"
-                            className={styles.inputField}
+                        <TextField
+                            id="outlined-basic-title"
+                            label="Description"
+                            variant="outlined"
+                            className="customTextField"
+                            multiline
+                            maxRows={4}
                             onChange={(e) => setDescription(e.target.value)}
                             value={description}
                         />
-                    </div>
-                    <div>
-                        <input
-                            type="text"
-                            placeholder="Tags: one anotherOne no_1"
-                            id="tags"
-                            className={styles.inputField}
+                        <TextField
+                            id="outlined-basic-title"
+                            label="Tags"
+                            variant="outlined"
+                            className="customTextField"
                             onChange={(e) => setTags(e.target.value)}
                             value={tags}
                         />
+                    </Box>
+                    <div className={styles.upload}>
+                        <UploadButton
+                            component="label"
+                            role={undefined}
+                            variant="contained"
+                            tabIndex={-1}
+                            sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                width: '200px',
+                                height: '80px',
+                                fontSize: '30px',
+                                margin: '0 auto',
+                                marginTop: '10px',
+                            }}
+                            startIcon={<CloudUploadIcon className={styles.upload} />}
+                        >
+                            Upload file
+                            <VisuallyHiddenInput type="file" onChange={(e) => getFileToUpload(e)} />
+                        </UploadButton>
                     </div>
-                    <UploadButton
-                        component="label"
-                        role={undefined}
-                        variant="contained"
-                        tabIndex={-1}
-                        startIcon={<CloudUploadIcon />}
-                    >
-                        Upload file
-                        <VisuallyHiddenInput type="file" onChange={(e) => getFileToUpload(e)} />
-                    </UploadButton>
+
                     {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
                     {loading ? (
-                        <Box sx={{ display: 'flex' }}>
-                            <CircularProgress />
+                        <Box sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                        }}>
+                            <CircularProgress size={68}
+                                sx={{
+
+                                    color: orange[400],
+                                    margin: '0 auto',
+                                    marginTop: '10px'
+                                }}
+                            />
                         </Box>
                     ) : (
                         <button id="create"
@@ -243,9 +269,7 @@ const ArtworkUpload = ({ isOpen, onClose, children }) => {
                     )}
                 </div>
             </div>
-            <div>
-                <div></div>
-            </div>
+
         </div>
     );
 };

@@ -40,7 +40,6 @@
   margin:1rem;
   padding:3px 20px;
   box-sizing: border-box;
-  overflow-y: auto;
 }
 .infoUser:hover{
   background-color: rgb(66, 65, 65);

@@ -1,4 +1,4 @@
-import styles from '../styles/SignIn.module.css';
+import styles from '../styles/SignUpin.module.css';
 
 import SignIn from './SignIn';
 import Signup from './Signup';
@@ -32,14 +32,15 @@ function SignUpIn({ isOpen, onClose }) {
 
         <div className={styles.overlay} onClick={onClose} style={{ zIndex: 1300 }} >
             <div className={styles.modal} onClick={(e) => e.stopPropagation()} style={{ zIndex: 1301, color: 'white' }}>
-                <div className={styles.title}>
-                    Hey please Sign In for such action <br />
-                    <div className={styles.button} style={{ color: '#feb830' }} onClick={() => handleOpenModal('signin')} >Sign In</div>
-                    No account yet ? Sign Up now!!! <br /> you will be able to bookmark artworks, follow your prefered artists, share your artworks to others, ... and more!
-                    <div className={styles.button} style={{ color: '#feb830' }} onClick={() => handleOpenModal('signup')}>Sign Up</div>
-                    <br />
+                <div className={styles.container}>
+                    <span className='title'>Welcome in the place!</span>
+                    <button id="register" className={`button ${styles.register}`} onClick={() => handleOpenModal('signin')}>Sign In</button>
+                    Hey please Sign Up for such actions
+                    <button id="register" className={`button ${styles.register}`} onClick={() => handleOpenModal('signup')}>Sign Up</button>
+
+                    {/*------------------------------------------------- CONNEXION GOOGLE------------------------------- */}
+                    {/*  <div className={styles.divider}></div>
                     Or continue with google :
-                    <div className={styles.divider}></div>
                     <GoogleLogin
                         onSuccess={(credentialResponse) => {
                             const decoded = jwtDecode(credentialResponse.credential);
@@ -55,7 +56,7 @@ function SignUpIn({ isOpen, onClose }) {
                             <div className={styles.divider}></div>
                             <p> Email: {uzer.email}</p>
                         </div>
-                    }
+                    } */}
                 </div>
                 {modalType === 'signup' && <Signup isOpen={isModalOpen} onClose={handleCloseModal} />}
                 {modalType === 'signin' && <SignIn isOpen={isModalOpen} onClose={handleCloseModal} />}

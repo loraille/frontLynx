@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Head from 'next/head';
 import styles from '../styles/Header.module.css';
 import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
@@ -88,7 +89,18 @@ function Header({ onOpenModal }) {
     };
 
     return (
+
         <div className={styles.main}>
+            <Head>
+                <title>Lynx</title>
+                <meta name="description" content="Lynx artists & artworks platform" />
+                <meta name="keywords" content="art, artists, artworks, platform, Lynx" />
+                <meta name="author" content="Lynx no owners" />
+                <meta name="robots" content="index, follow" />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <meta http-equiv="Content-Language" content="en" />
+            </Head>
+
             <Modal isOpen={isModalOpen} onClose={handleCloseModal} />
             <div className={styles.headerContent}>
                 <Link href='/'><span className={styles.h1}> Lynx</span></Link>

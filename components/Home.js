@@ -33,7 +33,9 @@ function Home() {
         </div>
         <div>
           <h2 className='titlePage'>Featured Artists</h2>
-          <ArtworkList /> {/* Insérer "featured Artists" */}
+          <div className={styles.artworkList}>
+            <ArtworkList />
+          </div>
         </div>
       </main>
     </div>

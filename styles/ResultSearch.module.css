@@ -30,5 +30,7 @@ font-family: 'nabla';
 .cardsDisplay{
   display: flex;
   flex-wrap: wrap;
+  margin:2rem;
+  gap:16px
 }
 

@@ -37,6 +37,7 @@ function SignIn({ isOpen, onClose }) {
                 }
             });
     };
+
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
     };
@@ -44,6 +45,7 @@ function SignIn({ isOpen, onClose }) {
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
+
     return (
         <div className={styles.overlay} onClick={onClose} style={{ zIndex: 1300 }}>
             <div className={styles.modal} onClick={(e) => e.stopPropagation()} style={{ zIndex: 1301 }}>

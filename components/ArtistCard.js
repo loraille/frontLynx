@@ -10,7 +10,6 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-// import styles from '../styles/ArtistCard.module.css';
 
 const ArtistCard = ({ artist }) => {
   const [expanded, setExpanded] = useState(false);
@@ -20,7 +19,7 @@ const ArtistCard = ({ artist }) => {
   };
 
   return (
-    <Card sx={{ ...styles.card, zIndex: -0.9 }}>
+    <Card sx={styles.card}>
       <Link href={{ pathname: '/user', query: { username: artist.username } }}>
         <a>
           <CardMedia
@@ -29,13 +28,13 @@ const ArtistCard = ({ artist }) => {
             height="200"
             image={artist.avatarUrl || 'defaultImage.jpg'} // Utilise une image par défaut si `avatar` est absent
             title={artist.username}
-            sx={{ ...styles.artistImage, zIndex: -0.9 }}
+            sx={styles.artistImage}
           />
         </a>
       </Link>
       <CardContent>
         <Link href={{ pathname: '/user', query: { username: artist.username } }}>
-          <a> {/* Ensemble de la carte cliquable */}
+          <a style={{ textDecoration: 'none' }}> {/* Ensemble de la carte cliquable */}
             <Typography gutterBottom variant="h5" component="div" sx={styles.text}>
               {artist.username}
             </Typography>
@@ -82,24 +81,25 @@ const ArtistCard = ({ artist }) => {
   );
 };
 
-
 // js.doc pour l'auto-complétion (importe que ds l'environnement dev)
 /**@type {import('@mui/system').SxProps} */
 const styles = {
   card: {
     width: 300,
     margin: '20px',
-    backgroundColor: "#2c2c2c",
-    border: "10px solid #2c2c2c",
-    borderRadius: "8px 8px 0 0",
-    color: "white"
+    padding: '10px',
+    backgroundColor: "#212020",
+    border: "1px solid #ffffff",
+    borderRadius: "8px",
   },
   artistImage: {
     width: '100%',
-    objectFit: 'cover'
+    objectFit: 'cover',
+    borderRadius: "8px 8px 0px 0px"
   },
   text: {
-    color: "#FEB830"
+    color: "#FEB830",
+    textDecoration: "none"
   },
   artistDescription: {
     color: "white",
@@ -107,16 +107,15 @@ const styles = {
     paddingBottom: "8px"
   },
   sectionTitle: {
-    color: "#FEB830"
+    color: "#FEB830",
   },
   workTitle: {
     color: "#FEB830",
-    textAlign: "center"
+    textAlign: "center",
   },
   gridContainer: {
     paddingTop: "16px"
   }
 };
+
 export default ArtistCard;
-// styles est un objet qui contient des styles pour différents éléments.
-// card et text sont des clés de l'objet styles représentant des parties spécifiques du composant.
