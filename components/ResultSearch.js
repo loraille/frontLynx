@@ -2,13 +2,12 @@ import styles from '../styles/ResultSearch.module.css';
 import { useEffect, useState } from 'react';
 import SignIn from './SignIn';
 import Signup from './Signup';
-import ArtworkUpload from './ArtworkUpload';
-import Header from './Header';
-import ArtworkList from './ArtworkList';
-import { urlBackend } from '../assets/varGlobal';
-import { useRouter } from 'next/router';
 import ArtworkCard from './ArtworkCard';
 import ArtistCard from './ArtistCard';
+import ArtworkUpload from './ArtworkUpload';
+import Header from './Header';
+import { urlBackend } from '../assets/varGlobal';
+import { useRouter } from 'next/router';
 
 function ResultSearch() {
   /////////Modale///////////////////////////////

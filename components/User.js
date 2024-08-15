@@ -5,10 +5,11 @@ import Signup from './Signup';
 import ArtworkUpload from '../components/ArtworkUpload'
 import ArtworkCard from '../components/ArtworkCard';
 import CollectionsCard from '../components/CollectionsCard';
+import AddArtwork from '../components/AddArtwork'; // Import the AddArtwork component
 import { useState, useEffect } from 'react';
-// import { useDispatch } from 'react-redux';
 import { urlBackend } from '../assets/varGlobal'
 import { useRouter } from 'next/router';
+import AddBoxIcon from '@mui/icons-material/AddBox';
 
 function User() {
     const router = useRouter();
@@ -18,19 +19,23 @@ function User() {
     const [collections, setCollections] = useState([]);
     const [settings, setSettings] = useState(null);
     const [bio, setBio] = useState('');
-    const [modalType, setModalType] = useState('');
+    const [reload, setReload] = useState(false); // State to force reload
 
+    /////////////modale//////////////////////////////////////
+    const [modalType, setModalType] = useState('');
     const handleOpenModal = (type) => {
         setModalType(type);
         setIsModalOpen(true);
     };
-
     const handleCloseModal = () => {
         setIsModalOpen(false);
         setModalType('');
+        if (modalType === 'upload') {
+            setReload(!reload); // Force reload by toggling the state
+        }
     };
 
-    // Fetch des informations utilisateur (settings) et des collections
+    ///////////////////// get user infos/////////////////////////////////////////
     useEffect(() => {
         fetch(`${urlBackend}/users/${username}`)
             .then(response => response.json())
@@ -48,7 +53,7 @@ function User() {
                 console.error("Error fetching user info:", error);
             });
 
-
+        /////////////////get user's artwoks/////////////////////////////////////////////
         fetch(`${urlBackend}/artworks/uploader/${username}`)
             .then(response => response.json())
             .then(data => {
@@ -62,11 +67,9 @@ function User() {
                 console.error("Error fetching artworks:", error);
             });
 
-    }, [username]);
+    }, [username, reload]); // Add reload to the dependency array
 
-
-
-    //////////////// Préparation de la liste des artworkCard//////////////////////
+    ////////////////artworksLits to display////////////////////////////////////
     const listArtworkCards = artworks.map(artwork => {
         return (
             <ArtworkCard
@@ -76,13 +79,27 @@ function User() {
         );
     });
 
-    ////////////////// Préparation de la liste des collectionsCard/////////////////////
+    // Add the new artwork card
+    listArtworkCards.unshift(
+        <AddArtwork
+            key="addCart"
+            artwork={{
+                _id: "addCart",
+                url: "/addArt.jpg",
+                title: "+Add a new creation!!!",
+                uploader: username
+            }}
+            onClick={() => handleOpenModal('upload')}
+        />
+    );
+
+    //////////////////collectionsCard to display///////////////////////////////
     const listCollectionsCard = collections.map(collection => {
         return (
             collection.artworks.length && // ISSUE 001 when a collection is empty don't try to display it
             <CollectionsCard
                 key={collection._id}
-                uploader = {settings.username} // ISSUE 002 missing uploader for ArtworksDisplay collection's artworks when visitor
+                uploader={settings.username} // ISSUE 002 missing uploader for ArtworksDisplay collection's artworks when visitor
                 collectionName={collection.name}
                 artworks={collection.artworks}
                 image_url={collection.artworks[collection.artworks.length - 1].url}
@@ -105,7 +122,7 @@ function User() {
                 {modalType === 'upload' && <ArtworkUpload isOpen={isModalOpen} onClose={handleCloseModal} />}
                 <div
                     className={`${styles.bannerBackground}`}
-                    style={settings.bannerUrl ? { backgroundImage: `url(${settings.bannerUrl})` } : {}}>
+                    style={{ backgroundImage: `url(${settings.bannerUrl || '/defaultBanner.jpg'})` }}>
                     <div className={styles.infoUser} id={styles.scrollbar1}>
                         <h2 className='titlePage'>{settings.username}</h2>
                         <p>{bio}</p>

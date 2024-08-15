@@ -11,6 +11,7 @@ import { urlBackend } from '../assets/varGlobal';
 import { useRouter } from 'next/router';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import Tooltip from '@mui/material/Tooltip';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
 
 function ArtworksDisplay() {
     ////////////modale///////////////////////////////////////////
@@ -25,24 +26,22 @@ function ArtworksDisplay() {
         setModalType('');
     };
 
-    ////////////////////////Gestion de l'affichage/////////////////
+    ////////////////////////Gestion de l'affichage///////////////////////
     const router = useRouter();
     const { uploader, toDisplay, fromLink } = router.query;
     const [artworks, setArtworks] = useState([]);
     const [artists, setArtists] = useState([]);
-    const  [isDeletable, setisDeletable]  = useState(true);
+    const [isDeletable, setisDeletable] = useState(true);
 
     let username = useSelector(state => state.user.value.username);
-
-
+    ////////get infos by bookmark || collection || category || Following///
     useEffect(() => {
-        console.log("###username,uploader", username,uploader);
+        ////////////////////////CATEGORY//////////////////////
         if (fromLink === 'category') {
             if (!toDisplay) {
                 console.error("toDisplay is not defined");
                 return;
             }
-            
             fetch(`${urlBackend}/artworks/category/${toDisplay}`)
                 .then(response => response.json())
                 .then(data => {
@@ -56,15 +55,14 @@ function ArtworksDisplay() {
                 .catch(error => {
                     console.error("Error fetching artworks:", error);
                 });
+            ////////////////////////COLLECTION//////////////////////
         } else if (fromLink === 'collection') {
             // only logged in user can delete his own artwork
             if (username != uploader) {
-                console.log("###username,uploader", username,uploader);
+
                 setisDeletable(false);
             }
-
-            username=uploader; // not logged in visitor or logged in 
-
+            username = uploader; // not logged in visitor or logged in
             if (!toDisplay) {
                 console.error("toDisplay is not defined");
                 return;
@@ -82,6 +80,7 @@ function ArtworksDisplay() {
                 .catch(error => {
                     console.error("Error fetching artworks:", error);
                 });
+            ////////////////////////BOOKMARKS//////////////////////
         } else if (fromLink === 'bookmarks') {
             if (!toDisplay) {
                 console.error("toDisplay is not defined");
@@ -99,6 +98,7 @@ function ArtworksDisplay() {
                 .catch(error => {
                     console.error("Error fetching artworks:", error);
                 });
+            ////////////////////////FOLLOWING//////////////////////
         } else if (fromLink === 'following') {
             if (!toDisplay) {
                 console.error("toDisisDeletableplay is not defined");
@@ -120,7 +120,7 @@ function ArtworksDisplay() {
             console.log('fromLink or toDisplay are not correct');
         }
     }, [toDisplay, fromLink, username, uploader]);
-
+    ///////////////////Delete artwork//////////////////////
     const handleDelete = (id) => {
         fetch(`${urlBackend}/artworks/${id}`, {
             method: 'DELETE',
@@ -140,7 +140,25 @@ function ArtworksDisplay() {
                 console.error("Error deleting artwork:", error);
             });
     };
+    ////////////////////Remove bookmark//////////////////////
+    const handleBookmarkClick = async (id) => {
+        try {
+            const response = await fetch(`${urlBackend}/users/bookmark/${username}/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const data = await response.json();
+            console.log(data.message);
 
+            // Mettre à jour l'état local après la suppression du bookmark
+            setArtworks(prevArtworks => prevArtworks.filter(artwork => artwork._id !== id));
+        } catch (error) {
+            console.error('problem to remove artwork from favorite', error);
+        }
+    }
+    ////////////////////Render artworks||artists//////////////////////
     const renderArtworks = () => {
         if (fromLink === 'collection' && isDeletable) {
             return artworks.map(artwork => (
@@ -151,13 +169,19 @@ function ArtworksDisplay() {
                     </Tooltip>
                 </div>
             ));
+        } else if (fromLink === 'bookmarks') {
+            return artworks.map(artwork => (
+                <div key={artwork._id} className={styles.artworkCard}>
+                    <ArtworkCard artwork={artwork} />
+                    <BookmarkIcon className={styles.bookmarkIcon} onClick={() => handleBookmarkClick(artwork._id)} />
+                </div>
+            ))
         } else {
             return artworks.map(artwork => (
                 <ArtworkCard key={artwork._id} artwork={artwork} />
             ));
         }
     };
-
     const artistsList = artists.map(artist => (
         <ArtistCard key={artist._id} artist={artist} />
     ));

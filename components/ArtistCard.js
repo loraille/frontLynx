@@ -26,7 +26,7 @@ const ArtistCard = ({ artist }) => {
             component="img"
             alt={artist.username}
             height="200"
-            image={artist.avatarUrl || 'defaultImage.jpg'} // Utilise une image par défaut si `avatar` est absent
+            image={artist.avatarUrl || 'defaultProfile.jpg'} // Utilise une image par défaut si `avatar` est absent
             title={artist.username}
             sx={styles.artistImage}
           />

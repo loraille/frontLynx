@@ -32,7 +32,7 @@ function Home() {
           {modalType === 'upload' && <ArtworkUpload isOpen={isModalOpen} onClose={handleCloseModal} />}
         </div>
         <div>
-          <h2 className='titlePage'>Featured Artists</h2>
+          <h2 className='titlePage'>Lynx's Thread</h2>
           <div className={styles.artworkList}>
             <ArtworkList />
           </div>

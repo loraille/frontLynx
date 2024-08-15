@@ -39,6 +39,14 @@ margin:0px 15px ;
   height: 100%;
 }
 
+.bookmarkIcon {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  font-size: 40px;
+  color: #FEB830;
+  cursor: pointer;
+}
 .deleteIcon {
   position: absolute;
   top: 0px;

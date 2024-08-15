@@ -92,19 +92,17 @@ function ArtworkView() {
                 .then(data => {
                     setArtwork(data.artworkInfo);
                     setTags(data.artworkInfo.tags);
-                 //   console.log(data.message);
+                    //   console.log(data.message);
                 })
                 .catch(error => {
                     console.error('Erreur lors de la récupération de l\'œuvre d\'art:', error);
                 });
         }
     }, [id]);
-
     //////////////search by tagName/////////////////////////////////////
     const handleTagClick = (tagName) => {
         router.push(`/resultSearch?category=tags&query=${tagName}`);
     };
-
     /////////////map tag to display//////////////////////////////////////
     const listTags = tags.map(tag => (
         <div
@@ -115,13 +113,10 @@ function ArtworkView() {
             {tag.name}
         </div>
     ));
-
     /////////////clic to artist profile///////////////////////////////////
     const handleUsernameClick = (username) => {
         router.push(`/user/?username=${username}`);
     };
-
-
     ////////////clic to image source in a new window//////////////////////
     const handleImageClick = (url) => {
         window.open(url, '_blank');
@@ -210,7 +205,6 @@ function ArtworkView() {
                             {modalType === 'signup' && <Signup isOpen={isModalOpen} onClose={handleCloseModal} />}
                             {modalType === 'signin' && <SignIn isOpen={isModalOpen} onClose={handleCloseModal} />}
                             {modalType === 'signupin' && <SignUpIn isOpen={isModalOpen} onClose={handleCloseModal} />}
-                            {/* {modalType === 'signupin' && <SignUpIn isOpen={true} onClose={handleCloseModal} />} */}
                             {modalType === 'upload' && <ArtworkUpload isOpen={isModalOpen} onClose={handleCloseModal} />}
                         </div>
                     )}
