@@ -9,6 +9,7 @@ import AddArtwork from '../components/AddArtwork'; // Import the AddArtwork comp
 import { useState, useEffect } from 'react';
 import { urlBackend } from '../assets/varGlobal'
 import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 
 function User() {
@@ -20,7 +21,7 @@ function User() {
     const [settings, setSettings] = useState(null);
     const [bio, setBio] = useState('');
     const [reload, setReload] = useState(false); // State to force reload
-
+    const userProfile = useSelector(state => state.user.value.username)
     /////////////modale//////////////////////////////////////
     const [modalType, setModalType] = useState('');
     const handleOpenModal = (type) => {
@@ -78,20 +79,22 @@ function User() {
             />
         );
     });
-
+    console.log('------------------>', username)
     // Add the new artwork card
-    listArtworkCards.unshift(
-        <AddArtwork
-            key="addCart"
-            artwork={{
-                _id: "addCart",
-                url: "/addArt.jpg",
-                title: "+Add a new creation!!!",
-                uploader: username
-            }}
-            onClick={() => handleOpenModal('upload')}
-        />
-    );
+    if (username === userProfile) {
+        listArtworkCards.unshift(
+            <AddArtwork
+                key="addCart"
+                artwork={{
+                    _id: "addCart",
+                    url: "/addArt.jpg",
+                    title: "+Add a new creation!!!",
+                    uploader: username
+                }}
+                onClick={() => handleOpenModal('upload')}
+            />
+        );
+    }
 
     //////////////////collectionsCard to display///////////////////////////////
     const listCollectionsCard = collections.map(collection => {
