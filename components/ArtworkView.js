@@ -17,12 +17,14 @@ function ArtworkView() {
     //////////Modale/////////////////////////////////////////////
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalType, setModalType] = useState('');
+
     const handleOpenModal = (type) => {
         setModalType(type);
         setIsModalOpen(true);
     };
 
     const handleCloseModal = () => {
+        console.log("ArtworkViewhandleCloseModal")
         setIsModalOpen(false);
         setModalType('');
     };
@@ -92,7 +94,7 @@ function ArtworkView() {
                 .then(data => {
                     setArtwork(data.artworkInfo);
                     setTags(data.artworkInfo.tags);
-                    //   console.log(data.message);
+                    console.log(data.message);
                 })
                 .catch(error => {
                     console.error('Erreur lors de la récupération de l\'œuvre d\'art:', error);
@@ -204,7 +206,7 @@ function ArtworkView() {
                         <div className={styles.modalBackdrop}>
                             {modalType === 'signup' && <Signup isOpen={isModalOpen} onClose={handleCloseModal} />}
                             {modalType === 'signin' && <SignIn isOpen={isModalOpen} onClose={handleCloseModal} />}
-                            {modalType === 'signupin' && <SignUpIn isOpen={isModalOpen} onClose={handleCloseModal} />}
+                            {modalType === 'signupin' && <SignUpIn isOpen={isModalOpen} onClose={handleCloseModal} onOpenModal={handleOpenModal} />}
                             {modalType === 'upload' && <ArtworkUpload isOpen={isModalOpen} onClose={handleCloseModal} />}
                         </div>
                     )}
