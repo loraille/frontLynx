@@ -159,8 +159,8 @@ const ArtworkUpload = ({ isOpen, onClose, children }) => {
     };
 
     return (
-        <div className={styles.overlay} onClick={onClose} style={{ zIndex: 1300 }} >
-            <div className={styles.modal} onClick={(e) => e.stopPropagation()} style={{ zIndex: 1301 }}>
+        <div className={styles.overlay} onClick={onClose} style={{ zIndex: 3 }} >
+            <div className={styles.modal} onClick={(e) => e.stopPropagation()} style={{ zIndex: 4 }}>
                 <p className="title">My new creation!</p>
                 <div className={styles.form}>
                     <FormControl sx={{ m: 1, width: '50ch' }} >

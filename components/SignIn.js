@@ -47,8 +47,8 @@ function SignIn({ isOpen, onClose }) {
     };
 
     return (
-        <div className={styles.overlay} onClick={onClose} style={{ zIndex: 1300 }}>
-            <div className={styles.modal} onClick={(e) => e.stopPropagation()} style={{ zIndex: 1301 }}>
+        <div className={styles.overlay} onClick={onClose} style={{ zIndex: 3 }}>
+            <div className={styles.modal} onClick={(e) => e.stopPropagation()} style={{ zIndex: 4 }}>
                 <p className="title">Enter in the place!</p>
                 <Box
                     component="form"
