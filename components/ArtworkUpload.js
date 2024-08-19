@@ -74,7 +74,7 @@ const CustomInputLabel = styled(InputLabel)(({ theme }) => ({
     },
 }));
 
-const ArtworkUpload = ({ isOpen, onClose, children }) => {
+const ArtworkUpload = ({ isOpen, onClose, kollektion,children }) => {
     if (!isOpen) return null;
     const username = useSelector((state) => state.user.value.username);
     let uploader = username;
@@ -94,6 +94,8 @@ const ArtworkUpload = ({ isOpen, onClose, children }) => {
     const router = useRouter();
 
     useEffect(() => {
+        console.log("kollektion",kollektion);
+        setCollection(kollektion);
         fetch(`${urlBackend}/categories`)
             .then(response => response.json())
             .then(data => {
