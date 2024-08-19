@@ -1,19 +1,7 @@
-/* .artistList {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-  } */
- 
-  .artworkList {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 16px;
-    padding: 16px;
-    justify-items: center; /* Centre les éléments horizontalement */
-}
-
-@media (max-width: 768px) {
-    .artworkList {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    }
+.artworkList {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
 }
