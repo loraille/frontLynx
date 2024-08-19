@@ -5,7 +5,7 @@ import { useState, useEffect, useRef } from 'react';
 import SendIcon from '@mui/icons-material/Send';
 import { useRouter } from 'next/router';
 
-function CommentZone({ artwork }) {
+function CommentZone({ artwork, onClickSend}) {
     const visitor = useSelector((state) => state.user.value.username);
     const [comments, setComments] = useState([]);
     const uploader = artwork.uploader;
@@ -89,20 +89,19 @@ function CommentZone({ artwork }) {
                 {commentsList}
             </div>
             <div className={styles.newComment}>
-                <textarea
+                <textarea   maxlength="255"
                     placeholder={visitor ? "Your comment!" : ""}
                     id="yourComment"
                     className={styles.yourComment}
                     value={newComment}
                     onChange={(e) => setNewComment(e.target.value)}
-                    disabled={!visitor}
+                    disabled={!visitor || newComment.length >= 255}  /* limit comment size to 255 : moved from send button */
                 />
                 <span className={styles.characterCount}>{newComment.length}/255</span>
                 <button
                     id="send"
                     className={`button ${styles.send}`}
-                    onClick={handleSendComment}
-                    disabled={!visitor || newComment.length > 255}
+                    onClick= {!visitor ? onClickSend : handleSendComment}     /* was: disabled={!visitor} */
                 >
                     Send
                     <SendIcon />

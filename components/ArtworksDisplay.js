@@ -13,6 +13,9 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import Tooltip from '@mui/material/Tooltip';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 
+import AddArtwork from '../components/AddArtwork'; 
+
+
 function ArtworksDisplay() {
     ////////////modale///////////////////////////////////////////
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -122,11 +125,15 @@ function ArtworksDisplay() {
     }, [toDisplay, fromLink, username, uploader]);
     ///////////////////Delete artwork//////////////////////
     const handleDelete = (id) => {
+        console.log("***********toDisplay", toDisplay)
         fetch(`${urlBackend}/artworks/${id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
             },
+            body: JSON.stringify({ 
+                collectionName: toDisplay, 
+            }),
         })
             .then(response => response.json())
             .then(data => {
@@ -160,8 +167,8 @@ function ArtworksDisplay() {
     }
     ////////////////////Render artworks||artists//////////////////////
     const renderArtworks = () => {
-        if (fromLink === 'collection' && isDeletable) {
-            return artworks.map(artwork => (
+        if (fromLink === 'collection' && isDeletable) {     
+            let artworksInCollection= artworks.map(artwork => (
                 <div key={artwork._id} className={styles.artworkCard}>
                     <ArtworkCard artwork={artwork} />
                     <Tooltip title="Delete" arrow>
@@ -169,6 +176,19 @@ function ArtworksDisplay() {
                     </Tooltip>
                 </div>
             ));
+            artworksInCollection.unshift(
+                <AddArtwork
+                    key="addCart"
+                    artwork={{
+                        _id: "addCart",
+                        url: "/addArt.jpg",
+                        title: "+Add a new creation!!!",
+                        uploader: username
+                    }}
+                    onClick={() => handleOpenModal('upload')}
+                />
+            );
+            return artworksInCollection;
         } else if (fromLink === 'bookmarks') {
             return artworks.map(artwork => (
                 <div key={artwork._id} className={styles.artworkCard}>
@@ -182,6 +202,8 @@ function ArtworksDisplay() {
             ));
         }
     };
+
+
     const artistsList = artists.map(artist => (
         <ArtistCard key={artist._id} artist={artist} />
     ));
@@ -195,7 +217,7 @@ function ArtworksDisplay() {
                 <div className={styles.container}>
                     {isModalOpen && modalType === 'signup' && <Signup isOpen={isModalOpen} onClose={handleCloseModal} />}
                     {isModalOpen && modalType === 'signin' && <SignIn isOpen={isModalOpen} onClose={handleCloseModal} />}
-                    {isModalOpen && modalType === 'upload' && <ArtworkUpload isOpen={isModalOpen} onClose={handleCloseModal} />}
+                    {isModalOpen && modalType === 'upload' && <ArtworkUpload isOpen={isModalOpen} onClose={handleCloseModal} kollektion={toDisplay}/>}
                 </div>
                 <div>
                     <h2 className='titlePage'>Artworks in {toDisplay}'s {fromLink}</h2>

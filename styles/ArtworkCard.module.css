@@ -33,6 +33,10 @@
     font-size: 20px;
     color: #ffcc00;
     margin: 0;
+    width: 190px;
+    text-overflow : ellipsis ;
+    overflow: hidden;
+    white-space: nowrap;
 }
 .artistName {
     font-weight: 500;

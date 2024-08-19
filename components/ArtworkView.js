@@ -214,7 +214,8 @@ function ArtworkView() {
                 <div className={styles.container}>
                     <div className={styles.artworkZone}>
                         <div className={styles.titleZone}>
-                            <div className="titleArt">{artwork.title}</div>
+{/*                             <div className="titleArt">{artwork.title}</div>   */} 
+                           <div className={styles.titleArt}>{artwork.title}</div>
                             {username !== null ? (
                                 !isBookmarked ? (
                                     <BookmarkBorderIcon className={styles.bookmark} onClick={handleBookmarkClick} />
@@ -254,10 +255,13 @@ function ArtworkView() {
                                     )) : <BookmarkBorderIcon className={styles.bookmarkOff} onClick={handleLogin} />}
                             </div>
                         </div>
+                        {/*  id={styles.scrollbar1}  */}
                         <div className="titleArtworkTextZone">Description</div>
-                        <div className={styles.descriptionText}>{artwork.description}</div>
+                        <div className={`${styles.descriptionText} ${styles.scrollbar1}`}>{artwork.description}</div>
                         <div className="titleArtworkTextZone">Comments</div>
-                        <CommentZone artwork={artwork} />
+                        {username !== null ? (
+                            <CommentZone artwork={artwork} />
+                        ) : <CommentZone artwork={artwork} onClickSend={handleLogin} />}
                     </div>
                 </div>
             </main>
