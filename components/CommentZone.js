@@ -20,14 +20,6 @@ function CommentZone({ artwork, onClickSend}) {
     }, [artwork.comments]);
 
     useEffect(() => {
-        if (!visitor) {
-            setNewComment('You must be logged in!');
-        } else {
-            setNewComment('');
-        }
-    }, [visitor]);
-
-    useEffect(() => {
         if (commentAreaRef.current) {
             commentAreaRef.current.scrollTop = commentAreaRef.current.scrollHeight;
         }
@@ -90,7 +82,7 @@ function CommentZone({ artwork, onClickSend}) {
             </div>
             <div className={styles.newComment}>
                 <textarea   maxlength="255"
-                    placeholder={visitor ? "Your comment!" : ""}
+                    placeholder={visitor ? "Your comment!" : "You must be logged in!"}
                     id="yourComment"
                     className={styles.yourComment}
                     value={newComment}
