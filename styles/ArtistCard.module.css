@@ -17,7 +17,7 @@
 }
 
 .artistDescription {
-  color: white !important;
+  color: green; /* !important;*/
   margin-bottom: 100x !important;
   padding-bottom: 80 px !important; 
   /* border: #fbff06 5px solid; */
@@ -28,8 +28,13 @@
   color: #FEB830;
 } */
 
-.workTitle {
-  color: #FEB830 !important;
+
+.workTitleRed {
+  color:  green ;/* !important; */
+/*   width:80px;
+  text-overflow : ellipsis ;
+  overflow: hidden;
+  white-space: nowrap; */
 }
 
 
