@@ -1,7 +1,7 @@
 .main {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100vh;
   background-color: #424141;
   overflow: auto;
 }
@@ -16,22 +16,20 @@
   align-items: center;
   justify-content: flex-start;
   background-color: #424141;
-  min-height: 100%;
 }
-
 
 .title {
   color: #fff;
   margin-bottom: 1rem;
-  font-family: 'Khand', sans-serif;
+  font-family: "Khand", sans-serif;
   font-size: 2rem;
 }
 
 .artworkList {
-display:flex;
-flex-wrap:wrap;
-gap:20px;
-margin:0px 15px ;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin: 0px 15px;
 }
 
 .artworkCard {
@@ -44,7 +42,15 @@ margin:0px 15px ;
   top: 0px;
   right: 0px;
   font-size: 40px;
-  color: #FEB830;
+  color: #feb830;
+  cursor: pointer;
+}
+.bookmarkArtistIcon {
+  position: absolute;
+  top: 20px;
+  right: 18px;
+  font-size: 40px;
+  color: #feb830;
   cursor: pointer;
 }
 .deleteIcon {
@@ -52,12 +58,9 @@ margin:0px 15px ;
   top: 0px;
   right: 0px;
   font-size: 40px;
-  color: #FEB830;
+  color: #feb830;
   cursor: pointer;
 }
 .deleteIcon:hover {
-
   color: #ffffff;
-  
 }
-

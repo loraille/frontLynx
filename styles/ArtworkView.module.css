@@ -79,7 +79,6 @@
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  /* border:1px solid red; */
   z-index: 0;
 }
 
@@ -88,53 +87,22 @@
 }
 
 .bookmark {
-  color: #FEB830;
+  color: #feb830;
   font-size: 40px;
   cursor: pointer;
 }
 
 .bookmarkOff {
-  color: #D9D9D9;
+  color: #d9d9d9;
   font-size: 40px;
   cursor: pointer;
 }
 
 .bookmarkOff:hover {
-  color: #FEB830;
+  color: #feb830;
   font-size: 40px;
   cursor: pointer;
 }
-
-/* test small screen /test also flex-wrap and hover
-@media screen and (max-width: 1400px) {
-  .tagsTitle {
-    display: flex;
-    flex-wrap: wrap;
-    font-size: 14px;
-  }
-
-  .tags {
-    cursor: pointer;
-    margin: 5px;
-    padding: 5px 10px;
-    display: flex;
-    gap: 10px;
-    border: 1px solid #D9D9D9;
-    border-radius: 10px;
-  }
-        .tags:hover {
-          cursor: pointer;
-          margin: 5px;
-          padding: 5px 10px;
-          display: flex;
-          gap: 10px;
-          background-color: #666;
-          color: #D9D9D9;
-          border: 1px solid #D9D9D9;
-          border-radius: 20px;
-        }
-}
-*/
 
 @media screen and (max-width: 4000px) {
   /* original sizes  */
@@ -150,10 +118,9 @@
     padding: 10px 20px;
     display: flex;
     gap: 20px;
-    border: 1px solid #D9D9D9;
+    border: 1px solid #d9d9d9;
     border-radius: 20px;
   }
-
 }
 
 /* zone droite */
@@ -174,19 +141,12 @@
   max-height: 150px;
   overflow-y: auto;
   padding: 10px;
-  border: 2px solid #D9D9D9;
+  border: 2px solid #d9d9d9;
   border-radius: 15px;
   background-color: transparent;
-  color: #D9D9D9;
+  color: #d9d9d9;
   font-size: 20px;
 }
-
-/*  scrollbar1 */
-/*       ScrollBar 1        
- Test scrollbar copied here only changed id -> class ok
- style not ok for Firefox ...
- Note: see  https://developer.mozilla.org/en-US/docs/Web/CSS/::-webkit-scrollbar
-*/
 
 .scrollbar1::-webkit-scrollbar {
   width: 16px;

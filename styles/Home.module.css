@@ -1,10 +1,8 @@
 .main {
   display: flex;
   flex-direction: column;
-  height: 100%; 
-  width: 100%;
   background-color: #424141;
-  overflow: auto; 
+  overflow: auto;
   height: 100vh;
   width: 100vw;
 }
@@ -13,6 +11,7 @@
   width: 100%;
   position: sticky;
   top: 0px;
+  z-index: 5;
 }
 
 .container {
@@ -21,8 +20,6 @@
   align-items: center;
   justify-content: flex-start;
 }
-.artworkList{
-  overflow-y: auto
+.artworkList {
+  overflow-y: auto;
 }
-
-

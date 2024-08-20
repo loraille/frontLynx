@@ -1,26 +1,26 @@
 import React from "react";
 import Link from "next/link";
-
+import Image from "next/image";
 import styles from "../styles/ArtworkCard.module.css";
 
 const ArtworkCard = ({ artwork }) => {
-  //let artistName = "Gregor S";
-  //let artistName = useSelector((state) => state.user.value.username)
-  let artistName = artwork.username;
-
   return (
     <div className={styles.artworkCard}>
-      <Link href={{ pathname: "/artworkView", query: { id: artwork._id } }}>
-        <img
-          src={artwork.url}
-          alt={artwork.title}
-          className={styles.artworkImage}
-        />
+      <Link href={`/artworkView/?id=${artwork._id}`}>
+        <a>
+          <div className={styles.artworkImageContainer}>
+            <Image
+              src={artwork.url}
+              alt={artwork.title}
+              layout="fill"
+              objectFit="cover"
+              className={styles.artworkImage}
+            />
+          </div>
+        </a>
       </Link>
       <div className={styles.infos}>
-        <Link
-          href={{ pathname: "/user", query: { username: artwork.uploader } }}
-        >
+        <Link href={`/user/?username=${artwork.uploader}`}>
           <a className={styles.artistName}>{artwork.uploader}</a>
         </Link>
         <div className={styles.cardTitle}>{artwork.title}</div>

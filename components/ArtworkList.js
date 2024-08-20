@@ -4,12 +4,13 @@ import styles from "../styles/ArtworkList.module.css";
 import { urlBackend } from "../assets/varGlobal";
 
 const ArtworkList = () => {
+  /////////////////////setup//////////////////////////////////////////////////////
   const [artworks, setArtworks] = useState([]);
   const [offset, setOffset] = useState(0);
   const [limit, setLimit] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const observer = useRef();
-
+  ///////////////////reload when intersecting////////////////////////////////////
   const lastArtworkRef = useCallback(
     (node) => {
       if (observer.current) observer.current.disconnect();
@@ -22,7 +23,7 @@ const ArtworkList = () => {
     },
     [hasMore, limit]
   );
-
+  ///////////////////set card limit depending on size screen////////////////////////
   useEffect(() => {
     const calculateLimit = () => {
       const screenWidth = window.innerWidth;
@@ -36,12 +37,9 @@ const ArtworkList = () => {
     window.addEventListener("resize", calculateLimit);
     return () => window.removeEventListener("resize", calculateLimit);
   }, []);
-
+  ///////////////add artworks depending on limit & offset//////////////////////////
   useEffect(() => {
     if (limit > 0) {
-      console.log(
-        `------------->${urlBackend}/artworks?offset=${offset}&limit=${limit}`
-      );
       fetch(`${urlBackend}/artworks?offset=${offset}&limit=${limit}`)
         .then((response) => response.json())
         .then((data) => {
@@ -53,7 +51,7 @@ const ArtworkList = () => {
         });
     }
   }, [offset, limit]);
-
+  ////////////////////add artworks to render////////////////////////////////////////
   let renderedArtworks = artworks.map((artwork, index) => {
     if (artworks.length === index + 1) {
       return (
