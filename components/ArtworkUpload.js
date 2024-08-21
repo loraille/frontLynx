@@ -40,7 +40,7 @@ const ArtworkUpload = ({ isOpen, onClose, intoCollection }) => {
         setCategories(data.categories);
       });
   }, []);
-
+  /////set iscreate depending category && collection && title && description && imageToUpload/////////////////
   useEffect(() => {
     console.log(
       "enable Create button if all required form fields are populated"
@@ -49,7 +49,7 @@ const ArtworkUpload = ({ isOpen, onClose, intoCollection }) => {
       setisCreate(true);
     else setisCreate(false);
   }, [imageToUpload, category, collection, title, description]);
-
+  /////////////redirection to user profile/////////////////////////////////////
   useEffect(() => {
     if (redirect) {
       console.log("Redirecting to user page");
@@ -65,7 +65,7 @@ const ArtworkUpload = ({ isOpen, onClose, intoCollection }) => {
       </MenuItem>
     );
   });
-
+  //////////////////add an artwork with his porperties/////////////////////////////
   const handleUpload = () => {
     const formData = new FormData();
     formData.append("imageFromFront", imageToUpload);
@@ -76,7 +76,7 @@ const ArtworkUpload = ({ isOpen, onClose, intoCollection }) => {
     formData.append("title", title);
     formData.append("tags", tags);
 
-    setLoading(true); // Début du chargement
+    setLoading(true); // loading start
 
     fetch(`${urlBackend}/artworks/upload`, {
       method: "POST",
@@ -91,14 +91,14 @@ const ArtworkUpload = ({ isOpen, onClose, intoCollection }) => {
           console.log("something went wrong", data.error);
           setErrorMessage(data.error);
         }
-        setLoading(false); // Fin du chargement
+        setLoading(false); // loading end
       });
   };
-
+  ////////////get file to upload file///////////////////////////
   const getFileToUpload = (e) => {
     setimageToUpload(e.target.files[0]);
   };
-
+  ////////////get change on textfield//////////////////////////
   const handleChange = (event) => {
     setCategory(event.target.value);
   };

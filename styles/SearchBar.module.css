@@ -1,4 +1,4 @@
-/* RESPONSIVE STYLES */
+/* SearchBar.module.css */
 @media (max-width: 800px) {
   .searchBar {
     width: 100%;
@@ -29,4 +29,8 @@
 
 .icon {
   color: white;
+}
+
+.menuItem {
+  font-family: "Khand";
 }
