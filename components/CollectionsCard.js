@@ -1,30 +1,27 @@
-import React from 'react';
-import styles from '../styles/CategoriesCard.module.css';
-import { useRouter } from 'next/router';
+import React from "react";
+import styles from "../styles/CategoriesCard.module.css";
+import Link from "next/link";
 
 const CollectionsCard = ({ uploader, collectionName, image_url, artworks }) => {
-  const router = useRouter();
-  const handleCollectionClick = (collection) => {
-    router.push(`/artworksDisplay/?fromLink=collection&toDisplay=${collection}&uploader=${uploader}`);
-  };
   return (
     <div className={styles.categoryCard}>
-      <img src={image_url || '/default_image.png'} alt={collectionName || 'untitled'} className={styles.categoryImage} onClick={() => handleCollectionClick(collectionName)} />
-      <h3>{collectionName}</h3>
+      <Link
+        href={`/artworksDisplay/?fromLink=collection&toDisplay=${collectionName}&uploader=${uploader}`}
+      >
+        <a>
+          <img
+            src={image_url}
+            alt={collectionName}
+            layout="fill"
+            objectFit="cover"
+            className={styles.collectionImage}
+          />
+        </a>
+      </Link>
+      <h2 className={styles.collectionName}>{collectionName}</h2>
       <p>{artworks.length} artworks</p>
     </div>
   );
 };
-
-// const CollectionsCard = ({ collection }) => {
-//     return (
-//       <div className={styles.categoryCard}>
-//         <Link href={{ pathname: '/artworksDisplay', query: { name: collection.name } }}>
-//           <img src={collection.image_url || '/default_image.png'} alt={collection.title || 'untitled'} className={styles.categoryImage} />
-//         </Link>
-//         <h3>{collection.name}</h3>
-//       </div>
-//     );
-//   };
 
 export default CollectionsCard;

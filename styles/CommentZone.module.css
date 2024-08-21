@@ -1,19 +1,19 @@
 .container {
   padding: 15px;
-  border: 2px solid #D9D9D9;
+  border: 2px solid #d9d9d9;
   border-radius: 15px;
   background-color: transparent;
-  color: #D9D9D9;
+  color: #d9d9d9;
 }
 
 .commentArea {
   font-size: 20px;
   padding: 15px;
-  border: 2px solid #D9D9D9;
+  border: 2px solid #d9d9d9;
   border-radius: 15px;
   background-color: transparent;
   min-height: 200px;
-  max-height: 300px;
+  max-height: 280px;
   overflow: auto;
   display: flex;
   flex-direction: column;
@@ -23,93 +23,69 @@
 
 /* pour les bulles de comment */
 .comment {
-  color:#D9D9D9;
+  color: #d9d9d9;
   padding: 10px;
   align-self: flex-start;
 }
 .commentText {
-  border:1px solid #D9D9D9;;
+  border: 1px solid #d9d9d9;
   border-radius: 25px;
-  padding:5px 20px;
+  padding: 5px 20px;
 }
-.commentator{
-  margin:0px 10px ;
+.commentator {
+  margin: 0px 10px;
   cursor: pointer;
 }
 .commentator:hover {
   font-weight: 700;
 }
 .commentUploader {
-  color: #FEB830;
+  color: #feb830;
   padding: 10px;
   align-self: flex-end;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
 }
-.commentTextUploader{
-  color:white;
-  border:1px solid #FEB830;
+.commentTextUploader {
+  color: white;
+  border: 1px solid #feb830;
   border-radius: 25px;
-  padding:5px 20px;
-}
-
-/*       ScrollBar 1        */
-
-#scrollbar1::-webkit-scrollbar {
-  width: 16px;
-}
-
-#scrollbar1::-webkit-scrollbar-track {
-  border-radius: 8px;
-  background-color: #ffffff;
-  border: 1px solid #424141;
-  margin-top: 15px;
-  margin-bottom: 15px;
-  margin-right: 5px;
-}
-
-#scrollbar1::-webkit-scrollbar-thumb {
-  border-radius: 8px;
-  border: 3px solid transparent;
-  background-clip: content-box;
-  background-color: #2c2c2c;
+  padding: 5px 20px;
 }
 
 .newComment {
   display: flex;
   margin-top: 15px;
-  
 }
 
 .yourComment {
-  color:#D9D9D9;
+  color: #d9d9d9;
   margin-top: 20px;
   padding: 15px;
-  border-left: 2px solid #D9D9D9;
-  border-bottom: 2px solid #D9D9D9;
+  border-left: 2px solid #d9d9d9;
+  border-bottom: 2px solid #d9d9d9;
   border-radius: 0px 0px 0px 15px;
   background-color: transparent;
   resize: none;
-  border-top: none; 
+  border-top: none;
   border-right: none;
-  outline: none; 
-  width:100%
+  outline: none;
+  width: 100%;
 }
 
 .yourComment:focus {
-  outline: none; 
+  outline: none;
 }
 
-.characterCount{
-  font-family: 'khand';
+.characterCount {
+  font-family: "khand";
 }
 
 .send {
   cursor: pointer;
-  color: #FEB830;
+  color: #feb830;
   font-size: 24px;
-  margin-left: 10px; 
+  margin-left: 10px;
+  border-radius: 25px;
 }
-
-

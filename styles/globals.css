@@ -40,6 +40,12 @@ body {
   font-weight: 600;
   color: #ffffff;
 }
+.titleArtLittle {
+  font-family: "khand";
+  font-size: 30px;
+  font-weight: 500;
+  color: #ffffff;
+}
 
 .titleArtworkTextZone {
   font-family: "khand";
@@ -104,4 +110,61 @@ body {
 .customTextField .MuiOutlinedInput-input {
   color: white;
   caret-color: white;
+}
+
+/*scrollbar*/
+
+.scrollbar1::-webkit-scrollbar {
+  width: 16px;
+}
+
+.scrollbar1::-webkit-scrollbar-track {
+  border-radius: 8px;
+  background-color: #ffffff;
+  border: 1px solid #424141;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  margin-right: 5px;
+}
+
+.scrollbar1::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+  background-color: #2c2c2c;
+}
+/*upload button*/
+.uploadButton {
+  cursor: pointer;
+  border: 1px solid rgb(255, 255, 255);
+  font-family: "Khand";
+  font-size: 14px;
+  color: rgb(254, 184, 48);
+  padding: 5px 15px;
+  transition: all 327ms ease 0s;
+  width: auto;
+  box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px;
+  border-radius: 9px;
+  background: rgb(66, 65, 65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.uploadButton:hover {
+  color: rgb(255, 255, 255);
+  background: rgb(254, 184, 48);
+  border-color: rgb(255, 255, 255);
+}
+
+.visuallyHiddenInput {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  white-space: nowrap;
+  width: 1px;
 }

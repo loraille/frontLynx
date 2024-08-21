@@ -12,9 +12,9 @@
 
 .modal {
   position: absolute;
-  top: 50%; 
-  left: 50%; 
-  transform: translate(-50%, -50%); 
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background-color: #212020;
   padding: 20px;
   border-radius: 15px;
@@ -30,7 +30,7 @@
 
 .inputField {
   color: white;
-  font-family: 'Khand';
+  font-family: "Khand";
   background-color: transparent;
   padding: 5px 15px;
   border-radius: 9px;
@@ -39,27 +39,78 @@
   font-size: 15px;
   font-weight: 600;
 }
-.upload{
+
+.upload {
   font-size: 120px;
 }
+
 .validate {
   font-size: 30px;
   width: auto;
- margin: 0 auto;
- margin-top: 10px;
+  margin: 0 auto;
+  margin-top: 10px;
 }
 
 .validate:disabled {
-  background-color: rgb(127,127,127);
+  background-color: rgb(127, 127, 127);
   color: rgb(160, 150, 132);
   border: color(50 160 150 132);
   opacity: 0.5;
 }
 
-.errorMessage{
+.errorMessage {
   color: red;
 }
 
+.uploadButton {
+  cursor: pointer;
+  border: 1px solid rgb(255, 255, 255);
+  font-family: "Khand";
+  font-size: 14px;
+  color: rgb(254, 184, 48);
+  padding: 5px 15px;
+  transition: all 327ms ease 0s;
+  width: auto;
+  box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px;
+  border-radius: 9px;
+  background: rgb(66, 65, 65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+.uploadButton:hover {
+  color: rgb(255, 255, 255);
+  background: rgb(254, 184, 48);
+  border-color: rgb(255, 255, 255);
+}
 
+.customSelect {
+  background-color: transparent;
+  border: 1px solid rgb(255, 255, 255);
+  color: white;
+  padding: 5px 15px;
+  border-radius: 9px;
+}
 
+.customSelect:hover .MuiOutlinedInput-notchedOutline {
+  border-color: rgb(255, 255, 255);
+}
+
+.customSelect.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: transparent;
+}
+
+.customSelect .MuiSelect-icon {
+  color: rgb(255, 255, 255);
+}
+
+.customInputLabel {
+  color: rgb(254, 184, 48);
+  text-shadow: 1px 1px 0 #212020, -1px -1px 0 #212020, 1px -1px 0 #212020,
+    -1px 1px 0 #212020;
+}
+
+.customInputLabel.Mui-focused {
+  color: orange;
+}

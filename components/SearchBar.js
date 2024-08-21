@@ -13,24 +13,25 @@ import styles from "../styles/SearchBar.module.css";
 import { useRouter } from "next/router";
 
 const SearchBar = () => {
+  ////////////////setup/////////////////////////////
   const router = useRouter();
   const [anchorEl, setAnchorEl] = useState(null);
   const [category, setCategory] = useState("");
   const [query, setQuery] = useState("");
-
+  //////////////open choice menu//////////////////////
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
+  //////////////close choice menu///////////////////
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
-
+  /////////////set a category///////////////////////
   const handleCategorySelect = (category) => {
     setCategory(category);
     handleMenuClose();
   };
-
+  /////////////search///////////////////////////////
   const handleSearch = (event) => {
     event.preventDefault();
     const searchQuery = query.trim();
@@ -44,35 +45,9 @@ const SearchBar = () => {
       console.log("Please enter at least 3 characters.");
     }
   };
-
+  ////////////////textfield input change////////////////////////////
   const handleInputChange = (event) => {
     setQuery(event.target.value);
-  };
-
-  const textFieldStyles = {
-    "& .MuiInputBase-input": {
-      color: "#D9D9D9",
-      fontFamily: "Khan, sans-serif",
-    },
-    "& .MuiOutlinedInput-notchedOutline": {
-      borderColor: "transparent",
-    },
-    "&:hover .MuiOutlinedInput-notchedOutline": {
-      borderColor: "transparent",
-    },
-    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-      borderColor: "transparent",
-    },
-    "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-      borderColor: "transparent",
-    },
-    "&.Mui-focused .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-      borderColor: "transparent",
-    },
-  };
-
-  const menuItemStyles = {
-    fontFamily: "Khan, sans-serif", // ca marche pas
   };
 
   return (
@@ -108,14 +83,37 @@ const SearchBar = () => {
             ),
             className: styles.searchInput,
           }}
-          sx={textFieldStyles}
+          sx={{
+            "& .MuiInputBase-input": {
+              color: "#D9D9D9",
+              fontFamily: "Khand",
+            },
+            "& .MuiOutlinedInput-notchedOutline": {
+              borderColor: "transparent",
+            },
+            "&:hover .MuiOutlinedInput-notchedOutline": {
+              borderColor: "transparent",
+            },
+            "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+              borderColor: "transparent",
+            },
+            "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+              borderColor: "transparent",
+            },
+            "&.Mui-focused .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
+              {
+                borderColor: "transparent",
+              },
+          }}
         />
         <Menu
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
           onClose={handleMenuClose}
           sx={{
-            "& .MuiMenuItem-root": menuItemStyles,
+            "& .MuiMenuItem-root": {
+              fontFamily: "Khand",
+            },
           }}
         >
           <MenuItem onClick={() => handleCategorySelect("artworks")}>
