@@ -1,34 +1,49 @@
-/* FONTS */
-/* @font-face {
-  font-family: 'Nabla';
-  src: url('../assets/Nabla-Regular-VariableFont_EDPT,EHLT.ttf') format('truetype');
+/* RESPONSIVE STYLES */
+@media (max-width: 800px) {
+  .main {
+    flex-direction: column;
+    align-items: center;
+  }
+  .buttons {
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+    margin-right: 0px;
+    align-items: center;
+  }
+  .headerContent {
+    flex-direction: column;
+    padding-left: 0px;
+    align-items: center;
+  }
+  .user {
+    margin-right: 0px;
+  }
+  .searchBar {
+    width: 100%;
+  }
 }
-@font-face {
-  font-family: 'Khand';
-  src: url('../assets/Khand-Regular.ttf') format('truetype');
-} */
-/* MAIN */
 
 .main {
   display: flex;
   justify-content: space-between;
-  align-items:center;
+  align-items: center;
   background-color: #212020;
 }
+
 /* LOGO CONTAINER */
 .headerContent {
   display: flex;
   padding-left: 2rem;
   align-items: center;
-  gap:2rem;
+  gap: 2rem;
 }
+
 .h1 {
-  font-family: 'Nabla';
+  font-family: "Nabla";
   font-size: 60px;
   cursor: pointer;
-
-  /* border:1px solid red; */
 }
+
 /* LINK */
 .link {
   width: auto;
@@ -44,7 +59,7 @@
 
 .link::before,
 .link::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   height: 1px;
@@ -65,15 +80,15 @@
 .link:hover::before,
 .link:hover::after {
   background-color: rgb(254, 184, 48);
-  width: 40%; 
+  width: 40%;
 }
 
 .link.active::before,
 .link.active::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
-   height: 1px; 
+  height: 1px;
   background-color: rgb(254, 184, 48);
 }
 
@@ -87,42 +102,21 @@
   width: 40%;
 }
 
-
 /* NAVIGATION */
-.navigation{
+.navigation {
   display: flex;
-  color:#D9D9D9;
+  color: #d9d9d9;
   font-family: "Khand";
   font-size: 1.5rem;
   font-weight: 500;
-  gap:15rem;
+  gap: 15vw;
 }
+
 /* BUTTONS */
-.buttons{
+.buttons {
   display: flex;
   margin-right: 2rem;
-  gap:2rem;
-}
-.button {
-  cursor: pointer;
-  border: 1px solid rgb(255, 255, 255);
-  font-family: "Khand";
-  font-size: 14px;
-  color: rgb(254, 184, 48);
-  padding: 5px 15px;
-  transition: all 327ms ease 0s;
-  width: auto;
-  box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px;
-  border-radius: 9px;
-  background: rgb(66, 65, 65);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.button:hover{
-  color: rgb(255, 255, 255);
-  background: rgb(254, 184, 48) ;
-  border-color: rgb(255, 255, 255);
+  gap: 2rem;
 }
 
 /* USER */
@@ -130,8 +124,7 @@
   font-family: "Khand";
   font-size: 14px;
   color: rgb(254, 184, 48);
-  border: 2px solid  rgb(254, 184, 48);
- 
+  border: 2px solid rgb(254, 184, 48);
   border-radius: 50%;
   background: rgb(66, 65, 65);
   display: flex;
@@ -139,10 +132,17 @@
   align-items: center;
   margin-right: 30px;
 }
-.image{
+
+.image {
   border-radius: 50%;
-  border: 1px solid  rgb(254, 184, 48);
+  border: 1px solid rgb(254, 184, 48);
 }
-.placeholder{
+
+.placeholder {
   font-size: 50px;
+}
+
+.menu {
+  text-decoration: none;
+  color: inherit;
 }

@@ -10,13 +10,36 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import styles2 from '../styles/ArtistCard.module.css';
 
 const ArtistCard = ({ artist }) => {
+
+  //if (artist)    console.log("@@@@@@",artist); 
+
   const [expanded, setExpanded] = useState(false);
 
   const handleAccordionChange = (event, isExpanded) => {
     setExpanded(isExpanded);
   };
+  
+  let artistArtworks= artist.artworks && artist.artworks.map((work, index) => (  
+    <Grid item key={index} xs={12} sm={4}>
+      <Link href={{ pathname: '/artworkView', query: { id: work._id } }}>
+        <a>
+          <CardMedia
+            component="img"
+            height="100"
+            image={work.url}
+            alt={`Artwork ${index + 1}`}
+          />
+          <Typography variant="body2" color="text.secondary"  className={styles2.workTitleRed}>
+            {/*  utilise stylesheet pas besoin de important, ajout ellipsis reste underline à virer */}
+            {work.title}    
+          </Typography>
+        </a>
+      </Link>
+    </Grid>
+  ));
 
   return (
     <Card sx={styles.card}>
@@ -40,7 +63,7 @@ const ArtistCard = ({ artist }) => {
             </Typography>
           </a>
         </Link>
-        <Accordion expanded={expanded} onChange={handleAccordionChange} sx={{ backgroundColor: '#424141', color: '#ACABAB' }}>
+        <Accordion expanded={expanded} onChange={handleAccordionChange } sx={{ backgroundColor: '#424141', color: '#ACABAB' } }>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon sx={{ color: '#fff' }} />}
             aria-controls="panel1a-content"
@@ -49,7 +72,7 @@ const ArtistCard = ({ artist }) => {
             <Typography>Biography</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography variant="body2" color="text.secondary" sx={styles.artistDescription}>
+            <Typography variant="body2" color="text.secondary"  className={styles2.artistDescription}>
               {artist.bio || 'No biography available.'} {/* Utilise `bio` ou texte par défaut */}
             </Typography>
           </AccordionDetails>
@@ -58,23 +81,7 @@ const ArtistCard = ({ artist }) => {
           {/* Ses œuvres */}
         </Typography>
         <Grid container spacing={2} sx={styles.gridContainer}>
-          {artist.artworks && artist.artworks.map((work, index) => (
-            <Grid item key={index} xs={12} sm={4}>
-              <Link href={{ pathname: '/artworkView', query: { id: work._id } }}>
-                <a>
-                  <CardMedia
-                    component="img"
-                    height="100"
-                    image={work.url}
-                    alt={`Artwork ${index + 1}`}
-                  />
-                  <Typography variant="body2" color="text.secondary" sx={styles.workTitle}>
-                    {/* {work.title} */}
-                  </Typography>
-                </a>
-              </Link>
-            </Grid>
-          ))}
+          {artistArtworks}
         </Grid>
       </CardContent>
     </Card>
@@ -112,6 +119,10 @@ const styles = {
   workTitle: {
     color: "#FEB830",
     textAlign: "center",
+    width: "80px",
+    textOverflow : "ellipsis",
+    overflow: "hidden",
+    whiteSpace: "nowrap", 
   },
   gridContainer: {
     paddingTop: "16px"

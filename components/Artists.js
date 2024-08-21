@@ -13,32 +13,33 @@ const ArtistsPage = () => {
   const [modalType, setModalType] = useState('');
 
   useEffect(() => {
-    // Fetch des utilisateurs
-    fetch(`${urlBackend}/users`)
+    //  Fetch des artistes (un artiste = un utilisateur ayant publié au moins une oeuvre)
+    //  route users/artists :  renvoie de 1 à 3 oeuvres pour chaque artiste.
+    fetch(`${urlBackend}/users/artists`)
       .then(response => response.json())
       .then(data => {
-        const users = data.users;
-        // Process each user one by one
+        const users = data.artists;
+        // Process each user one by one  TODO --> move to backend users/artists route
         const artistsWithArtworks = [];
-
         users.forEach(user => {
-          // Utilisation du req.query.limit dans la route
-          fetch(`${urlBackend}/artworks/uploader/${user.username}?limit=3`)
-          .then(response => response.json())
-            .then(data => {
-              console.log("/////////////////////////////////Fetched artworks for", user.username, ":", data.artworkInfo);
-
-              user.artworks = data.artworkInfo || [];
-              // Ajout des users avec artworks au tableau
-              artistsWithArtworks.push(user);
-              
-              // Une fois tous les users traités, màj de l'état
-              if (artistsWithArtworks.length === users.length) {
-                setArtists(artistsWithArtworks);
-              }
-            })
-            .catch(error => console.error('Error fetching artworks:', error));
-        });
+          const sampleArtworks = [];
+          for (let i = 0; i < user.collections.length; i++) {
+            for (let j = 0; j < user.collections[i].artworks.length; j++) {
+              sampleArtworks.push({
+                _id: user.collections[i].artworks[j]._id,
+                title: user.collections[i].artworks[j].title,
+                url: user.collections[i].artworks[j].url,
+              });
+            }
+          }
+          artistsWithArtworks.push({
+            username: user.username,
+            avatarUrl: user.avatarUrl,
+            bio: user.bio,
+            artworks: sampleArtworks,
+          });
+        })
+        setArtists(artistsWithArtworks);
       })
       .catch(error => console.error('Error fetching users:', error));
   }, []);
