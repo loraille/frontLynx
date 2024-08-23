@@ -11,7 +11,8 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import styles from "../styles/ArtistCard.module.css";
 
-const ArtistCard = ({ artist }) => {
+const ArtistCard = ({ artist, controlledExpand, onCardClick }) => {
+
   ///////////////////////setup//////////////////////////////////////
   const [expanded, setExpanded] = useState(false);
   const handleAccordionChange = (event, isExpanded) => {
@@ -30,14 +31,6 @@ const ArtistCard = ({ artist }) => {
               image={work.url}
               alt={`Artwork ${index + 1}`}
             />
-            {/* ------------------artworks title--------------- */}
-            {/* <Typography
-              variant="body2"
-              color="text.secondary"
-              className={styles.workTitle}
-            >
-              {work.title}
-            </Typography> */}
           </a>
         </Link>
       </Grid>
@@ -57,7 +50,7 @@ const ArtistCard = ({ artist }) => {
           />
         </a>
       </Link>
-      <CardContent>
+      <CardContent sx={{ position: "relative" }}>
         <Link
           href={{ pathname: "/user", query: { username: artist.username } }}
         >
@@ -73,9 +66,22 @@ const ArtistCard = ({ artist }) => {
           </a>
         </Link>
         <Accordion
-          expanded={expanded}
-          onChange={handleAccordionChange}
-          sx={{ backgroundColor: "#424141", color: "#ACABAB" }}
+          // Contrôle de l'expansion de l'Accordion ou laisser l'état local gérer l'ouverture/fermeture.
+          expanded={controlledExpand !== undefined ? controlledExpand : expanded}
+          onChange={controlledExpand !== undefined ? onCardClick : handleAccordionChange}
+          className={expanded || controlledExpand ? styles.accordionExpanded : ""}
+          sx={{
+            position: "absolute",
+            zIndex: 10,
+            width: "90%",
+            margin: "0 auto",  // Centre l'Accordion
+            left: 0,
+            top: expanded || controlledExpand ? "0" : "auto",
+            backgroundColor: "#424141",
+            color: "#ACABAB",
+            left: "50%",  // Centre horizontalement par rapport à la carte
+            transform: "translateX(-50%)",  // Ajuste pour compenser le déplacement horizontal
+          }}
         >
           <AccordionSummary
             expandIcon={<ExpandMoreIcon sx={{ color: "#fff" }} />}

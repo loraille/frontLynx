@@ -11,6 +11,12 @@ const ArtistsPage = () => {
   const [artists, setArtists] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState('');
+  const [expandedIndex, setExpandedIndex] = useState(null);
+
+  
+  const handleCardClick = (index) => {
+    setExpandedIndex(index === expandedIndex ? null : index);
+  };
 
   useEffect(() => {
     //  Fetch des artistes (un artiste = un utilisateur ayant publié au moins une oeuvre)
@@ -68,7 +74,13 @@ const ArtistsPage = () => {
             <h2 className='titlePage'>Artists</h2>
             <div className={styles.artistsList}>
               {artists.map((artist, index) => (
-                <ArtistCard key={index} artist={artist} />
+                <ArtistCard
+                  key={index}
+                  artist={artist}
+                  // Passage de la props à ArtistCard :
+                  controlledExpand={expandedIndex === index}  // Contrôle l'expansion de la card 
+                  onCardClick={() => handleCardClick(index)}  // Gestion du clic pour ouvrir/fermer la card
+                />
               ))}
             </div>
           </div>

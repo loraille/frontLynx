@@ -6,7 +6,6 @@
   width: 100vw;
   background-color: #424141;
   overflow: auto;
-  /* border: yellow 4px solid; */
 }
 
 .header {
@@ -31,6 +30,7 @@
 .artistsList {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-auto-rows: auto;
   gap: 20px;
   justify-items: center;
   width: 100%;

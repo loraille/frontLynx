@@ -5,6 +5,16 @@
   background-color: #212020;
   border: 1px solid #ffffff;
   border-radius: 8px;
+  overflow: visible;
+  position: relative;
+}
+
+/* Ajout de la classe `.accordion-expanded` */
+.accordion-expanded {
+  position: absolute;
+  z-index: 10;
+  width: 300px;
+  background-color: #424141;
 }
 
 .artistImage {
@@ -39,4 +49,5 @@
 
 .gridContainer {
   padding-top: 16px;
+  margin-top: 48px;
 }
