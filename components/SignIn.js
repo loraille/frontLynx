@@ -20,7 +20,6 @@ function SignIn({ isOpen, onClose }) {
   const dispatch = useDispatch();
   /////////////////////////Sign in////////////////////////////
   const handleConnection = () => {
-    console.log(signInUsername, signInPassword);
     fetch(`${urlBackend}/users/signin`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -56,11 +55,10 @@ function SignIn({ isOpen, onClose }) {
   };
 
   return (
-    <div className={styles.overlay} onClick={onClose} style={{ zIndex: 1300 }}>
+    <div className={styles.overlay} onClick={onClose}>
       <div
         className={styles.modal}
         onClick={(e) => e.stopPropagation()}
-        style={{ zIndex: 1301 }}
       >
         <p className="title">Enter in the place!</p>
         <Box

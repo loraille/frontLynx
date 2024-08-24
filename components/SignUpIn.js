@@ -30,11 +30,11 @@ function SignUpIn({ isOpen, onClose, onOpenModal }) {
   };
 
   return (
-    <div className={styles.overlay} onClick={onClose} style={{ zIndex: 5 }}>
+    <div className={styles.overlay} onClick={onClose} >
       <div
         className={styles.modal}
         onClick={(e) => e.stopPropagation()}
-        style={{ zIndex: 5, color: "white" }}
+        style={{ color: "white" }}
       >
         <div className={styles.container}>
           <span className="title">Welcome in the place!</span>
