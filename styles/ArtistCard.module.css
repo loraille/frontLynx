@@ -9,12 +9,25 @@
   position: relative;
 }
 
-/* Ajout de la classe `.accordion-expanded` */
-.accordion-expanded {
+/* Ajout styles pour classes accordionExpanded et accordionClosed */
+.accordionExpanded {
   position: absolute;
-  z-index: 10;
-  width: 300px;
-  background-color: #424141;
+  z-index: 4;      /* below Modals, below Header, above the rest*/
+  top: auto;
+  background-color: #424141 ; 
+  color: #ACABAB;
+  width: 300px;    
+  left: -11px; 
+  right: 50px; 
+}
+
+.accordionClosed {
+  position: absolute;
+  background-color: #424141 ; 
+  color: #ACABAB;
+  width: 99%; 
+  left: 0; 
+  right: 0; 
 }
 
 .artistImage {

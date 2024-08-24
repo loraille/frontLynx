@@ -10,6 +10,7 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import styles from "../styles/ArtistCard.module.css";
+import Fade from '@mui/material/Fade';
 
 const ArtistCard = ({ artist, controlledExpand, onCardClick }) => {
 
@@ -69,18 +70,13 @@ const ArtistCard = ({ artist, controlledExpand, onCardClick }) => {
           // Contrôle de l'expansion de l'Accordion ou laisser l'état local gérer l'ouverture/fermeture.
           expanded={controlledExpand !== undefined ? controlledExpand : expanded}
           onChange={controlledExpand !== undefined ? onCardClick : handleAccordionChange}
-          className={expanded || controlledExpand ? styles.accordionExpanded : ""}
-          sx={{
-            position: "absolute",
-            zIndex: 10,
-            width: "90%",
-            margin: "0 auto",  // Centre l'Accordion
-            left: 0,
-            top: expanded || controlledExpand ? "0" : "auto",
-            backgroundColor: "#424141",
-            color: "#ACABAB",
-            left: "50%",  // Centre horizontalement par rapport à la carte
-            transform: "translateX(-50%)",  // Ajuste pour compenser le déplacement horizontal
+          className={expanded || controlledExpand ? styles.accordionExpanded : styles.accordionClosed}
+          // Transition Fade
+          slots={{ transition: Fade }}
+          slotProps={{ transition: { timeout: 1200 } }}
+          sx={{ 
+            '& .MuiAccordion-region': { height: expanded ? 'auto' : 0 },
+            '& .MuiAccordionDetails-root': { backgroundColor: expanded ? 'grey' : '#212020' },
           }}
         >
           <AccordionSummary
