@@ -49,7 +49,7 @@ function SignUpIn({ isOpen, onClose, onOpenModal }) {
           >
             Sign In
           </button>
-          Not account ? Sign Up Now !
+          No account ? Sign Up Now !
           <button
             id="register"
             className={`button ${styles.register}`}
