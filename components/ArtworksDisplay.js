@@ -265,9 +265,8 @@ function ArtworksDisplay() {
           )}
         </div>
         <div>
-          <h2 className="titlePage">
-            Artworks in {toDisplay}'s {fromLink}
-          </h2>
+          { fromLink ==="bookmarks" && <h2 className="titlePage">Artworks in {toDisplay}'s {fromLink} </h2> }
+          { fromLink ==="following" && <h2 className="titlePage">Artists in {toDisplay}'s {fromLink}</h2> }
           {fromLink === "following" ? (
             artists.length > 0 ? (
               <div className={styles.artworkList}>{artistsList}</div>
