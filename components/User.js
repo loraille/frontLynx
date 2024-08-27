@@ -7,7 +7,7 @@ import ArtworkCard from "../components/ArtworkCard";
 import CollectionsCard from "../components/CollectionsCard";
 import AddArtwork from "../components/AddArtwork";
 import { useState, useEffect } from "react";
-import { urlBackend } from "../assets/varGlobal";
+import { urlBackend } from "../modules/utils";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 

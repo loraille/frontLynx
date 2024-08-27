@@ -1,7 +1,7 @@
 import styles from "../styles/ArtworkUpload.module.css";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { urlBackend } from "../assets/varGlobal";
+import { urlBackend } from "../modules/utils";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";

@@ -5,7 +5,7 @@ import Signup from "./Signup";
 import ArtworkUpload from "./ArtworkUpload";
 import Header from "./Header";
 import { useSelector } from "react-redux";
-import { urlBackend } from "../assets/varGlobal";
+import { urlBackend } from "../modules/utils";
 import * as React from "react";
 import Button from "@mui/material/Button";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";

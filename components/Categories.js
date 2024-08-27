@@ -5,7 +5,7 @@ import Signup from "./Signup";
 import ArtworkUpload from "./ArtworkUpload";
 import Header from "./Header";
 import CategoriesCard from "./CategoriesCard";
-import { urlBackend } from "../assets/varGlobal";
+import { urlBackend } from "../modules/utils";
 
 function Categories() {
   //////////////////////////////////Modale/////////////////////////////////

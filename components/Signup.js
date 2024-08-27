@@ -7,7 +7,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useDispatch } from "react-redux";
 import { login } from "../reducers/user";
-import { urlBackend } from "../assets/varGlobal";
+import { urlBackend } from "../modules/utils";
 import styles from "../styles/Signup.module.css";
 
 function Signup({ isOpen, onClose }) {

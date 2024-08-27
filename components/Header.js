@@ -7,7 +7,7 @@ import Image from "next/image";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { logout } from "../reducers/user";
-import { urlBackend } from "../assets/varGlobal";
+import { urlBackend } from "../modules/utils";
 import SearchBar from "./SearchBar";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import Modal from "./ArtworkUpload";

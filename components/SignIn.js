@@ -2,7 +2,7 @@ import styles from "../styles/SignIn.module.css";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../reducers/user";
-import { urlBackend } from "../assets/varGlobal";
+import { urlBackend } from "../modules/utils";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";

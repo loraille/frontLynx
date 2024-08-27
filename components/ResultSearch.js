@@ -6,7 +6,7 @@ import ArtworkCard from "./ArtworkCard";
 import ArtistCard from "./ArtistCard";
 import ArtworkUpload from "./ArtworkUpload";
 import Header from "./Header";
-import { urlBackend } from "../assets/varGlobal";
+import { urlBackend } from "../modules/utils";
 import { useRouter } from "next/router";
 
 function ResultSearch() {

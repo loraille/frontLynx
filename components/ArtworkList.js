@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import ArtworkCard from "./ArtworkCard";
 import styles from "../styles/ArtworkList.module.css";
-import { urlBackend } from "../assets/varGlobal";
+import { urlBackend } from "../modules/utils";
 
 const ArtworkList = () => {
   /////////////////////setup//////////////////////////////////////////////////////

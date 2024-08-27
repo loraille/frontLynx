@@ -7,7 +7,7 @@ import ArtworkUpload from "./ArtworkUpload";
 import Header from "./Header";
 import styles from "../styles/ArtworksDisplay.module.css";
 import ArtistCard from "./ArtistCard";
-import { urlBackend } from "../assets/varGlobal";
+import { urlBackend } from "../modules/utils";
 import { useRouter } from "next/router";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import Tooltip from "@mui/material/Tooltip";

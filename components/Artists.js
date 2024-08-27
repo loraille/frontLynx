@@ -5,8 +5,8 @@ import SignIn from './SignIn';
 import Signup from './Signup';
 import ArtworkUpload from './ArtworkUpload';
 import styles from '../styles/Artists.module.css';
-import { urlBackend } from '../assets/varGlobal';
-
+import { urlBackend } from '../modules/utils';
+import { sortArrRand } from '../modules/utils'; // test
 const ArtistsPage = () => {
   const [artists, setArtists] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -45,10 +45,21 @@ const ArtistsPage = () => {
             artworks: sampleArtworks,
           });
         })
-        setArtists(artistsWithArtworks);
+        // test randomly sort artistsWithArtworks array using utils.sortArrRand() 
+        setArtists(sortArrRand(artistsWithArtworks));
       })
       .catch(error => console.error('Error fetching users:', error));
   }, []);
+  
+  let artistsList= artists.map((artist, index) => (
+    <ArtistCard
+      key={index}
+      artist={artist}
+      // Passage de la props à ArtistCard :
+      controlledExpand={expandedIndex === index}  // Contrôle l'expansion de la card 
+      onCardClick={() => handleCardClick(index)}  // Gestion du clic pour ouvrir/fermer la card
+    />
+  ));
 
   const handleOpenModal = (type) => {
     setModalType(type);
@@ -73,15 +84,7 @@ const ArtistsPage = () => {
           <div>
             <h2 className='titlePage'>Artists</h2>
             <div className={styles.artistsList}>
-              {artists.map((artist, index) => (
-                <ArtistCard
-                  key={index}
-                  artist={artist}
-                  // Passage de la props à ArtistCard :
-                  controlledExpand={expandedIndex === index}  // Contrôle l'expansion de la card 
-                  onCardClick={() => handleCardClick(index)}  // Gestion du clic pour ouvrir/fermer la card
-                />
-              ))}
+              {artistsList}
             </div>
           </div>
         </div>

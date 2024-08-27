@@ -1,5 +1,5 @@
 import styles from "../styles/CommentZone.module.css";
-import { urlBackend } from "../assets/varGlobal";
+import { urlBackend } from "../modules/utils";
 import { useSelector } from "react-redux";
 import { useState, useEffect, useRef } from "react";
 import SendIcon from "@mui/icons-material/Send";

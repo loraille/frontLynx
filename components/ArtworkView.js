@@ -5,7 +5,7 @@ import SignIn from "./SignIn";
 import Signup from "./Signup";
 import ArtworkUpload from "./ArtworkUpload";
 import SignUpIn from "./SignUpIn";
-import { urlBackend } from "../assets/varGlobal";
+import { urlBackend } from "../modules/utils";
 import Image from "next/image";
 import CommentZone from "./CommentZone";
 import styles from "../styles/ArtworkView.module.css";

@@ -5,7 +5,7 @@ import Signup from "./Signup";
 import ArtworkUpload from "./ArtworkUpload";
 import Header from "./Header";
 import CollectionsCard from "./CollectionsCard";
-import { urlBackend } from "../assets/varGlobal";
+import { urlBackend } from "../modules/utils";
 import { useSelector } from "react-redux";
 
 function Collections() {
